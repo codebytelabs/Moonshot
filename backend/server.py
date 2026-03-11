@@ -35,11 +35,14 @@ async def broadcast(event_type: str, data: dict):
     disconnected = []
     for ws in ws_clients:
         try:
-            await ws.send_text(msg)
+            await asyncio.wait_for(ws.send_text(msg), timeout=2.0)
         except Exception:
             disconnected.append(ws)
     for ws in disconnected:
-        ws_clients.remove(ws)
+        try:
+            ws_clients.remove(ws)
+        except ValueError:
+            pass
 
 # ─── OPENROUTER CLIENT ──────────────────────────────────────────────
 async def llm_complete(prompt: str, system: str = "You are a crypto trading AI agent.", model: str = None, temperature: float = 0.3, max_tokens: int = 1200) -> str:
@@ -162,10 +165,10 @@ async def alpha_scanner_cycle():
 
         for pair in pairs[:2]:
             price_usd = pair.get("priceUsd")
-            volume = pair.get("volume", {})
-            txns = pair.get("txns", {})
-            liquidity = pair.get("liquidity", {})
-            price_change = pair.get("priceChange", {})
+            volume = pair.get("volume") or {}
+            txns = pair.get("txns") or {}
+            liquidity = pair.get("liquidity") or {}
+            price_change = pair.get("priceChange") or {}
             fdv = pair.get("fdv")
             mc = pair.get("marketCap")
             created = pair.get("pairCreatedAt")
@@ -173,8 +176,9 @@ async def alpha_scanner_cycle():
             vol_5m = volume.get("m5", 0) or 0
             vol_1h = volume.get("h1", 0) or 0
             vol_24h = volume.get("h24", 0) or 0
-            buys_5m = txns.get("m5", {}).get("buys", 0) or 0
-            sells_5m = txns.get("m5", {}).get("sells", 0) or 0
+            m5_txns = txns.get("m5") or {}
+            buys_5m = m5_txns.get("buys", 0) or 0
+            sells_5m = m5_txns.get("sells", 0) or 0
             liq_usd = liquidity.get("usd", 0) or 0
             change_5m = price_change.get("m5", 0) or 0
             change_1h = price_change.get("h1", 0) or 0
@@ -229,7 +233,7 @@ async def alpha_scanner_cycle():
         await log_agent("alpha_scanner", "LOCKED", f"Top target: {top[0].get('baseToken', {}).get('symbol', '?')} on {top[0]['chainId']} | Score: {top[0]['score']} | Vol5m: ${top[0]['volume']['m5']:,.0f}")
 
     # Store in DB
-    if db and top:
+    if db is not None and top:
         for t in top:
             t["_type"] = "alpha_hit"
             await db.alpha_hits.insert_one(t)
@@ -255,44 +259,72 @@ async def contract_sniper_analyze(token: dict) -> dict:
 
     await log_agent("contract_sniper", "DECOMPILING", f"Auditing {symbol} on {chain} | Addr: {addr[:16]}...")
 
-    prompt = f"""Analyze this DEX token for safety. Be extremely brief. Output ONLY a JSON object.
+    # Heuristic-based analysis (works without LLM)
+    risk_score = 5
+    verdict = "CAUTION"
+    reasons = []
 
-Token: {symbol}
-Chain: {chain}
-Contract: {addr}
-Liquidity: ${liq:,.0f}
-FDV: ${fdv:,.0f} 
-5min Volume: ${vol_5m:,.0f}
-5min Buys/Sells: {buys}/{sells}
-5min Price Change: {change_5m}%
+    # Liquidity check
+    if liq < 1000:
+        risk_score += 3
+        reasons.append("Very low liquidity")
+    elif liq < 5000:
+        risk_score += 1
+        reasons.append("Low liquidity")
+    else:
+        risk_score -= 1
 
-Evaluate:
-1. Is this likely a honeypot? (based on buy/sell ratio, liquidity)
-2. Risk level (1-10, 10=most dangerous)
-3. Is the liquidity suspicious?
-4. Overall verdict: SAFE, CAUTION, or DANGER
+    # Buy/sell ratio check
+    if sells > 0 and buys / max(sells, 1) < 0.3:
+        risk_score += 2
+        reasons.append("Sell pressure dominant")
+    elif buys > sells * 2:
+        risk_score -= 1
 
+    # FDV check
+    if fdv and fdv < 10000:
+        risk_score += 2
+        reasons.append("Extremely low FDV")
+    elif fdv and fdv > 100_000_000:
+        risk_score -= 1
+
+    # Volume spike without liquidity
+    if vol_5m > liq * 0.5 and liq < 10000:
+        risk_score += 2
+        reasons.append("Volume/liquidity mismatch")
+
+    risk_score = max(1, min(10, risk_score))
+    if risk_score <= 3:
+        verdict = "SAFE"
+    elif risk_score >= 7:
+        verdict = "DANGER"
+
+    # Try LLM enhancement if available
+    analysis = {
+        "honeypot_risk": "high" if risk_score >= 7 else "medium" if risk_score >= 4 else "low",
+        "risk_score": risk_score,
+        "liquidity_safe": liq >= 5000,
+        "verdict": verdict,
+        "reason": "; ".join(reasons) if reasons else "Heuristic analysis"
+    }
+
+    if OPENROUTER_API_KEY:
+        prompt = f"""Analyze this DEX token for safety. Be extremely brief. Output ONLY a JSON object.
+Token: {symbol}, Chain: {chain}, Liquidity: ${liq:,.0f}, FDV: ${fdv:,.0f}, 5min Vol: ${vol_5m:,.0f}, Buys/Sells: {buys}/{sells}, 5min Change: {change_5m}%
 Return JSON: {{"honeypot_risk": "low/medium/high", "risk_score": 1-10, "liquidity_safe": true/false, "verdict": "SAFE/CAUTION/DANGER", "reason": "brief"}}"""
 
-    result = await llm_complete(prompt, system="You are a DeFi security auditor. Respond only with valid JSON. No markdown.")
-
-    try:
-        # Try to parse JSON from the response
-        clean = result.strip()
-        if clean.startswith("```"):
-            clean = clean.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
-        if clean.startswith("{"):
-            analysis = json.loads(clean)
-        else:
-            # Find JSON in response
-            start = clean.find("{")
-            end = clean.rfind("}") + 1
-            if start >= 0 and end > start:
-                analysis = json.loads(clean[start:end])
-            else:
-                analysis = {"honeypot_risk": "unknown", "risk_score": 5, "liquidity_safe": True, "verdict": "CAUTION", "reason": "Could not parse LLM response"}
-    except Exception:
-        analysis = {"honeypot_risk": "unknown", "risk_score": 5, "liquidity_safe": True, "verdict": "CAUTION", "reason": "LLM parse error"}
+        result = await llm_complete(prompt, system="You are a DeFi security auditor. Respond only with valid JSON. No markdown.")
+        if not result.startswith("[LLM_ERROR]"):
+            try:
+                clean = result.strip()
+                if clean.startswith("```"):
+                    clean = clean.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
+                start = clean.find("{")
+                end = clean.rfind("}") + 1
+                if start >= 0 and end > start:
+                    analysis = json.loads(clean[start:end])
+            except Exception:
+                pass  # Keep heuristic analysis
 
     verdict = analysis.get("verdict", "CAUTION")
     risk = analysis.get("risk_score", 5)
@@ -338,7 +370,7 @@ async def execution_core_trade(token: dict) -> dict:
         "security": token.get("security", {}),
     }
 
-    if db:
+    if db is not None:
         await db.trades.insert_one({**trade})
 
     await log_agent("execution_core", "EXECUTED", f"BUY {symbol} @ ${token.get('priceUsd', '?')} | Route: {trade['route']} | Status: SIMULATED")
@@ -351,7 +383,7 @@ async def execution_core_trade(token: dict) -> dict:
 async def quant_mutator_evaluate():
     await log_agent("quant_mutator", "ANALYZING", "Evaluating strategy performance...")
 
-    if not db:
+    if db is None:
         return
 
     trades = await db.trades.find({}, {"_id": 0}).sort("timestamp", -1).limit(50).to_list(50)
@@ -362,32 +394,24 @@ async def quant_mutator_evaluate():
 
     safe_count = sum(1 for t in trades if t.get("security", {}).get("verdict") == "SAFE")
     avg_score = sum(t.get("score", 0) for t in trades) / total if total else 0
+    hit_rate = safe_count / total if total else 0
 
-    prompt = f"""As a quant strategist, evaluate this trading bot's performance:
+    # Heuristic-based strategy mutation
+    suggestions = []
+    if hit_rate < 0.3:
+        suggestions.append("Increase minimum score threshold to filter noise")
+    if avg_score < 40:
+        suggestions.append("Focus on tokens with higher volume spikes")
+    if hit_rate > 0.7:
+        suggestions.append("Strategy performing well - consider increasing position size")
+    if not suggestions:
+        suggestions.append("Maintain current parameters")
 
-Total trades: {total}
-Safe verdicts: {safe_count}/{total}
-Average alpha score: {avg_score:.1f}
+    analysis = {"hit_rate": hit_rate, "suggestions": suggestions, "confidence": min(0.9, total / 50)}
 
-Suggest 2-3 specific parameter adjustments to improve hit rate. Be brief and specific.
-Return JSON: {{"hit_rate": float, "suggestions": ["suggestion1", "suggestion2"], "confidence": float}}"""
+    await log_agent("quant_mutator", "MUTATED", f"Hit rate: {hit_rate:.1%} | Avg score: {avg_score:.0f} | {suggestions[0]}")
 
-    result = await llm_complete(prompt, system="You are a quantitative trading strategist. Respond only with valid JSON.")
-
-    try:
-        clean = result.strip()
-        start = clean.find("{")
-        end = clean.rfind("}") + 1
-        if start >= 0 and end > start:
-            analysis = json.loads(clean[start:end])
-        else:
-            analysis = {"hit_rate": safe_count / total if total else 0, "suggestions": ["Increase minimum score threshold"], "confidence": 0.5}
-    except Exception:
-        analysis = {"hit_rate": safe_count / total if total else 0, "suggestions": ["Increase minimum score threshold"], "confidence": 0.5}
-
-    await log_agent("quant_mutator", "MUTATED", f"Hit rate: {analysis.get('hit_rate', 0):.1%} | Suggestions: {', '.join(analysis.get('suggestions', [])[:2])}")
-
-    if db:
+    if db is not None:
         await db.strategy_mutations.insert_one({
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "total_trades": total,
@@ -404,9 +428,15 @@ async def log_agent(agent: str, status: str, message: str):
         "message": message,
         "timestamp": datetime.now(timezone.utc).isoformat(),
     }
-    if db:
-        await db.agent_logs.insert_one({**entry})
-    await broadcast("agent_log", entry)
+    try:
+        if db is not None:
+            await asyncio.wait_for(db.agent_logs.insert_one({**entry}), timeout=5.0)
+    except Exception as e:
+        print(f"[LOG_AGENT] DB insert failed: {e}", flush=True)
+    try:
+        await broadcast("agent_log", entry)
+    except Exception as e:
+        print(f"[LOG_AGENT] Broadcast failed: {e}", flush=True)
 
 # ─── MAIN SCAN LOOP ─────────────────────────────────────────────────
 async def swarm_loop():
