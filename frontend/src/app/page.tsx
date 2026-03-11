@@ -1,238 +1,196 @@
-'use client';
+"use client";
+import { useState, useEffect, useMemo } from "react";
+import { motion } from "framer-motion";
+import { apiFetch } from "@/lib/api";
+import { useSwarmSocket, WsMessage } from "@/lib/useWebSocket";
+import Sidebar from "@/components/Sidebar";
+import NeuralFeed from "@/components/NeuralFeed";
+import AlphaRadar from "@/components/AlphaRadar";
+import PnLChart from "@/components/PnLChart";
+import CrossChainMatrix from "@/components/CrossChainMatrix";
+import PositionsGrid from "@/components/PositionsGrid";
+import SwarmControl from "@/components/SwarmControl";
+import StatsBar from "@/components/StatsBar";
 
-import { useEffect, useState, useCallback } from 'react';
-import Sidebar from '@/components/Sidebar';
-import Header from '@/components/Header';
-import DataRain from '@/components/DataRain';
-import PipelineVisualizer from '@/components/PipelineVisualizer';
-import { useWebSocket } from '@/lib/useWebSocket';
-import { getStatus, getPositions, getPerformance, type BotStatus, type Position, type PerformanceData } from '@/lib/api';
-import { formatUsd, formatPct, pnlClass } from '@/lib/utils';
-import styles from './page.module.css';
-
-export default function Dashboard() {
-  const { isConnected, lastMessage } = useWebSocket();
-  const [status, setStatus] = useState<BotStatus | null>(null);
-  const [positions, setPositions] = useState<Position[]>([]);
-  const [perf, setPerf] = useState<PerformanceData | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  // Pipeline stages derived from ws messages or mock
-  type PipelineStage = {
-    name: string;
-    icon: string;
-    status: 'idle' | 'running' | 'done' | 'error';
-    items?: number;
-    duration_ms?: number;
-  };
-
-  const [pipelineStages, setPipelineStages] = useState<PipelineStage[]>([
-    { name: 'Watcher', icon: '👁', status: 'idle' },
-    { name: 'Analyzer', icon: '📊', status: 'idle' },
-    { name: 'Context', icon: '🌐', status: 'idle' },
-    { name: 'Bayesian', icon: '🧠', status: 'idle' },
-    { name: 'Risk', icon: '🛡', status: 'idle' },
-    { name: 'Execute', icon: '⚡', status: 'idle' },
-    { name: 'BigBro', icon: '🔮', status: 'idle' },
-  ]);
-
-  const fetchData = useCallback(async () => {
-    const [statusRes, posRes, perfRes] = await Promise.all([
-      getStatus(),
-      getPositions(),
-      getPerformance(),
-    ]);
-    if (statusRes.data) setStatus(statusRes.data);
-    if (posRes.data) setPositions(posRes.data);
-    if (perfRes.data) setPerf(perfRes.data);
-    setLoading(false);
-  }, []);
-
-  useEffect(() => {
-    fetchData();
-    const interval = setInterval(fetchData, 15000);
-    return () => clearInterval(interval);
-  }, [fetchData]);
-
-  // Update from WS messages
-  useEffect(() => {
-    if (!lastMessage) return;
-    if (lastMessage.pipeline) {
-      const mapped = lastMessage.pipeline.map((p) => ({
-        name: p.stage,
-        icon: { Watcher: '👁', Analyzer: '📊', Context: '🌐', Bayesian: '🧠', Risk: '🛡', Execute: '⚡', BigBro: '🔮' }[p.stage] || '●',
-        status: p.status as 'idle' | 'running' | 'done' | 'error',
-        items: p.items,
-        duration_ms: p.duration_ms,
-      }));
-      setPipelineStages(mapped);
-    }
-    if (lastMessage.equity && status) {
-      setStatus({ ...status, equity_usd: lastMessage.equity });
-    }
-    if (lastMessage.positions) {
-      setPositions(lastMessage.positions);
-    }
-  }, [lastMessage, status]);
-
-  const equity = status?.health?.equity ?? status?.equity_usd ?? 10000;
-  const drawdown = status?.health?.drawdown_pct ?? status?.drawdown_pct ?? 0;
-  const openPositions = positions.filter((p) => p.status === 'open');
-  const totalPnl = openPositions.reduce((s, p) => s + (p.unrealized_pnl || 0), 0);
-
-  return (
-    <div className="app-container">
-      <DataRain />
-      <Sidebar />
-      <Header
-        wsConnected={isConnected}
-        cycle={status?.cycle}
-        mode={status?.current_mode}
-        equity={equity}
-      />
-
-      <main className="main-content">
-        {/* ── KPI Row ──────────────────────────────── */}
-        <div className={`grid-4 ${styles.kpiRow}`}>
-          <div className="card fade-in">
-            <div className="card-title">◉ Equity</div>
-            <div className="card-value">{formatUsd(equity)}</div>
-            <div className={styles.kpiSub}>Paper Trading</div>
-          </div>
-          <div className="card fade-in" style={{ animationDelay: '0.05s' }}>
-            <div className="card-title">⊞ Open Positions</div>
-            <div className="card-value">{openPositions.length}</div>
-            <div className={styles.kpiSub}>/ 5 max</div>
-          </div>
-          <div className="card fade-in" style={{ animationDelay: '0.1s' }}>
-            <div className="card-title">◈ Unrealized P&L</div>
-            <div className={`card-value ${pnlClass(totalPnl)}`}>
-              {totalPnl >= 0 ? '+' : ''}{formatUsd(totalPnl)}
-            </div>
-            <div className={styles.kpiSub}>Across active</div>
-          </div>
-          <div className="card fade-in" style={{ animationDelay: '0.15s' }}>
-            <div className="card-title">⚡ Drawdown</div>
-            <div className={`card-value ${drawdown > 0.05 ? 'num-negative' : 'num-positive'}`}>
-              {formatPct(drawdown)}
-            </div>
-            <div className="gauge">
-              <div
-                className={`gauge-fill ${drawdown > 0.05 ? 'gauge-fill-red' : 'gauge-fill-green'}`}
-                style={{ width: `${Math.min(drawdown * 100 * 5, 100)}%` }}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* ── Pipeline ─────────────────────────────── */}
-        <div className={`card ${styles.pipelineCard} fade-in`} style={{ animationDelay: '0.2s' }}>
-          <div className="card-title">⬡ Agent Pipeline</div>
-          <PipelineVisualizer stages={pipelineStages} />
-        </div>
-
-        {/* ── Two Column: Positions + Activity ─────── */}
-        <div className={`grid-2 ${styles.bottomRow}`}>
-          {/* Active Positions */}
-          <div className="card fade-in" style={{ animationDelay: '0.25s' }}>
-            <div className="card-title">⊞ Active Positions</div>
-            {openPositions.length === 0 ? (
-              <div className={styles.empty}>
-                <span className={styles.emptyIcon}>◇</span>
-                <span>No open positions</span>
-                <span className={styles.emptyHint}>Bot is scanning for opportunities...</span>
-              </div>
-            ) : (
-              <div className="table-container">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Symbol</th>
-                      <th>Entry</th>
-                      <th>Current</th>
-                      <th>P&L</th>
-                      <th>R</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {openPositions.map((pos) => (
-                      <tr key={pos.id}>
-                        <td><strong>{pos.symbol}</strong></td>
-                        <td>${pos.entry_price.toFixed(4)}</td>
-                        <td>${pos.current_price.toFixed(4)}</td>
-                        <td className={pnlClass(pos.unrealized_pnl)}>
-                          {pos.unrealized_pnl >= 0 ? '+' : ''}{formatUsd(pos.unrealized_pnl)}
-                        </td>
-                        <td className={pnlClass(pos.r_multiple)}>{pos.r_multiple?.toFixed(1)}R</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-
-          {/* Live Activity Feed */}
-          <div className="card fade-in" style={{ animationDelay: '0.3s' }}>
-            <div className="card-title">⚡ Live Activity</div>
-            <div className={styles.activityFeed}>
-              {status ? (
-                <>
-                  <ActivityLine icon="🔍" text={`Cycle #${status.cycle} — ${status.candidates_found} candidates scanned`} />
-                  <ActivityLine icon="📊" text={`${status.setups_passed} setups passed analysis`} />
-                  <ActivityLine icon="🧠" text={`${status.decisions_made} Bayesian decisions`} />
-                  <ActivityLine icon="💰" text={`Equity: ${formatUsd(equity)} | Drawdown: ${formatPct(drawdown)}`} />
-                  <ActivityLine icon="🛡" text={`Mode: ${status.current_mode?.toUpperCase() ?? 'NORMAL'}`} />
-                  <ActivityLine icon="⏱" text={`Uptime: ${Math.floor((status.uptime_seconds || 0) / 60)}m`} />
-                </>
-              ) : loading ? (
-                <div className={styles.empty}>
-                  <span>Connecting to bot...</span>
-                  <span className="cursor-blink" />
-                </div>
-              ) : (
-                <div className={styles.empty}>
-                  <span className={styles.emptyIcon}>⊘</span>
-                  <span>Bot offline — start with <code>python -m src.main</code></span>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* ── Performance Summary ──────────────────── */}
-        {perf && (
-          <div className={`grid-4 ${styles.perfRow} fade-in`} style={{ animationDelay: '0.35s' }}>
-            <div className="card">
-              <div className="card-title">Win Rate</div>
-              <div className={`card-value ${perf.win_rate > 0.5 ? 'num-positive' : 'num-negative'}`}>
-                {(perf.win_rate * 100).toFixed(0)}%
-              </div>
-            </div>
-            <div className="card">
-              <div className="card-title">Avg R-Multiple</div>
-              <div className={`card-value ${pnlClass(perf.avg_r)}`}>{perf.avg_r?.toFixed(2)}R</div>
-            </div>
-            <div className="card">
-              <div className="card-title">Total Trades</div>
-              <div className="card-value">{perf.total_trades}</div>
-            </div>
-            <div className="card">
-              <div className="card-title">Sharpe Ratio</div>
-              <div className={`card-value ${pnlClass(perf.sharpe_ratio)}`}>{perf.sharpe_ratio?.toFixed(2)}</div>
-            </div>
-          </div>
-        )}
-      </main>
-    </div>
-  );
+interface AgentLog {
+  agent: string;
+  status: string;
+  message: string;
+  timestamp: string;
 }
 
-function ActivityLine({ icon, text }: { icon: string; text: string }) {
+export default function Dashboard() {
+  const [dashboard, setDashboard] = useState<Record<string, unknown> | null>(null);
+  const [logs, setLogs] = useState<AgentLog[]>([]);
+  const [alphaHits, setAlphaHits] = useState<unknown[]>([]);
+  const [portfolio, setPortfolio] = useState<Array<{ value: number; timestamp: string }>>([]);
+  const [positions, setPositions] = useState<unknown[]>([]);
+  const [swarmActive, setSwarmActive] = useState(false);
+  const { messages, connected } = useSwarmSocket();
+
+  // Initial data fetch
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const [dash, logsData, hitsData, portData, posData] = await Promise.all([
+          apiFetch("/api/dashboard"),
+          apiFetch("/api/agent-logs?limit=200"),
+          apiFetch("/api/alpha-hits?limit=50"),
+          apiFetch("/api/portfolio"),
+          apiFetch("/api/positions"),
+        ]);
+        setDashboard(dash);
+        setLogs(logsData.reverse());
+        setAlphaHits(hitsData);
+        setPortfolio(portData);
+        setPositions(posData);
+        setSwarmActive(dash.swarm_active);
+      } catch (e) {
+        console.error("Load error:", e);
+      }
+    };
+    load();
+  }, []);
+
+  // Process WebSocket messages
+  useEffect(() => {
+    if (messages.length === 0) return;
+    const latest = messages[messages.length - 1];
+    if (!latest) return;
+
+    switch (latest.type) {
+      case "agent_log":
+        setLogs((prev) => [...prev, latest.data as unknown as AgentLog].slice(-500));
+        break;
+      case "radar_hit":
+        setAlphaHits((prev) => [latest.data, ...prev].slice(0, 50));
+        break;
+      case "trade_executed":
+        setPositions((prev) => [latest.data, ...prev]);
+        break;
+    }
+  }, [messages]);
+
+  const toggleSwarm = async () => {
+    try {
+      if (swarmActive) {
+        await apiFetch("/api/swarm/stop", { method: "POST" });
+        setSwarmActive(false);
+      } else {
+        await apiFetch("/api/swarm/start", { method: "POST" });
+        setSwarmActive(true);
+      }
+    } catch (e) {
+      console.error("Swarm toggle error:", e);
+    }
+  };
+
   return (
-    <div className={styles.activityLine}>
-      <span className={styles.activityIcon}>{icon}</span>
-      <span className={styles.activityText}>{text}</span>
+    <div className="flex h-screen bg-[#050505]" data-testid="dashboard-root">
+      <Sidebar />
+
+      <main className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+        {/* Header bar */}
+        <header className="h-12 border-b border-cyan-900/20 bg-[#0A0F0D]/80 backdrop-blur-sm flex items-center px-4 gap-4 shrink-0" data-testid="header">
+          <h1
+            className="font-[Orbitron] text-sm font-black tracking-[0.3em] uppercase neon-text-cyan"
+            style={{ fontFamily: "Orbitron" }}
+          >
+            APEX-SWARM
+          </h1>
+          <span className="text-[10px] font-mono text-slate-600">v1.0 // GOD-MODE</span>
+          <div className="ml-auto flex items-center gap-3">
+            <div className={`flex items-center gap-1.5 text-[10px] font-mono ${connected ? "text-green-400" : "text-red-400"}`}>
+              <div className={`w-1.5 h-1.5 rounded-full ${connected ? "bg-green-400 animate-pulse" : "bg-red-400"}`} />
+              {connected ? "WS CONNECTED" : "WS DISCONNECTED"}
+            </div>
+            <span className="text-[10px] font-mono text-slate-600">
+              {new Date().toLocaleTimeString("en-US", { hour12: false })}
+            </span>
+          </div>
+        </header>
+
+        {/* Stats bar */}
+        <div className="px-3 py-2 shrink-0">
+          <StatsBar
+            data={
+              dashboard
+                ? {
+                    portfolio_value: (dashboard.portfolio_value as number) || 10000,
+                    active_positions: (dashboard.active_positions as number) || 0,
+                    total_trades: (dashboard.total_trades as number) || 0,
+                    total_alpha_hits: (dashboard.total_alpha_hits as number) || 0,
+                    swarm_active: swarmActive,
+                    wallets: (dashboard.wallets as { evm: string; sol: string }) || { evm: "", sol: "" },
+                  }
+                : null
+            }
+          />
+        </div>
+
+        {/* Main grid */}
+        <div className="flex-1 min-h-0 px-3 pb-3 grid grid-cols-12 grid-rows-2 gap-2">
+          {/* Neural Feed - left column */}
+          <motion.div
+            className="col-span-3 row-span-2"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <NeuralFeed logs={logs} />
+          </motion.div>
+
+          {/* Alpha Radar - top middle */}
+          <motion.div
+            className="col-span-4 row-span-1"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+          >
+            <AlphaRadar hits={alphaHits as never[]} />
+          </motion.div>
+
+          {/* Cross-Chain Matrix - top right */}
+          <motion.div
+            className="col-span-3 row-span-1"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.15 }}
+          >
+            <CrossChainMatrix routes={[]} />
+          </motion.div>
+
+          {/* Swarm Control - top far right */}
+          <motion.div
+            className="col-span-2 row-span-1"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+          >
+            <SwarmControl swarmActive={swarmActive} onToggle={toggleSwarm} agentLogs={logs} />
+          </motion.div>
+
+          {/* PnL Chart - bottom middle */}
+          <motion.div
+            className="col-span-5 row-span-1"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.25 }}
+          >
+            <PnLChart data={portfolio} />
+          </motion.div>
+
+          {/* Positions Grid - bottom right */}
+          <motion.div
+            className="col-span-4 row-span-1"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.3 }}
+          >
+            <PositionsGrid positions={positions as never[]} />
+          </motion.div>
+        </div>
+      </main>
     </div>
   );
 }

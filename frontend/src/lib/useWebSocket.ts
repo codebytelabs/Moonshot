@@ -1,69 +1,57 @@
-'use client';
+"use client";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { getWsUrl } from "./api";
 
-import { useEffect, useRef, useState, useCallback } from 'react';
-import type { WsMessage } from './api';
+export interface WsMessage {
+  type: string;
+  data: Record<string, unknown>;
+  ts: string;
+}
 
-const WS_URL = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8000/ws';
-const RECONNECT_DELAY = 3000;
-const MAX_RECONNECT_ATTEMPTS = 10;
-
-export function useWebSocket() {
-  const [isConnected, setIsConnected] = useState(false);
-  const [lastMessage, setLastMessage] = useState<WsMessage | null>(null);
+export function useSwarmSocket() {
   const [messages, setMessages] = useState<WsMessage[]>([]);
+  const [connected, setConnected] = useState(false);
   const wsRef = useRef<WebSocket | null>(null);
-  const reconnectCount = useRef(0);
-  const reconnectTimer = useRef<NodeJS.Timeout | null>(null);
+  const reconnectRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const connect = useCallback(() => {
-    if (wsRef.current?.readyState === WebSocket.OPEN) return;
-
     try {
-      const ws = new WebSocket(WS_URL);
+      const ws = new WebSocket(getWsUrl());
+      wsRef.current = ws;
 
       ws.onopen = () => {
-        setIsConnected(true);
-        reconnectCount.current = 0;
-        console.log('[WS] Connected');
+        setConnected(true);
+        // ping keepalive
+        const ping = setInterval(() => {
+          if (ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify({ type: "ping" }));
+        }, 30000);
+        ws.addEventListener("close", () => clearInterval(ping));
       };
 
-      ws.onmessage = (event) => {
+      ws.onmessage = (ev) => {
         try {
-          const data: WsMessage = JSON.parse(event.data);
-          setLastMessage(data);
-          setMessages((prev) => [...prev.slice(-100), data]); // Keep last 100
-        } catch {
-          console.warn('[WS] Failed to parse message');
-        }
+          const msg: WsMessage = JSON.parse(ev.data);
+          if (msg.type === "pong") return;
+          setMessages((prev) => [...prev.slice(-500), msg]);
+        } catch {}
       };
 
       ws.onclose = () => {
-        setIsConnected(false);
-        wsRef.current = null;
-
-        if (reconnectCount.current < MAX_RECONNECT_ATTEMPTS) {
-          reconnectCount.current += 1;
-          reconnectTimer.current = setTimeout(connect, RECONNECT_DELAY);
-        }
+        setConnected(false);
+        reconnectRef.current = setTimeout(connect, 3000);
       };
 
-      ws.onerror = () => {
-        ws.close();
-      };
-
-      wsRef.current = ws;
-    } catch {
-      console.error('[WS] Connection failed');
-    }
+      ws.onerror = () => ws.close();
+    } catch {}
   }, []);
 
   useEffect(() => {
     connect();
     return () => {
-      if (reconnectTimer.current) clearTimeout(reconnectTimer.current);
       wsRef.current?.close();
+      if (reconnectRef.current) clearTimeout(reconnectRef.current);
     };
   }, [connect]);
 
-  return { isConnected, lastMessage, messages };
+  return { messages, connected };
 }
