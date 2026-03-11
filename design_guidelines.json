@@ -1,0 +1,138 @@
+{
+  "project_name": "APEX-SWARM",
+  "design_philosophy": {
+    "theme": "God-Mode / Cyberpunk",
+    "core_principles": [
+      "Information Density: Maximum data per pixel without clutter.",
+      "Cinematic Immersion: The UI should feel like a movie terminal (The Matrix, TRON, Overwatch).",
+      "Motion is Meaning: Animations signal data updates, not decoration.",
+      "Darkness is the Canvas: purely subtractive design. Light emerges from the dark."
+    ],
+    "anti_patterns": [
+      "Light Mode (Strictly Forbidden)",
+      "Rounded 'SaaS' corners (Use sharp or chamfered edges)",
+      "White backgrounds",
+      "Generic 'Bootstrap' layouts",
+      "Static lists (Everything must feel alive)"
+    ]
+  },
+  "typography": {
+    "font_family": {
+      "headings": "Orbitron, 'Share Tech Mono', sans-serif",
+      "body": "Rajdhani, sans-serif",
+      "data": "'JetBrains Mono', 'Fira Code', monospace"
+    },
+    "scale": {
+      "h1": "text-5xl font-black tracking-widest uppercase",
+      "h2": "text-3xl font-bold tracking-wider",
+      "h3": "text-xl font-semibold tracking-wide text-cyan-400",
+      "body": "text-base font-medium",
+      "data": "text-sm font-mono text-emerald-400",
+      "tiny": "text-xs font-mono text-slate-500 uppercase tracking-widest"
+    },
+    "imports": [
+      "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap"
+    ]
+  },
+  "colors": {
+    "background": {
+      "void": "#050505",
+      "panel": "#0A0F0D",
+      "surface": "#111613",
+      "overlay": "rgba(5, 5, 5, 0.85)"
+    },
+    "primary": {
+      "cyan": "#00F3FF",
+      "cyan_dim": "rgba(0, 243, 255, 0.1)",
+      "neon_green": "#39FF14",
+      "matrix_green": "#00FF41"
+    },
+    "accents": {
+      "magenta": "#FF003C",
+      "warning": "#FFD700",
+      "error": "#FF0000",
+      "success": "#39FF14"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#94A3B8",
+      "muted": "#475569",
+      "terminal": "#39FF14"
+    }
+  },
+  "visual_enhancers": {
+    "borders": {
+      "default": "1px solid rgba(0, 243, 255, 0.2)",
+      "active": "1px solid #00F3FF",
+      "glow": "0 0 10px rgba(0, 243, 255, 0.5)"
+    },
+    "effects": {
+      "glass": "backdrop-blur-md bg-black/40 border border-white/10",
+      "scanline": "background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.5) 50%); background-size: 100% 4px;",
+      "crt_flicker": "animation: flicker 0.15s infinite;"
+    },
+    "shapes": {
+      "chamfered": "clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);"
+    }
+  },
+  "layout_grid": {
+    "type": "Bento Grid (Mode B: High Density)",
+    "columns": "grid-cols-12",
+    "gap": "gap-4",
+    "structure": {
+      "header": "col-span-12 h-16",
+      "sidebar": "col-span-2 h-[calc(100vh-4rem)]",
+      "main_feed": "col-span-4 h-[calc(100vh-4rem)] overflow-hidden",
+      "radar_chart": "col-span-6 h-[50%]",
+      "pnl_matrix": "col-span-6 h-[50%]"
+    }
+  },
+  "components": {
+    "neural_feed": {
+      "description": "Live scrolling log of AI agent thoughts.",
+      "style": "Terminal style. Monospace font. New items glitch in.",
+      "colors": {
+        "alpha_scanner": "text-cyan-400",
+        "contract_sniper": "text-magenta-500",
+        "execution_core": "text-green-500",
+        "quant_mutator": "text-yellow-400"
+      }
+    },
+    "alpha_radar": {
+      "description": "Visual map of new tokens. Polar coordinate system.",
+      "library": "Recharts (Radar Chart) or Custom Canvas",
+      "style": "Radar sweep animation. Blips for tokens. Distance from center = Risk."
+    },
+    "cross_chain_matrix": {
+      "description": "Network graph showing bridge status.",
+      "library": "React Force Graph or simple SVG lines",
+      "style": "Nodes pulse. Lines flow with data packets."
+    },
+    "pnl_command_center": {
+      "description": "Equity curve and active positions.",
+      "library": "lightweight-charts",
+      "style": "Line chart (Green). Area fill (Gradient Green to transparent). Minimal grid."
+    }
+  },
+  "image_assets": {
+    "background_texture": "https://images.unsplash.com/photo-1770520215319-9db74621a448?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxNzV8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMGRpZ2l0YWwlMjBuZXR3b3JrJTIwYmFja2dyb3VuZCUyMGRhcmslMjBuZW9uJTIwYmx1ZSUyMHB1cnBsZXxlbnwwfHx8fDE3NzMyMzM5MzV8MA&ixlib=rb-4.1.0&q=85",
+    "radar_center_glow": "https://images.unsplash.com/photo-1759771963975-8a4885446f1f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxNzV8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGRpZ2l0YWwlMjBuZXR3b3JrJTIwYmFja2dyb3VuZCUyMGRhcmslMjBuZW9uJTIwYmx1ZSUyMHB1cnBsZXxlbnwwfHx8fDE3NzMyMzM5MzV8MA&ixlib=rb-4.1.0&q=85",
+    "usage": "Use background_texture with low opacity (10%) mixed with black for the main app background. Use radar_center_glow for the Alpha Radar background."
+  },
+  "instructions_to_main_agent": [
+    "1. INSTALL TAILWIND CSS: The project is missing Tailwind. Install `tailwindcss`, `postcss`, `autoprefixer` and init it. Update `globals.css` with @tailwind directives.",
+    "2. INSTALL LIBRARIES: `framer-motion` (for animations), `lightweight-charts` (for financial charts), `lucide-react` (icons), `clsx` and `tailwind-merge` (for dynamic classes).",
+    "3. IMPLEMENT LAYOUT: Create a `DashboardLayout` component using CSS Grid (Grid-cols-12). Sidebar (2 cols) + Main Content (10 cols).",
+    "4. CREATE 'GodMode' CONTAINER: Wrap the app in a container with the background texture and a vignette overlay.",
+    "5. BUILD COMPONENTS: Implement `NeuralFeed` (scrolling list), `AlphaRadar` (mock visualization if needed), `PnLChart` (lightweight-chart wrapper).",
+    "6. USE TYPESCRIPT: All files are .tsx/.ts. Use strict typing.",
+    "7. DATA-TESTID: Add `data-testid` to all interactive elements (buttons, inputs, grid items)."
+  ],
+  "universal_guidelines": [
+    "Do not use generic shadcn cards. Build custom 'CyberPanel' components with borders and glow.",
+    "Dark mode ONLY. No toggle.",
+    "Use 'Orbitron' font for all section headers.",
+    "Animations: Every panel should 'slide in' or 'glitch in' on load.",
+    "Toast notifications: Use 'Sonner' with a custom dark theme (black bg, neon border)."
+  ]
+}
