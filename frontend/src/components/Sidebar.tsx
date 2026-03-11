@@ -2,10 +2,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, List, Settings, Radio, ChevronLeft, ChevronRight } from "lucide-react";
+import { LayoutDashboard, List, Settings, Radio, ChevronLeft, ChevronRight, Network } from "lucide-react";
 
 const NAV = [
   { href: "/", label: "OVERWATCH", icon: LayoutDashboard },
+  { href: "/swarm", label: "TINYCLAW", icon: Network },
   { href: "/positions", label: "POSITIONS", icon: List },
   { href: "/settings", label: "CONFIG", icon: Settings },
 ];

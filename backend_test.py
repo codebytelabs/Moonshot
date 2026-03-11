@@ -8,7 +8,7 @@ from datetime import datetime
 
 class ApexSwarmTester:
     def __init__(self):
-        self.base_url = "https://cc2a309c-c8b5-4c0d-b1c5-1710285173cf.preview.emergentagent.com"
+        self.base_url = "https://swarm-command-center.preview.emergentagent.com"
         self.tests_run = 0
         self.tests_passed = 0
         self.failed_tests = []

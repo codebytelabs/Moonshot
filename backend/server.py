@@ -28,6 +28,16 @@ db = None
 scanner_task = None
 swarm_running = False
 ws_clients: list[WebSocket] = []
+swarm_cycle_count = 0
+
+# Per-agent performance metrics
+agent_metrics: dict = {
+    "tinyclaw": {"cycles": 0, "decisions": 0, "last_action": "Awaiting deployment", "status": "idle"},
+    "alpha_scanner": {"cycles": 0, "hits_found": 0, "last_action": "Standby", "status": "idle"},
+    "contract_sniper": {"cycles": 0, "audits_done": 0, "threats_blocked": 0, "last_action": "Standby", "status": "idle"},
+    "execution_core": {"cycles": 0, "trades_executed": 0, "trades_skipped": 0, "last_action": "Standby", "status": "idle"},
+    "quant_mutator": {"cycles": 0, "mutations": 0, "last_action": "Awaiting trade data", "status": "idle"},
+}
 
 # ─── WEBSOCKET BROADCAST ────────────────────────────────────────────
 async def broadcast(event_type: str, data: dict):
@@ -106,8 +116,37 @@ async def dex_token_pairs(chain_id: str, token_address: str):
 async def dex_tokens(chain_id: str, addresses: str):
     return await dex_get(f"/tokens/v1/{chain_id}/{addresses}") or []
 
+# ─── AGENT: @tinyclaw (ORCHESTRATOR) ────────────────────────────────
+async def tinyclaw_orchestrate(cycle: int, hits_count: int, audited_count: int, trades_count: int):
+    global agent_metrics
+    agent_metrics["tinyclaw"]["cycles"] += 1
+    agent_metrics["tinyclaw"]["decisions"] += 1
+    agent_metrics["tinyclaw"]["status"] = "active"
+
+    directives = []
+    if hits_count == 0:
+        directives.append("Broadening scan parameters — zero alpha hits detected")
+    elif hits_count >= 8:
+        directives.append(f"High signal cycle — {hits_count} targets acquired, escalating sniper priority")
+    if audited_count > 0 and trades_count == 0:
+        directives.append("Sniper flagged all targets as DANGER — holding execution")
+    if trades_count > 0:
+        directives.append(f"Executed {trades_count} position(s) this cycle — monitoring PnL")
+    if cycle % 5 == 0:
+        directives.append("Triggering quant_mutator strategy review")
+    if not directives:
+        directives.append(f"Cycle #{cycle} nominal — all agents performing within parameters")
+
+    directive = directives[0]
+    agent_metrics["tinyclaw"]["last_action"] = directive
+
+    await log_agent("tinyclaw", "DIRECTIVE", f"[Cycle #{cycle}] {directive}")
+    await broadcast("agent_metrics", {k: dict(v) for k, v in agent_metrics.items()})
+
 # ─── AGENT: @alpha_scanner ──────────────────────────────────────────
 async def alpha_scanner_cycle():
+    agent_metrics["alpha_scanner"]["status"] = "active"
+    agent_metrics["alpha_scanner"]["cycles"] += 1
     await log_agent("alpha_scanner", "SCANNING", "Initiating deep scan across all chains...")
 
     profiles = await dex_latest_profiles()
@@ -230,7 +269,12 @@ async def alpha_scanner_cycle():
     top = scored[:10]
 
     if top:
+        agent_metrics["alpha_scanner"]["hits_found"] += len(top)
+        agent_metrics["alpha_scanner"]["last_action"] = f"Locked {len(top)} targets | Top: {top[0].get('baseToken', {}).get('symbol', '?')} score={top[0]['score']}"
         await log_agent("alpha_scanner", "LOCKED", f"Top target: {top[0].get('baseToken', {}).get('symbol', '?')} on {top[0]['chainId']} | Score: {top[0]['score']} | Vol5m: ${top[0]['volume']['m5']:,.0f}")
+    else:
+        agent_metrics["alpha_scanner"]["last_action"] = "No qualifying targets found"
+    agent_metrics["alpha_scanner"]["status"] = "idle"
 
     # Store in DB
     if db is not None and top:
@@ -257,6 +301,8 @@ async def contract_sniper_analyze(token: dict) -> dict:
     sells = token.get("txns", {}).get("sells_5m", 0)
     change_5m = token.get("priceChange", {}).get("m5", 0)
 
+    agent_metrics["contract_sniper"]["status"] = "active"
+    agent_metrics["contract_sniper"]["cycles"] += 1
     await log_agent("contract_sniper", "DECOMPILING", f"Auditing {symbol} on {chain} | Addr: {addr[:16]}...")
 
     # Heuristic-based analysis (works without LLM)
@@ -330,11 +376,19 @@ Return JSON: {{"honeypot_risk": "low/medium/high", "risk_score": 1-10, "liquidit
     risk = analysis.get("risk_score", 5)
 
     if verdict == "SAFE":
+        agent_metrics["contract_sniper"]["audits_done"] += 1
+        agent_metrics["contract_sniper"]["last_action"] = f"CLEARED {symbol} risk={risk}/10"
         await log_agent("contract_sniper", "CLEAR", f"{symbol} SAFE | Risk: {risk}/10 | {analysis.get('reason', '')}")
     elif verdict == "DANGER":
+        agent_metrics["contract_sniper"]["threats_blocked"] += 1
+        agent_metrics["contract_sniper"]["last_action"] = f"BLOCKED {symbol} risk={risk}/10"
         await log_agent("contract_sniper", "BLOCKED", f"{symbol} DANGER | Risk: {risk}/10 | {analysis.get('reason', '')}")
     else:
+        agent_metrics["contract_sniper"]["audits_done"] += 1
+        agent_metrics["contract_sniper"]["last_action"] = f"CAUTION {symbol} risk={risk}/10"
         await log_agent("contract_sniper", "CAUTION", f"{symbol} CAUTION | Risk: {risk}/10 | {analysis.get('reason', '')}")
+
+    agent_metrics["contract_sniper"]["status"] = "idle"
 
     return {**token, "security": analysis}
 
@@ -344,7 +398,13 @@ async def execution_core_trade(token: dict) -> dict:
     chain = token.get("chainId", "unknown")
     verdict = token.get("security", {}).get("verdict", "CAUTION")
 
+    agent_metrics["execution_core"]["status"] = "active"
+    agent_metrics["execution_core"]["cycles"] += 1
+
     if verdict == "DANGER":
+        agent_metrics["execution_core"]["trades_skipped"] += 1
+        agent_metrics["execution_core"]["last_action"] = f"Skipped {symbol} — DANGER flag"
+        agent_metrics["execution_core"]["status"] = "idle"
         await log_agent("execution_core", "ABORTED", f"Skipping {symbol} - flagged DANGER by sniper")
         return {**token, "trade_status": "skipped", "reason": "danger"}
 
@@ -373,6 +433,9 @@ async def execution_core_trade(token: dict) -> dict:
     if db is not None:
         await db.trades.insert_one({**trade})
 
+    agent_metrics["execution_core"]["trades_executed"] += 1
+    agent_metrics["execution_core"]["last_action"] = f"BUY {symbol} @ ${token.get('priceUsd', '?')} SIMULATED"
+    agent_metrics["execution_core"]["status"] = "idle"
     await log_agent("execution_core", "EXECUTED", f"BUY {symbol} @ ${token.get('priceUsd', '?')} | Route: {trade['route']} | Status: SIMULATED")
 
     safe_trade = {k: v for k, v in trade.items() if k != "_id"}
@@ -381,6 +444,9 @@ async def execution_core_trade(token: dict) -> dict:
 
 # ─── AGENT: @quant_mutator ──────────────────────────────────────────
 async def quant_mutator_evaluate():
+    global agent_metrics
+    agent_metrics["quant_mutator"]["status"] = "active"
+    agent_metrics["quant_mutator"]["cycles"] += 1
     await log_agent("quant_mutator", "ANALYZING", "Evaluating strategy performance...")
 
     if db is None:
@@ -410,6 +476,9 @@ async def quant_mutator_evaluate():
     analysis = {"hit_rate": hit_rate, "suggestions": suggestions, "confidence": min(0.9, total / 50)}
 
     await log_agent("quant_mutator", "MUTATED", f"Hit rate: {hit_rate:.1%} | Avg score: {avg_score:.0f} | {suggestions[0]}")
+    agent_metrics["quant_mutator"]["mutations"] += 1
+    agent_metrics["quant_mutator"]["last_action"] = f"Hit rate {hit_rate:.1%} | {suggestions[0][:40]}"
+    agent_metrics["quant_mutator"]["status"] = "idle"
 
     if db is not None:
         await db.strategy_mutations.insert_one({
@@ -440,37 +509,54 @@ async def log_agent(agent: str, status: str, message: str):
 
 # ─── MAIN SCAN LOOP ─────────────────────────────────────────────────
 async def swarm_loop():
-    global swarm_running
+    global swarm_running, swarm_cycle_count
     cycle = 0
+    # Mark all agents online
+    for k in agent_metrics:
+        agent_metrics[k]["status"] = "idle"
+    await log_agent("tinyclaw", "BOOT", "TinyClaw orchestrator online. Deploying agent swarm...")
+    await broadcast("agent_metrics", {k: dict(v) for k, v in agent_metrics.items()})
+
     while swarm_running:
         cycle += 1
-        await log_agent("system", "CYCLE", f"=== SWARM CYCLE #{cycle} INITIATED ===")
+        swarm_cycle_count = cycle
+        agent_metrics["tinyclaw"]["status"] = "active"
+        await log_agent("tinyclaw", "CYCLE", f"=== SWARM CYCLE #{cycle} INITIATED ===")
+
+        hits_count = 0
+        audited_count = 0
+        trades_count = 0
 
         try:
-            # Phase 1: Scan
+            # Phase 1: Alpha Scanner
             hits = await alpha_scanner_cycle()
+            hits_count = len(hits)
 
-            # Phase 2: Audit top hits
+            # Phase 2: Contract Sniper audits top hits
             audited = []
             for hit in hits[:5]:
                 result = await contract_sniper_analyze(hit)
                 audited.append(result)
+                audited_count += 1
                 await asyncio.sleep(0.3)
 
-            # Phase 3: Execute safe trades
+            # Phase 3: Execution Core executes safe trades
             for token in audited:
                 if token.get("security", {}).get("verdict") in ("SAFE", "CAUTION"):
                     await execution_core_trade(token)
+                    trades_count += 1
                     await asyncio.sleep(0.2)
 
-            # Phase 4: Mutator evaluates every 5 cycles
+            # Phase 4: Quant Mutator evaluates every 5 cycles
             if cycle % 5 == 0:
                 await quant_mutator_evaluate()
 
-            await log_agent("system", "COMPLETE", f"Cycle #{cycle} complete. Next scan in 60s.")
+            # TinyClaw wraps up the cycle
+            await tinyclaw_orchestrate(cycle, hits_count, audited_count, trades_count)
+            await log_agent("tinyclaw", "COMPLETE", f"Cycle #{cycle} complete | Hits: {hits_count} | Audited: {audited_count} | Trades: {trades_count} | Next scan in 60s")
 
         except Exception as e:
-            await log_agent("system", "ERROR", f"Cycle error: {str(e)}")
+            await log_agent("tinyclaw", "ERROR", f"Cycle error: {str(e)}")
 
         # Wait 60 seconds before next cycle
         for _ in range(60):
@@ -478,7 +564,10 @@ async def swarm_loop():
                 break
             await asyncio.sleep(1)
 
-    await log_agent("system", "HALTED", "Swarm loop stopped.")
+    for k in agent_metrics:
+        agent_metrics[k]["status"] = "idle"
+    await broadcast("agent_metrics", {k: dict(v) for k, v in agent_metrics.items()})
+    await log_agent("tinyclaw", "HALTED", "Swarm loop stopped. All agents standing down.")
 
 # ─── SEED DATA ───────────────────────────────────────────────────────
 async def seed_data():
@@ -642,6 +731,68 @@ async def get_trending():
     boosted = await dex_boosted_tokens()
     top = await dex_top_boosted()
     return {"boosted": boosted[:20] if isinstance(boosted, list) else [], "top": top[:20] if isinstance(top, list) else []}
+
+@app.get("/api/agents/status")
+async def get_agents_status():
+    # Pull recent logs per agent for context
+    agent_log_map = {}
+    for agent_name in ["tinyclaw", "alpha_scanner", "contract_sniper", "execution_core", "quant_mutator"]:
+        recent = await db.agent_logs.find(
+            {"agent": agent_name}, {"_id": 0}
+        ).sort("timestamp", -1).limit(5).to_list(5)
+        agent_log_map[agent_name] = list(reversed(recent))
+
+    # DB-level stats
+    total_trades = await db.trades.count_documents({})
+    total_hits = await db.alpha_hits.count_documents({})
+    blocked = await db.agent_logs.count_documents({"agent": "contract_sniper", "status": "BLOCKED"})
+    mutations = await db.strategy_mutations.count_documents({})
+
+    return {
+        "swarm_active": swarm_running,
+        "cycle_count": swarm_cycle_count,
+        "agents": {
+            "tinyclaw": {
+                **agent_metrics["tinyclaw"],
+                "role": "Master Orchestrator",
+                "description": "Coordinates all sub-agents, issues directives, manages cycle flow",
+                "color": "#00F3FF",
+                "recent_logs": agent_log_map.get("tinyclaw", []),
+            },
+            "alpha_scanner": {
+                **agent_metrics["alpha_scanner"],
+                "role": "Market Intelligence",
+                "description": "Scans DexScreener for high-momentum tokens across 60+ chains",
+                "color": "#00F3FF",
+                "total_hits": total_hits,
+                "recent_logs": agent_log_map.get("alpha_scanner", []),
+            },
+            "contract_sniper": {
+                **agent_metrics["contract_sniper"],
+                "role": "Security Auditor",
+                "description": "Heuristic + AI-powered honeypot and rug-pull detection",
+                "color": "#FF003C",
+                "total_blocked": blocked,
+                "recent_logs": agent_log_map.get("contract_sniper", []),
+            },
+            "execution_core": {
+                **agent_metrics["execution_core"],
+                "role": "Trade Executor",
+                "description": "Routes and executes trades via LI.FI + Pimlico EIP-7702",
+                "color": "#39FF14",
+                "total_trades": total_trades,
+                "recent_logs": agent_log_map.get("execution_core", []),
+            },
+            "quant_mutator": {
+                **agent_metrics["quant_mutator"],
+                "role": "Strategy Optimizer",
+                "description": "Analyzes performance and adapts scanner parameters over time",
+                "color": "#FFD700",
+                "total_mutations": mutations,
+                "recent_logs": agent_log_map.get("quant_mutator", []),
+            },
+        },
+    }
 
 @app.get("/api/settings")
 async def get_settings():
