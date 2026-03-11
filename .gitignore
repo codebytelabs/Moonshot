@@ -14,3 +14,7 @@ dist/
 moonshot.db
 .kiro/
 reports/
+-e 
+# Environment files
+*.env
+*.env.*
