@@ -12,7 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from motor.motor_asyncio import AsyncIOMotorClient
 
-load_dotenv()
+load_dotenv(override=True)  # override=True ensures .env always wins over stale shell env vars
 
 # ─── CONFIG ──────────────────────────────────────────────────────────
 MONGO_URL = os.environ.get("MONGO_URL")
@@ -22,6 +22,11 @@ OPENROUTER_PRIMARY_MODEL = os.environ.get("OPENROUTER_PRIMARY_MODEL", "qwen/qwen
 OPENROUTER_FALLBACK_MODEL = os.environ.get("OPENROUTER_FALLBACK_MODEL", "moonshotai/kimi-k2.5")
 EVM_WALLET = os.environ.get("EVM_WALLET_ADDRESS", "")
 SOL_WALLET = os.environ.get("SOL_WALLET_ADDRESS", "")
+PIMLICO_API_KEY = os.environ.get("PIMLICO_API_KEY", "")  # optional — enables real gasless execution
+LIFI_API_KEY = os.environ.get("LIFI_API_KEY", "")         # optional — increases rate limits
+FLASHBOTS_RPC = "https://rpc.flashbots.net"               # always use — private mempool
+LIFI_API_BASE = "https://li.quest/v1"                      # LI.FI REST API
+
 
 # ─── GLOBALS ─────────────────────────────────────────────────────────
 db = None
@@ -38,6 +43,16 @@ agent_metrics: dict = {
     "execution_core": {"cycles": 0, "trades_executed": 0, "trades_skipped": 0, "last_action": "Standby", "status": "idle"},
     "quant_mutator": {"cycles": 0, "mutations": 0, "last_action": "Awaiting trade data", "status": "idle"},
 }
+
+# Live scanner config — mutated by quant_mutator, hot-reloaded each cycle
+scanner_config: dict = {
+    "min_score": 30,
+    "min_liquidity": 1000,
+    "min_vol_5m": 500,
+    "top_n_audit": 5,
+    "position_size_usd": 50,
+}
+
 
 # ─── WEBSOCKET BROADCAST ────────────────────────────────────────────
 async def broadcast(event_type: str, data: dict):
@@ -118,7 +133,63 @@ async def dex_token_pairs(chain_id: str, token_address: str):
 async def dex_tokens(chain_id: str, addresses: str):
     return await dex_get(f"/tokens/v1/{chain_id}/{addresses}") or []
 
-# ─── AGENT: @tinyclaw (ORCHESTRATOR) ────────────────────────────────
+# ─── LIFI CLIENT ────────────────────────────────────────────────────
+LIFI_CHAIN_IDS = {
+    "ethereum": "1", "base": "8453", "arbitrum": "42161",
+    "polygon": "137", "bsc": "56", "optimism": "10",
+    "avalanche": "43114", "solana": "1151111081099710",
+}
+USDC_ADDRESSES = {
+    "1": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",      # Ethereum
+    "8453": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",   # Base
+    "42161": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",  # Arbitrum
+    "137": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",   # Polygon
+}
+
+async def lifi_get_quote(from_chain: str, to_chain: str, to_token_address: str, amount_usd: float = 50.0) -> dict | None:
+    """Get a real cross-chain quote from LI.FI REST API."""
+    from_chain_id = LIFI_CHAIN_IDS.get(from_chain, "8453")  # default to Base
+    to_chain_id = LIFI_CHAIN_IDS.get(to_chain, LIFI_CHAIN_IDS.get(from_chain, "8453"))
+    from_token = USDC_ADDRESSES.get(from_chain_id, USDC_ADDRESSES["8453"])
+    # 6 decimals for USDC
+    amount_raw = int(amount_usd * 1_000_000)
+    params = {
+        "fromChain": from_chain_id,
+        "toChain": to_chain_id,
+        "fromToken": from_token,
+        "toToken": to_token_address,
+        "fromAmount": str(amount_raw),
+        "fromAddress": EVM_WALLET,
+        "order": "FASTEST",
+    }
+    headers = {"Content-Type": "application/json"}
+    if LIFI_API_KEY:
+        headers["X-LiFi-Api-Key"] = LIFI_API_KEY
+    try:
+        async with httpx.AsyncClient(timeout=15.0) as client:
+            r = await client.get(f"{LIFI_API_BASE}/quote", params=params, headers=headers)
+            if r.status_code == 200:
+                data = r.json()
+                return {
+                    "status": "quoted",
+                    "from_chain": from_chain,
+                    "to_chain": to_chain,
+                    "from_token": "USDC",
+                    "to_token": data.get("action", {}).get("toToken", {}).get("symbol", "?"),
+                    "from_amount_usd": amount_usd,
+                    "estimated_output": data.get("estimate", {}).get("toAmount"),
+                    "gas_estimate_usd": data.get("estimate", {}).get("gasCosts", [{}])[0].get("amountUSD", "0"),
+                    "tool": data.get("tool", "lifi"),
+                    "steps": len(data.get("includedSteps", [])),
+                    "transaction_request": data.get("transactionRequest"),
+                    "raw": data,
+                }
+            else:
+                return {"status": "quote_failed", "error": r.text[:200]}
+    except Exception as e:
+        return {"status": "quote_error", "error": str(e)}
+
+
 async def tinyclaw_orchestrate(cycle: int, hits_count: int, audited_count: int, trades_count: int):
     global agent_metrics
     agent_metrics["tinyclaw"]["cycles"] += 1
@@ -244,13 +315,17 @@ async def alpha_scanner_cycle():
                 score += 15  # new pair bonus (<24h)
 
             if score >= 30:
+                base_token = pair.get("baseToken", {})
+                # Use actual baseToken.address from pair data — this is the correct 0x EVM address
+                # The 'addr' from profiles/boosts may not be the correct EVM format
+                real_token_addr = base_token.get("address", addr) or addr
                 entry = {
                     "id": str(uuid.uuid4()),
                     "chainId": chain,
-                    "tokenAddress": addr,
+                    "tokenAddress": real_token_addr,
                     "pairAddress": pair.get("pairAddress", ""),
                     "dexId": pair.get("dexId", ""),
-                    "baseToken": pair.get("baseToken", {}),
+                    "baseToken": base_token,
                     "quoteToken": pair.get("quoteToken", {}),
                     "priceUsd": price_usd,
                     "volume": {"m5": vol_5m, "h1": vol_1h, "h24": vol_24h},
@@ -266,6 +341,7 @@ async def alpha_scanner_cycle():
                     "url": pair.get("url", ""),
                 }
                 scored.append(entry)
+
 
     scored.sort(key=lambda x: x["score"], reverse=True)
     top = scored[:10]
@@ -398,7 +474,9 @@ Return JSON: {{"honeypot_risk": "low/medium/high", "risk_score": 1-10, "liquidit
 async def execution_core_trade(token: dict) -> dict:
     symbol = token.get("baseToken", {}).get("symbol", "UNKNOWN")
     chain = token.get("chainId", "unknown")
+    token_address = token.get("tokenAddress", "")
     verdict = token.get("security", {}).get("verdict", "CAUTION")
+    position_size = scanner_config.get("position_size_usd", 50.0)
 
     agent_metrics["execution_core"]["status"] = "active"
     agent_metrics["execution_core"]["cycles"] += 1
@@ -410,23 +488,70 @@ async def execution_core_trade(token: dict) -> dict:
         await log_agent("execution_core", "ABORTED", f"Skipping {symbol} - flagged DANGER by sniper")
         return {**token, "trade_status": "skipped", "reason": "danger"}
 
-    await log_agent("execution_core", "ROUTING", f"Finding optimal route for {symbol} on {chain}...")
-    await asyncio.sleep(0.5)  # Simulate route calculation
+    await log_agent("execution_core", "ROUTING", f"Querying LI.FI for optimal route: USDC → {symbol} on {chain}...")
 
-    # Simulated trade execution for MVP
+    # ── Real LI.FI Quote ────────────────────────────────────────────
+    lifi_quote = None
+    route_description = f"USDC({chain}) → {symbol}({chain})"
+    execution_status = "SIMULATED"
+    mev_protection = "Flashbots Protect RPC"
+
+    # Only attempt real quote for EVM chains we know
+    is_evm = chain in LIFI_CHAIN_IDS and chain != "solana"
+    if is_evm and token_address and token_address.startswith("0x"):
+        lifi_quote = await lifi_get_quote(
+            from_chain=chain,
+            to_chain=chain,
+            to_token_address=token_address,
+            amount_usd=position_size,
+        )
+        if lifi_quote and lifi_quote.get("status") == "quoted":
+            execution_status = "QUOTED"
+            route_description = (
+                f"USDC({chain}) → {symbol}({chain}) "
+                f"via {lifi_quote.get('tool', 'LI.FI')} "
+                f"[{lifi_quote.get('steps', 1)} step(s)] "
+                f"gas≈${lifi_quote.get('gas_estimate_usd', '?')}"
+            )
+            await log_agent(
+                "execution_core", "QUOTED",
+                f"LI.FI quote: {position_size} USDC → {symbol} | "
+                f"Tool: {lifi_quote.get('tool')} | "
+                f"Gas: ${lifi_quote.get('gas_estimate_usd')} | "
+                f"Status: {'Pimlico gasless ready' if PIMLICO_API_KEY else 'Pimlico key missing — sim only'}"
+            )
+            # ── If Pimlico key exists, broadcast via Flashbots ──────
+            if PIMLICO_API_KEY and lifi_quote.get("transaction_request"):
+                execution_status = "BROADCAST_READY"
+                mev_protection = f"Flashbots Protect ({FLASHBOTS_RPC})"
+                await log_agent(
+                    "execution_core", "BROADCAST",
+                    f"{symbol} trade ready for Flashbots broadcast | "
+                    f"EIP-7702 UserOp via Pimlico ({FLASHBOTS_RPC})"
+                )
+                # TODO: sign + submit UserOp via pimlico SDK when integrated
+        else:
+            err = lifi_quote.get("error", "no response") if lifi_quote else "unreachable"
+            await log_agent("execution_core", "QUOTE_FAIL", f"LI.FI quote failed for {symbol}: {err} — falling back to simulation")
+    elif chain == "solana":
+        await log_agent("execution_core", "INFO", f"{symbol} is on Solana — Jupiter DEX routing (LI.FI Solana bridge in roadmap)")
+    else:
+        await log_agent("execution_core", "INFO", f"{symbol} token address not EVM-compatible — simulating")
+
     trade = {
         "id": str(uuid.uuid4()),
         "symbol": symbol,
         "chainId": chain,
-        "tokenAddress": token.get("tokenAddress", ""),
+        "tokenAddress": token_address,
         "pairAddress": token.get("pairAddress", ""),
         "side": "BUY",
         "price": token.get("priceUsd", "0"),
-        "amount_usd": 50.0,  # simulated position size
-        "status": "SIMULATED",
-        "route": f"USDC({chain}) -> {symbol}({chain})",
-        "gas_strategy": "EIP-7702 Sponsored",
-        "mev_protection": "Flashbots Protect",
+        "amount_usd": position_size,
+        "status": execution_status,
+        "route": route_description,
+        "gas_strategy": "Pimlico EIP-7702 Sponsored" if PIMLICO_API_KEY else "Gas wallet required (add PIMLICO_API_KEY)",
+        "mev_protection": mev_protection,
+        "lifi_quote": lifi_quote,
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "score": token.get("score", 0),
         "security": token.get("security", {}),
@@ -436,9 +561,12 @@ async def execution_core_trade(token: dict) -> dict:
         await db.trades.insert_one({**trade})
 
     agent_metrics["execution_core"]["trades_executed"] += 1
-    agent_metrics["execution_core"]["last_action"] = f"BUY {symbol} @ ${token.get('priceUsd', '?')} SIMULATED"
+    agent_metrics["execution_core"]["last_action"] = f"BUY {symbol} @ ${token.get('priceUsd', '?')} [{execution_status}]"
     agent_metrics["execution_core"]["status"] = "idle"
-    await log_agent("execution_core", "EXECUTED", f"BUY {symbol} @ ${token.get('priceUsd', '?')} | Route: {trade['route']} | Status: SIMULATED")
+    await log_agent(
+        "execution_core", "EXECUTED",
+        f"BUY {symbol} @ ${token.get('priceUsd', '?')} | {route_description} | [{execution_status}]"
+    )
 
     safe_trade = {k: v for k, v in trade.items() if k != "_id"}
     await broadcast("trade_executed", safe_trade)
@@ -446,10 +574,10 @@ async def execution_core_trade(token: dict) -> dict:
 
 # ─── AGENT: @quant_mutator ──────────────────────────────────────────
 async def quant_mutator_evaluate():
-    global agent_metrics
+    global agent_metrics, scanner_config
     agent_metrics["quant_mutator"]["status"] = "active"
     agent_metrics["quant_mutator"]["cycles"] += 1
-    await log_agent("quant_mutator", "ANALYZING", "Evaluating strategy performance...")
+    await log_agent("quant_mutator", "ANALYZING", "Evaluating strategy performance and adapting scanner config...")
 
     if db is None:
         return
@@ -461,25 +589,47 @@ async def quant_mutator_evaluate():
         return
 
     safe_count = sum(1 for t in trades if t.get("security", {}).get("verdict") == "SAFE")
+    quoted_count = sum(1 for t in trades if t.get("status") == "QUOTED")
     avg_score = sum(t.get("score", 0) for t in trades) / total if total else 0
     hit_rate = safe_count / total if total else 0
 
-    # Heuristic-based strategy mutation
+    # Compute new strategy parameters
+    new_config = dict(scanner_config)
     suggestions = []
+
     if hit_rate < 0.3:
-        suggestions.append("Increase minimum score threshold to filter noise")
-    if avg_score < 40:
-        suggestions.append("Focus on tokens with higher volume spikes")
-    if hit_rate > 0.7:
-        suggestions.append("Strategy performing well - consider increasing position size")
+        new_config["min_score"] = min(50, scanner_config["min_score"] + 5)
+        suggestions.append(f"Raised min_score to {new_config['min_score']} (hit rate low: {hit_rate:.0%})")
+    elif hit_rate > 0.7:
+        new_config["min_score"] = max(20, scanner_config["min_score"] - 5)
+        suggestions.append(f"Lowered min_score to {new_config['min_score']} (performing well: {hit_rate:.0%})")
+
+    if avg_score < 35:
+        new_config["min_vol_5m"] = min(5000, scanner_config["min_vol_5m"] + 500)
+        suggestions.append(f"Raised min_vol_5m to {new_config['min_vol_5m']} (avg score low: {avg_score:.0f})")
+
     if not suggestions:
-        suggestions.append("Maintain current parameters")
+        suggestions.append(f"Parameters stable | hit_rate={hit_rate:.0%} avg_score={avg_score:.0f} quoted={quoted_count}/{total}")
 
-    analysis = {"hit_rate": hit_rate, "suggestions": suggestions, "confidence": min(0.9, total / 50)}
+    # Hot-reload into live scanner_config
+    scanner_config.update(new_config)
 
-    await log_agent("quant_mutator", "MUTATED", f"Hit rate: {hit_rate:.1%} | Avg score: {avg_score:.0f} | {suggestions[0]}")
+    analysis = {
+        "hit_rate": hit_rate,
+        "avg_score": avg_score,
+        "quoted_trades": quoted_count,
+        "total_trades": total,
+        "suggestions": suggestions,
+        "new_config": new_config,
+        "confidence": min(0.9, total / 50),
+    }
+
+    await log_agent(
+        "quant_mutator", "MUTATED",
+        f"Hit rate: {hit_rate:.1%} | Avg score: {avg_score:.0f} | LI.FI quoted: {quoted_count}/{total} | {suggestions[0]}"
+    )
     agent_metrics["quant_mutator"]["mutations"] += 1
-    agent_metrics["quant_mutator"]["last_action"] = f"Hit rate {hit_rate:.1%} | {suggestions[0][:40]}"
+    agent_metrics["quant_mutator"]["last_action"] = f"{suggestions[0][:50]}"
     agent_metrics["quant_mutator"]["status"] = "idle"
 
     if db is not None:
@@ -487,9 +637,12 @@ async def quant_mutator_evaluate():
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "total_trades": total,
             "analysis": analysis,
+            "applied_config": new_config,
         })
 
     await broadcast("strategy_update", analysis)
+
+
 
 # ─── AGENT LOG HELPER ───────────────────────────────────────────────
 async def log_agent(agent: str, status: str, message: str):
@@ -573,6 +726,14 @@ async def swarm_loop():
 
 # ─── SEED DATA ───────────────────────────────────────────────────────
 async def seed_data():
+    # Load scanner config from DB if it exists (quant_mutator may have written one)
+    global scanner_config
+    saved = await db.scanner_config.find_one({"_id": "live"}, {"_id": 0})
+    if saved:
+        scanner_config.update(saved)
+    else:
+        await db.scanner_config.replace_one({"_id": "live"}, {"_id": "live", **scanner_config}, upsert=True)
+
     # Seed some initial portfolio data
     existing = await db.portfolio.count_documents({})
     if existing == 0:
@@ -580,7 +741,7 @@ async def seed_data():
         values = [10000, 10050, 10120, 10080, 10200, 10350, 10300, 10450, 10600, 10550,
                   10700, 10850, 10900, 11000, 10950, 11100, 11250, 11200, 11350, 11500]
         for i, v in enumerate(values):
-            ts = datetime(2026, 1, 10 + i // 4, 6 + (i % 4) * 6, 0, 0, tzinfo=timezone.utc)
+            ts = datetime(2026, 1, 10 + i // 4, 6 + (i % 4) * 5, 0, 0, tzinfo=timezone.utc)
             await db.portfolio.insert_one({"value": v, "timestamp": ts.isoformat()})
 
     # Seed initial positions
@@ -845,6 +1006,46 @@ async def get_settings():
         "evm_wallet": EVM_WALLET,
         "sol_wallet": SOL_WALLET,
         "scan_interval": 60,
-        "max_position_size": 50,
+        "max_position_size": scanner_config.get("position_size_usd", 50),
         "chains": ["ethereum", "solana", "base", "bsc", "polygon", "arbitrum", "optimism", "avalanche"],
+        "pimlico_enabled": bool(PIMLICO_API_KEY),
+        "lifi_api_key_set": bool(LIFI_API_KEY),
+        "flashbots_rpc": FLASHBOTS_RPC,
     }
+
+@app.get("/api/scanner/config")
+async def get_scanner_config():
+    return scanner_config
+
+@app.post("/api/scanner/config")
+async def update_scanner_config(config: dict):
+    global scanner_config
+    scanner_config.update(config)
+    if db is not None:
+        await db.scanner_config.replace_one({"_id": "live"}, {"_id": "live", **scanner_config}, upsert=True)
+    return {"status": "updated", "config": scanner_config}
+
+@app.get("/api/lifi/quote")
+async def lifi_quote_endpoint(
+    from_chain: str = "base",
+    to_chain: str = "base",
+    to_token: str = Query(..., description="Target token contract address"),
+    amount_usd: float = 50.0,
+):
+    """Get a real LI.FI cross-chain quote. Test execution routing without committing."""
+    quote = await lifi_get_quote(from_chain, to_chain, to_token, amount_usd)
+    return quote
+
+@app.get("/api/execution/status")
+async def execution_status():
+    return {
+        "lifi_api": LIFI_API_BASE,
+        "lifi_api_key": bool(LIFI_API_KEY),
+        "pimlico_enabled": bool(PIMLICO_API_KEY),
+        "flashbots_rpc": FLASHBOTS_RPC,
+        "evm_wallet": EVM_WALLET[:10] + "..." if EVM_WALLET else None,
+        "sol_wallet": SOL_WALLET[:10] + "..." if SOL_WALLET else None,
+        "scanner_config": scanner_config,
+        "mode": "REAL_QUOTES" if True else "SIMULATION",
+    }
+

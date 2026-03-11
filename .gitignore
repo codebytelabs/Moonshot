@@ -26,3 +26,12 @@ reports/
 # Environment files
 *.env
 *.env.*
+
+# TinyClaw-generated nested skill copies inside agent workspaces
+.agents/*/.agents/
+.agents/*/.claude/
+.agents/*/node_modules/
+tinyclaw/tinyoffice/.next/
+tinyclaw/tinyoffice/node_modules/
+frontend/.next/
+*.log

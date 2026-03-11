@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# APEX-SWARM Frontend
 
-## Getting Started
+Next.js dashboard for the APEX-SWARM God-Mode crypto trading command center.
 
-First, run the development server:
+## Run
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev    # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Requires the backend to be running at `http://localhost:8000` (set via `NEXT_PUBLIC_BACKEND_URL` in `.env.local`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Routes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Route | Description |
+|---|---|
+| `/` | OVERWATCH — main cyberpunk trading HUD |
+| `/positions` | Active positions table |
+| `/settings` | Agent configuration |
+| `/office` | TinyOffice (proxied to port 4001 — TinyClaw agent office visualization) |
 
-## Learn More
+## Key Components
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `NeuralFeed` — Real-time agent activity log via WebSocket
+- `AlphaRadar` — Token momentum radar (DexScreener data)
+- `CrossChainMatrix` — Cross-chain liquidity routing map
+- `PnLChart` — Equity curve using lightweight-charts
+- `PositionsGrid` — Open positions with live PnL
+- `SwarmControl` — Start/stop the swarm + agent status cards

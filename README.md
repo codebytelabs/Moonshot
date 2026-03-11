@@ -1,309 +1,348 @@
-# 🚀 Autonomous AI Crypto Trading Bot
-
-**Maximum Portfolio Growth via Multi-Agent AI System**
-
-[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-## 📋 Overview
-
-A sophisticated multi-agent autonomous trading system designed to:
-- **Scan** 150+ crypto pairs every 5 minutes for high-probability opportunities
-- **Identify** breakouts and momentum plays using technical + semantic analysis
-- **Execute** entries with 1-2% risk, let winners run 10x, 50x, 100x+
-- **Manage** positions dynamically with pyramiding and trailing stops
-- **Operate** 24/7 with full autonomy and BigBrother AI supervision
-
-## 🎯 Target Performance
-
-| Timeframe | Conservative | Aggressive | Peak Mania |
-|-----------|--------------|-----------|------------|
-| **Monthly** | +10-20% | +30-80% | +100-1000%+ |
-| **Annual (Bull)** | +150-300% | +400-800% | +1000-2000%+ |
-| **Win Rate** | 50-60% | 55-65% | 55-65% |
-| **Max Drawdown** | <15% | <20% | <25% |
-
-## 🏗️ Architecture
+<div align="center">
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                   BigBrother AI                          │
-│         (Orchestration + Natural Language Chat)          │
-└─────────────────────────────────────────────────────────┘
-                          ▼
-┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐
-│ Watcher  │→ │ Analyzer │→ │ Context  │→ │ Bayesian │
-│  Agent   │  │  Agent   │  │  Agent   │  │  Engine  │
-└──────────┘  └──────────┘  └──────────┘  └──────────┘
-                          ▼
-              ┌────────────────────────┐
-              │  Position & Risk Mgr   │
-              │  - Pyramiding          │
-              │  - Trailing Stops      │
-              │  - Multi-tier Exits    │
-              └────────────────────────┘
-                          ▼
-              ┌────────────────────────┐
-              │  CCXT (CEX Execution)  │
-              │  Binance / Gate / KuCoin│
-              └────────────────────────┘
+ █████╗ ██████╗ ███████╗██╗  ██╗      ███████╗██╗    ██╗ █████╗ ██████╗ ███╗   ███╗
+██╔══██╗██╔══██╗██╔════╝╚██╗██╔╝      ██╔════╝██║    ██║██╔══██╗██╔══██╗████╗ ████║
+███████║██████╔╝█████╗   ╚███╔╝ █████╗███████╗██║ █╗ ██║███████║██████╔╝██╔████╔██║
+██╔══██║██╔═══╝ ██╔══╝   ██╔██╗ ╚════╝╚════██║██║███╗██║██╔══██║██╔══██╗██║╚██╔╝██║
+██║  ██║██║     ███████╗██╔╝ ██╗       ███████║╚███╔███╔╝██║  ██║██║  ██║██║ ╚═╝ ██║
+╚═╝  ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝       ╚══════╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝
 ```
 
-## ✨ Key Features
+**Unconstrained Personal God-Mode Autonomous Crypto Trading Matrix**
 
-### 1. Multi-Agent Intelligence
-- **Watcher Agent**: Scans 150+ pairs for volume spikes, breakouts, momentum
-- **Analyzer Agent**: Deep technical analysis with ML ensemble
-- **Context Agent**: Perplexity-powered semantic analysis ("Why is this moving?")
-- **Bayesian Engine**: Probabilistic decision fusion
-- **BigBrother**: Meta-supervisor with natural language interface
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=flat-square&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TinyClaw](https://img.shields.io/badge/TinyClaw-Multi--Agent-6366F1?style=flat-square)](https://github.com/TinyAGI/tinyclaw)
+[![Chains](https://img.shields.io/badge/Chains-60+-F7931A?style=flat-square&logo=ethereum&logoColor=white)]()
+[![License](https://img.shields.io/badge/License-Private-red?style=flat-square)]()
 
-### 2. Aggressive Position Management
-- **Pyramiding**: Add to winners (max 2 additions per position)
-- **Tiered Exits**: 25% at 2R, 25% at 5R, hold 50% as runner
-- **Wide Trailing Stops**: 25-35% on runners to capture moonshots
-- **Dynamic Sizing**: 1.5-3% per trade based on conviction
+*Built for maximum alpha extraction. No KYC. No retail limits. No mercy.*
 
-### 3. Portfolio Risk Controls
-- Max 8 concurrent positions
-- Max 20% single position exposure
-- Max 20% portfolio drawdown limit
-- Correlation monitoring
-- Daily loss limits
-
-### 4. Natural Language Interface
-- Chat with BigBrother about portfolio status
-- Ask "Why did you buy SOL?"
-- Request strategy adjustments
-- Real-time explanations of decisions
-
-## 🚀 Quick Start
-
-### Prerequisites
-- Python 3.11+
-- Docker & Docker Compose (optional)
-- Exchange API keys (Binance, Gate.io, or KuCoin)
-- Perplexity API key (for Context Agent)
-- OpenRouter API key (for BigBrother chat)
-
-### Installation
-
-```bash
-# Clone repository
-git clone https://github.com/yourusername/autonomous-trading-bot.git
-cd autonomous-trading-bot
-
-# Create virtual environment
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Copy environment template
-cp .env.example .env
-
-# Edit .env with your API keys
-nano .env
-```
-
-### Configuration
-
-Edit `.env` file:
-
-```bash
-# Exchange Credentials
-BINANCE_API_KEY=your_key_here
-BINANCE_API_SECRET=your_secret_here
-
-# LLM APIs
-PERPLEXITY_API_KEY=your_key_here
-OPENROUTER_API_KEY=your_key_here
-
-# Database (use Supabase or local PostgreSQL)
-SUPABASE_URL=your_supabase_url
-SUPABASE_KEY=your_supabase_key
-
-# Bot Configuration
-MODE=paper  # paper, sim, or live
-CYCLE_INTERVAL_SECONDS=300
-MAX_CONCURRENT_POSITIONS=8
-BASE_RISK_PER_TRADE_PCT=0.015
-```
-
-### Running
-
-**Paper Trading (Recommended First):**
-```bash
-python -m src.main --mode paper
-```
-
-**With Docker:**
-```bash
-docker-compose up -d
-```
-
-**Access Web Interface:**
-- Dashboard: http://localhost:8000
-- Grafana Monitoring: http://localhost:3000
-- Prometheus Metrics: http://localhost:9091
-
-## 📊 Monitoring
-
-### Grafana Dashboards
-- Account equity curve
-- Win rate (rolling 20 trades)
-- Active positions
-- R-multiple distribution
-- API latency
-- System health
-
-### Prometheus Metrics
-- `trades_total`: Total trades executed
-- `active_positions`: Open positions count
-- `account_equity_usd`: Current portfolio value
-- `win_rate_rolling`: Rolling 20-trade win rate
-- `avg_r_multiple_rolling`: Average R-multiple
-
-## 🧪 Development Roadmap
-
-### ✅ Phase 0: Foundation (Weeks 1-8)
-- Data collection and backtesting framework
-- Baseline strategy validation (50-55% win rate target)
-
-### 🔄 Phase 1: Core Agents (Weeks 9-16)
-- Watcher, Analyzer, Context agents
-- Exchange integration via CCXT
-- Paper trading mode
-
-### 🔄 Phase 2: Decision & Execution (Weeks 17-24)
-- Bayesian decision engine
-- Position manager with pyramiding
-- Trailing stop logic
-
-### 🔄 Phase 3: Interface & Monitoring (Weeks 25-30)
-- BigBrother supervisor
-- React chatbot interface
-- Prometheus + Grafana
-
-### 🔄 Phase 4: ML Training (Weeks 31-38)
-- Train ML ensemble on historical data
-- A/B test Context Agent contribution
-- Optional RL exit optimization
-
-### 🔄 Phase 5: Paper Trading (Weeks 39-50)
-- 3 months paper trading validation
-- Performance monitoring
-- Edge case fixes
-
-### 🔄 Phase 6: Micro-Live (Weeks 51-58)
-- Live trading with tiny positions ($50-100)
-- Execution quality validation
-- Slippage monitoring
-
-### 🔄 Phase 7: Full Deployment (Weeks 59+)
-- Scale to target position sizes
-- Continuous optimization
-- Ongoing model retraining
-
-## 🔒 Safety & Risk Management
-
-### Hard Limits
-- ✅ Never risk >3% per trade (even with high conviction)
-- ✅ Max 20% portfolio drawdown → halt trading
-- ✅ Daily loss limit: -5% → pause new entries
-- ✅ Max 8 concurrent positions
-- ✅ Wide trailing stops protect runners (25-35%)
-
-### Paper Trading First
-**CRITICAL: Run in paper mode for 3+ months before going live**
-
-- Validate performance matches backtest
-- Identify and fix edge cases
-- Build confidence in system decisions
-- Monitor for drift or degradation
-
-### Live Trading Guidelines
-1. Start with 0.5% account risk per trade
-2. Max $50-100 per position initially
-3. Monitor every trade for first 2 weeks
-4. Scale gradually only if performing well
-5. Never enable withdrawal permissions on API keys
-
-## 📚 Documentation
-
-- [Architecture Overview](docs/ARCHITECTURE.md)
-- [Agent Specifications](docs/AGENTS.md)
-- [Position Management](docs/POSITION_MANAGEMENT.md)
-- [Risk Controls](docs/RISK_MANAGEMENT.md)
-- [API Reference](docs/API.md)
-- [Deployment Guide](docs/DEPLOYMENT.md)
-
-## 🛠️ Technology Stack
-
-**Core:**
-- Python 3.11+
-- FastAPI (API & WebSocket)
-- CCXT (Exchange connectivity)
-- Pandas, NumPy (Data processing)
-
-**ML & AI:**
-- scikit-learn, XGBoost (ML ensemble)
-- PyMC, ArviZ (Bayesian inference)
-- LangChain, LangGraph (Multi-agent orchestration)
-- OpenRouter (LLM access)
-- Perplexity API (Semantic analysis)
-
-**Data & Storage:**
-- Supabase / PostgreSQL
-- Redis (cache)
-- Prometheus (metrics)
-
-**Frontend:**
-- React + TailwindCSS
-- WebSocket (real-time updates)
-
-**Deployment:**
-- Docker + Docker Compose
-- Kubernetes (optional)
-- Grafana (monitoring)
-
-## ⚠️ Disclaimer
-
-**THIS SOFTWARE IS PROVIDED FOR EDUCATIONAL PURPOSES ONLY.**
-
-- Trading cryptocurrencies involves substantial risk of loss
-- Past performance does not guarantee future results
-- Never trade with money you cannot afford to lose
-- The authors are not responsible for any financial losses
-- This is not financial advice
-- Always do your own research and consult professionals
-
-## 📄 License
-
-MIT License - See [LICENSE](LICENSE) file for details
-
-## 🤝 Contributing
-
-Contributions welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) first.
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
-
-## 📧 Contact
-
-- GitHub Issues: [Report bugs or request features](https://github.com/yourusername/autonomous-trading-bot/issues)
-- Discord: [Join our community](https://discord.gg/yourserver)
-
-## 🙏 Acknowledgments
-
-- Built on research from TradingAgents (UCLA/MIT)
-- Inspired by institutional multi-agent trading systems
-- Thanks to the open-source crypto trading community
+</div>
 
 ---
 
-**⚡ Build it. Test it. Deploy it. Profit. ⚡**
+## What is APEX-SWARM?
+
+APEX-SWARM is a private, personal autonomous crypto trading system built for a single operator — you. It deploys a swarm of 11 AI agents that scan 60+ blockchains, audit contracts for rug risk, and execute cross-chain trades gaslessly in sub-seconds, while you watch it all unfold in a cyberpunk God-Mode dashboard.
+
+This is not a trading bot. It's a full autonomous trading organisation, managed by AI.
+
+> **Architecture in one line:**
+> *TinyClaw agents scan DexScreener → audit contracts → route capital via LI.FI MCP → execute gaslessly via Pimlico EIP-7702 → stealth broadcast via Flashbots Protect*
+
+---
+
+## Core Capabilities
+
+| Capability | Technology | What It Does |
+|---|---|---|
+| 🔍 **Deep Market Vision** | DexScreener API | Scans micro-cap pairs every 60s — sub-minute liquidity pools across 60+ chains |
+| 🛡️ **Dark Execution** | Flashbots Protect RPC | Routes all transactions through a private mempool — zero MEV sandwich attacks |
+| ⛽ **Gasless Speed** | Pimlico + EIP-7702 | Agents never fund gas wallets — delegated execution via Account Abstraction |
+| 🌉 **Zero-Friction Liquidity** | LI.FI MCP | Bridges and swaps USDC cross-chain in a single tool call — 27+ bridges, 31+ DEXes |
+| 🧠 **AI Consensus** | TinyClaw Multi-Agent | 11 agents run in parallel with real LLM reasoning — not scripted logic |
+| 🔄 **Self-Mutating Strategy** | Quant Mutator | Rewrites its own scanner parameters when win rate decays |
+| 🖥️ **God-Mode Dashboard** | Next.js + WebSocket | Cyberpunk real-time command centre — Neural Feed, Alpha Radar, PnL charts |
+| 📱 **Telegram Control** | TinyClaw + Telegram | Talk to `@bigbrother` on Telegram — live system status, trade reports, commands |
+
+---
+
+## The Agent Swarm
+
+All 11 agents are real autonomous LLM agents managed by TinyClaw. They communicate with each other, call live APIs, and make decisions without human input.
+
+```
+                           ┌──────────────────────┐
+                           │   @bigbrother         │  ← Supervisor
+                           │   (GLM-5)             │     Talk to on Telegram
+                           └──────────┬───────────┘
+                ┌───────────┬─────────┼─────────┬───────────┐
+                ▼           ▼         ▼         ▼           ▼
+         ┌────────────┐  ┌────────┐ ┌────────┐ ┌────────┐ ┌──────────┐
+         │@alpha_scan │  │@watcher│ │@analyz │ │@context│ │@quant_mut│
+         │DexScreener │  │CEX scan│ │Multi-TF│ │Narrativ│ │Mutates   │
+         │60+ chains  │  │USDT prs│ │TA + ATR│ │enrichmt│ │strategy  │
+         └─────┬──────┘  └───┬────┘ └───┬────┘ └───┬────┘ └──────────┘
+               ▼             └──────────┤           │
+         ┌────────────┐          ┌──────▼───────────▼──┐
+         │@contract_  │          │@bayesian             │
+         │sniper      │          │Posterior score       │
+         │Honeypot    │          │enter/skip/reject     │
+         │audit       │          └──────────┬───────────┘
+         └─────┬──────┘                     ▼
+               └──────────────────► ┌──────────────┐
+                                    │@execution_core│
+                                    │LI.FI MCP      │
+                                    │→ Pimlico      │
+                                    │→ Flashbots    │
+                                    └───────┬───────┘
+                              ┌────────────┼─────────────┐
+                              ▼            ▼             ▼
+                        ┌──────────┐ ┌──────────┐ ┌──────────┐
+                        │@position │ │@risk_mgr │ │  CHAINS  │
+                        │_mgr      │ │Drawdown  │ │ETH/SOL/  │
+                        │Tiered    │ │guard     │ │BASE/ARB  │
+                        │exits     │ │          │ │+ 57 more │
+                        └──────────┘ └──────────┘ └──────────┘
+```
+
+### Agent Roster
+
+| Agent | Model | Responsibility |
+|---|---|---|
+| `@bigbrother` | GLM-5 | Master supervisor — routes commands, aggregates status, Telegram gateway |
+| `@alpha_scanner` | Qwen3.5-397B | Polls DexScreener for 5m volume spikes, buyer momentum, new pairs |
+| `@contract_sniper` | Qwen3.5-397B | Audits token contracts — honeypot detection, rug patterns, tax abuse |
+| `@execution_core` | Qwen3.5-397B | LI.FI cross-chain routing → Pimlico gasless → Flashbots broadcast |
+| `@quant_mutator` | Qwen3.5-397B | Evaluates win rate daily, rewrites scanner thresholds if strategy decays |
+| `@watcher` | Qwen3.5-397B | Scans CEX USDT pairs in scalper/surfer/sniper mode |
+| `@analyzer` | Qwen3.5-397B | Multi-timeframe TA — breakout/momentum/pullback/mean-reversion classification |
+| `@context` | Qwen3.5-397B | Semantic enrichment — narratives, listings, airdrop catalysts (Sniper mode) |
+| `@bayesian` | Qwen3.5-397B | Probabilistic posterior score → ENTER / SKIP / REJECT |
+| `@position_mgr` | Qwen3.5-397B | Tiered exits (25% at 2R, 25% at 5R, 50% runner), trailing stops |
+| `@risk_mgr` | Qwen3.5-397B | Hard limits: 20% max drawdown, 8 max positions, daily loss guard |
+
+---
+
+## Dashboard — OVERWATCH God-Mode Interface
+
+The **OVERWATCH** interface is a browser-based cyberpunk command centre streaming live swarm data in real time.
+
+| Panel | What It Shows |
+|---|---|
+| **Neural Feed** | Scrolling matrix-style log — watch agents think in real time |
+| **Alpha Radar** | DexScreener anomaly scatter plot — bubbles pulse as tokens gain traction |
+| **Cross-Chain Matrix** | Animated LI.FI routing visualisation — capital moving across chains |
+| **PnL Command Centre** | Equity curve + trade history (Lightweight Charts) |
+| **Swarm Control** | Start/stop, mode switch, live cycle metrics |
+| **`/office`** | TinyOffice — pixel-art animated office with all 11 agents at their desks |
+
+---
+
+## Tech Stack
+
+### Backend
+- **FastAPI** — async REST API + WebSocket streaming
+- **Motor** — async MongoDB driver
+- **HTTPX** — async HTTP client for DexScreener + OpenRouter
+- **OpenRouter** — LLM gateway (Qwen3.5-397B primary, Kimi-K2.5 fallback)
+- **MongoDB** — trade history, alpha hits, agent logs
+- **Redis** — pub/sub for real-time event streaming
+
+### Frontend
+- **Next.js 15** — app router, React 19
+- **TailwindCSS** — cyberpunk styling
+- **Framer Motion** — animations for radar bubbles, routing matrix
+- **Lightweight Charts** — TradingView-grade equity curve
+- **Socket.io** — sub-second WebSocket streaming from agents to UI
+
+### Agent Orchestration
+- **TinyClaw** — multi-agent framework with isolated workspaces, Telegram/Discord integration
+- **TinyOffice** — pixel-art animated office visualising all agents live
+
+### Execution Layer *(P0 target)*
+- **LI.FI MCP** — cross-chain quote + bridge/swap in a single tool call
+- **Pimlico** — EIP-7702 gasless UserOps (no gas wallet management)
+- **Flashbots Protect** — private mempool, zero sandwich attacks
+
+---
+
+## Quickstart
+
+### Prerequisites
+
+```bash
+# Required
+Python 3.11+
+Node.js 18+
+MongoDB (running locally)
+Redis (running locally)
+TinyClaw CLI (npm i -g tinyclaw)
+```
+
+### 1. Clone & Configure
+
+```bash
+git clone https://github.com/codebytelabs/Moonshot
+cd Moonshot
+cp .env.example .env
+# Edit .env with your credentials (see Environment Variables below)
+```
+
+### 2. Install Dependencies
+
+```bash
+# Backend
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+
+# Frontend
+cd frontend && npm install && cd ..
+
+# TinyOffice
+cd tinyclaw/tinyoffice && npm install && cd ../..
+```
+
+### 3. Launch Everything
+
+```bash
+bash start.sh
+```
+
+That's it. One command starts:
+- FastAPI backend on `:8000`
+- Next.js dashboard on `:3000`
+- TinyClaw daemon (Telegram connected)
+- TinyOffice on `:4001` (embedded at `/office`)
+
+### 4. Open the Dashboard
+
+| URL | What You See |
+|---|---|
+| `http://localhost:3000` | APEX-SWARM God-Mode cyberpunk dashboard |
+| `http://localhost:3000/office` | All 11 agents at their desks, animated live |
+| `http://localhost:8000/docs` | FastAPI interactive API documentation |
+
+### 5. Start the Swarm
+
+```bash
+# Via UI: click "INITIATE SWARM" on the dashboard
+# Or via API:
+curl -X POST http://localhost:8000/api/swarm/start
+
+# Or message @bigbrother on Telegram:
+# "Start scanning"
+```
+
+---
+
+## Environment Variables
+
+```env
+# Database
+MONGO_URL=mongodb://localhost:27017
+DB_NAME=apex_swarm
+
+# LLM Gateway
+OPENROUTER_API_KEY=sk-or-...
+OPENROUTER_PRIMARY_MODEL=qwen/qwen3.5-397b-a17b
+OPENROUTER_FALLBACK_MODEL=moonshotai/kimi-k2.5
+
+# Wallets (no withdrawal permissions required)
+PVT_KEY_WALLET=0x...
+EVM_WALLET_ADDRESS=0x...
+SOL_WALLET_ADDRESS=...
+
+# Execution (P0 — add when ready)
+PIMLICO_API_KEY=pim_...
+LIFI_API_KEY=...
+```
+
+---
+
+## API Reference
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/health` | System health + uptime |
+| `GET` | `/api/agents/status` | All agent cycle metrics |
+| `GET` | `/api/alpha-hits` | Latest DexScreener discoveries |
+| `GET` | `/api/trades` | Complete trade history |
+| `GET` | `/api/positions` | Open positions |
+| `GET` | `/api/dashboard` | Portfolio overview + chain distribution |
+| `GET` | `/api/dex/trending` | Boosted/trending tokens |
+| `GET` | `/api/dex/token/{chain}/{address}` | Deep pair data for a token |
+| `POST` | `/api/swarm/start` | Start automated scan loop |
+| `POST` | `/api/swarm/stop` | Stop scan loop |
+| `WS` | `/ws` | Real-time event stream → dashboard |
+
+Interactive docs at `http://localhost:8000/docs`
+
+---
+
+## Roadmap
+
+```
+P0 — Real Execution Engine                     🔴 In Progress
+├── LI.FI MCP cross-chain routing (mcp.li.quest)
+├── Pimlico EIP-7702 gasless UserOps
+└── Flashbots Protect RPC broadcast
+
+P1 — Real Contract Auditing                    🟡 Planned
+├── On-chain bytecode reads (ethers.js)
+├── Solana Rugcheck API integration
+└── Honeypot pattern recognition
+
+P2 — Self-Mutating Strategy                    🟡 Planned
+├── @quant_mutator hot-reloads MongoDB scanner config
+├── LLM-generated threshold mutations
+└── Win rate → parameter feedback loop
+
+P3 — CoinGecko MCP + Macro Regime              🟡 Planned
+├── BTC market regime detection
+└── Auto-switch: acceleration→scalper / bear→sniper
+
+P4 — Real Position Management                  🟡 Planned
+├── Tiered exits (25% at 2R, 25% at 5R, 50% runner)
+├── Trailing stops (25-35% below peak)
+└── Pyramiding on winners
+```
+
+---
+
+## Project Structure
+
+```
+Moonshot/
+├── backend/
+│   └── server.py              # FastAPI app — APIs, WebSocket, agent scan loop
+├── frontend/
+│   ├── src/app/
+│   │   ├── page.tsx           # OVERWATCH God-Mode dashboard
+│   │   ├── office/page.tsx    # TinyOffice iframe embed
+│   │   ├── swarm/             # Swarm control panel
+│   │   └── positions/         # Position tracker
+│   └── next.config.ts
+├── tinyclaw/
+│   └── tinyoffice/            # TinyOffice pixel-art animated office
+├── .agents/                   # TinyClaw agent workspaces
+│   ├── bigbrother/AGENTS.md
+│   ├── alpha_scanner/AGENTS.md
+│   ├── contract_sniper/AGENTS.md
+│   ├── execution_core/AGENTS.md
+│   ├── quant_mutator/AGENTS.md
+│   ├── watcher/AGENTS.md
+│   ├── analyzer/AGENTS.md
+│   ├── context/AGENTS.md
+│   ├── bayesian/AGENTS.md
+│   ├── position_mgr/AGENTS.md
+│   └── risk_mgr/AGENTS.md
+├── memory/                    # System context + PRD
+├── requirements.txt
+├── start.sh                   # One-command full-stack launcher
+├── Todo.md                    # Live roadmap + current status
+└── .env                       # Your credentials (never commit this)
+```
+
+---
+
+## References
+
+- [LI.FI MCP Server](https://docs.li.fi/mcp-server/overview) — Cross-chain swap tool calls
+- [Pimlico EIP-7702 Guide](https://docs.pimlico.io/guides/eip7702) — Gasless Account Abstraction
+- [Flashbots Protect](https://docs.flashbots.net/flashbots-protect/overview) — MEV protection
+- [DexScreener API](https://docs.dexscreener.com) — Live micro-cap pair data
+- [TinyClaw](https://github.com/TinyAGI/tinyclaw) — Multi-agent framework
+
+---
+
+<div align="center">
+
+**Built for one operator. Designed for maximum alpha. No compromises.**
+
+*Private system — not for public deployment.*
+
+</div>
