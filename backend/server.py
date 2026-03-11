@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 from typing import Optional
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Query, HTTPException
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Query, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -68,7 +68,8 @@ async def llm_complete(prompt: str, system: str = "You are a crypto trading AI a
         async with httpx.AsyncClient(timeout=60.0) as client:
             r = await client.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
             r.raise_for_status()
-            return r.json()["choices"][0]["message"]["content"]
+            content = r.json()["choices"][0]["message"]["content"]
+            return content if content is not None else ""
     except Exception as e:
         if chosen != OPENROUTER_FALLBACK_MODEL:
             try:
@@ -76,7 +77,8 @@ async def llm_complete(prompt: str, system: str = "You are a crypto trading AI a
                 async with httpx.AsyncClient(timeout=60.0) as client:
                     r = await client.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
                     r.raise_for_status()
-                    return r.json()["choices"][0]["message"]["content"]
+                    content = r.json()["choices"][0]["message"]["content"]
+                    return content if content is not None else ""
             except Exception as e2:
                 return f"[LLM_ERROR] Both models failed: {e}, {e2}"
         return f"[LLM_ERROR] {e}"
@@ -619,6 +621,47 @@ async def lifespan(app: FastAPI):
 # ─── APP ─────────────────────────────────────────────────────────────
 app = FastAPI(title="APEX-SWARM", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+
+# ─── TINYCLAW API PROXY ───────────────────────────────────────────────
+TINYCLAW_API = "http://localhost:3777"
+
+@app.api_route("/api/tc/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
+async def proxy_tinyclaw(path: str, request: Request):
+    """Proxy all requests to TinyClaw API server on port 3777.
+    Handles both /api/tc/agents (APEX-SWARM style) and /api/tc/api/agents (TinyOffice style).
+    """
+    clean = path.lstrip("/")
+    # TinyOffice sends paths like "api/agents" — forward as-is to avoid double /api/
+    if clean.startswith("api/") or clean == "api":
+        url = f"{TINYCLAW_API}/{clean}"
+    else:
+        url = f"{TINYCLAW_API}/api/{clean}"
+    params = dict(request.query_params)
+    try:
+        body = await request.body()
+    except Exception:
+        body = b""
+    headers = {k: v for k, v in request.headers.items()
+               if k.lower() not in ("host", "content-length")}
+    async with httpx.AsyncClient(timeout=30.0) as client:
+        resp = await client.request(
+            method=request.method,
+            url=url,
+            params=params,
+            content=body,
+            headers=headers,
+        )
+    # Handle SSE streaming responses
+    if "text/event-stream" in resp.headers.get("content-type", ""):
+        from fastapi.responses import StreamingResponse
+        async def stream():
+            async with httpx.AsyncClient(timeout=None) as stream_client:
+                async with stream_client.stream(request.method, url, params=params, content=body, headers=headers) as r:
+                    async for chunk in r.aiter_bytes():
+                        yield chunk
+        return StreamingResponse(stream(), media_type="text/event-stream", headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"})
+    from fastapi.responses import Response
+    return Response(content=resp.content, status_code=resp.status_code, media_type=resp.headers.get("content-type", "application/json"))
 
 # ─── WEBSOCKET ───────────────────────────────────────────────────────
 @app.websocket("/api/ws")

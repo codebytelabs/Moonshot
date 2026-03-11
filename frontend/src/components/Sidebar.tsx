@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, List, Settings, Radio, ChevronLeft, ChevronRight, Network } from "lucide-react";
+import { LayoutDashboard, List, Settings, Radio, ChevronLeft, ChevronRight, Network, Building2 } from "lucide-react";
 
 const NAV = [
   { href: "/", label: "OVERWATCH", icon: LayoutDashboard },
@@ -10,6 +10,9 @@ const NAV = [
   { href: "/positions", label: "POSITIONS", icon: List },
   { href: "/settings", label: "CONFIG", icon: Settings },
 ];
+
+// External link for TinyOffice
+const OFFICE_LINK = { href: "/office", label: "OFFICE", icon: Building2 };
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -50,6 +53,16 @@ export default function Sidebar() {
             </Link>
           );
         })}
+
+        {/* TinyOffice — opens in same window via Next.js rewrite */}
+        <a
+          href={OFFICE_LINK.href}
+          data-testid="nav-office"
+          className="flex items-center gap-2.5 px-2.5 py-2 text-xs font-mono tracking-wider transition-all text-yellow-600 hover:text-yellow-400 hover:bg-white/[0.02] border-l-2 border-transparent hover:border-yellow-400"
+        >
+          <OFFICE_LINK.icon size={14} className="shrink-0" />
+          {!collapsed && <span>{OFFICE_LINK.label}</span>}
+        </a>
       </nav>
 
       {/* Collapse toggle */}
