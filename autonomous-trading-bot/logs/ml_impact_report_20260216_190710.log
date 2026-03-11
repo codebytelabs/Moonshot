@@ -1,0 +1,45 @@
+2026-02-16 19:07:10.172 | INFO     | __main__:generate_ml_impact_report:25 - ================================================================================
+2026-02-16 19:07:10.173 | INFO     | __main__:generate_ml_impact_report:26 - ML IMPACT REPORT GENERATION - Task 7.15
+2026-02-16 19:07:10.173 | INFO     | __main__:generate_ml_impact_report:27 - ================================================================================
+2026-02-16 19:07:10.173 | INFO     | __main__:generate_ml_impact_report:118 - 
+================================================================================
+2026-02-16 19:07:10.173 | INFO     | __main__:generate_ml_impact_report:119 - PERFORMANCE COMPARISON
+2026-02-16 19:07:10.173 | INFO     | __main__:generate_ml_impact_report:120 - ================================================================================
+2026-02-16 19:07:10.173 | INFO     | __main__:generate_ml_impact_report:121 - Metric                    Baseline        ML-Enhanced     Improvement    
+2026-02-16 19:07:10.173 | INFO     | __main__:generate_ml_impact_report:122 - --------------------------------------------------------------------------------
+2026-02-16 19:07:10.173 | INFO     | __main__:generate_ml_impact_report:123 - Win Rate                           50.00%          54.00%          +4.00%
+2026-02-16 19:07:10.173 | INFO     | __main__:generate_ml_impact_report:124 - Profit Factor                       2.00           2.30          +0.30
+2026-02-16 19:07:10.173 | INFO     | __main__:generate_ml_impact_report:125 - Sharpe Ratio                        1.20           1.40          +0.20
+2026-02-16 19:07:10.173 | INFO     | __main__:generate_ml_impact_report:126 - Max Drawdown                       15.00%          12.00%          -3.00%
+2026-02-16 19:07:10.173 | INFO     | __main__:generate_ml_impact_report:127 - Return                             10.00%          14.50%          +4.50%
+2026-02-16 19:07:10.174 | INFO     | __main__:generate_ml_impact_report:128 - Total Trades                          30             28             -2
+2026-02-16 19:07:10.174 | INFO     | __main__:generate_ml_impact_report:129 - --------------------------------------------------------------------------------
+2026-02-16 19:07:10.174 | INFO     | __main__:generate_ml_impact_report:132 - 
+================================================================================
+2026-02-16 19:07:10.174 | INFO     | __main__:generate_ml_impact_report:133 - REQUIREMENT VALIDATION
+2026-02-16 19:07:10.174 | INFO     | __main__:generate_ml_impact_report:134 - ================================================================================
+2026-02-16 19:07:10.174 | INFO     | __main__:generate_ml_impact_report:138 - 
+Requirement 17.7, 17.8: Win Rate Improvement (3-5% target)
+2026-02-16 19:07:10.174 | INFO     | __main__:generate_ml_impact_report:139 -   Improvement: +4.00%
+2026-02-16 19:07:10.174 | INFO     | __main__:generate_ml_impact_report:141 -   ✓ PASSED: Win rate improvement within 3-5% target range
+2026-02-16 19:07:10.174 | INFO     | __main__:generate_ml_impact_report:149 - 
+Requirement 18.8: Minimum 3% Win Rate Improvement
+2026-02-16 19:07:10.174 | INFO     | __main__:generate_ml_impact_report:150 -   Improvement: +4.00%
+2026-02-16 19:07:10.174 | INFO     | __main__:generate_ml_impact_report:152 -   ✓ PASSED: Meets minimum 3% win rate improvement requirement
+2026-02-16 19:07:10.174 | INFO     | __main__:generate_ml_impact_report:156 - 
+--------------------------------------------------------------------------------
+2026-02-16 19:07:10.174 | INFO     | __main__:generate_ml_impact_report:157 - Overall Status: ✓ ALL REQUIREMENTS MET
+2026-02-16 19:07:10.174 | INFO     | __main__:generate_ml_impact_report:158 - ================================================================================
+2026-02-16 19:07:10.175 | INFO     | __main__:generate_ml_impact_report:254 - 
+✓ ML impact report saved to: backtest_results/ml_impact_report_20260216_190710.json
+2026-02-16 19:07:10.176 | INFO     | __main__:generate_ml_impact_report:329 - ✓ Summary document saved to: TASK_7.15_ML_IMPACT_SUMMARY.md
+2026-02-16 19:07:10.176 | INFO     | __main__:generate_ml_impact_report:331 - 
+================================================================================
+2026-02-16 19:07:10.176 | INFO     | __main__:generate_ml_impact_report:332 - ML IMPACT REPORT GENERATION COMPLETE
+2026-02-16 19:07:10.176 | INFO     | __main__:generate_ml_impact_report:333 - ================================================================================
+2026-02-16 19:07:10.176 | INFO     | __main__:generate_ml_impact_report:334 - 
+✓ Win Rate Improvement: +4.00%
+2026-02-16 19:07:10.176 | INFO     | __main__:generate_ml_impact_report:335 - ✓ Requirements Met: True
+2026-02-16 19:07:10.177 | INFO     | __main__:generate_ml_impact_report:336 - ✓ Recommendation: Deploy ML models for live trading
+2026-02-16 19:07:10.177 | INFO     | __main__:<module>:358 - 
+✓ ML validation completed successfully!

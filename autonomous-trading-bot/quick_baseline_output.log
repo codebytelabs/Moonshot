@@ -1,0 +1,1057 @@
+19:27:01 | INFO     | ================================================================================
+19:27:01 | INFO     | QUICK BASELINE BACKTEST - Task 3.14 Demo
+19:27:01 | INFO     | ================================================================================
+19:27:01 | INFO     | NOTE: This is a 3-month demo. For full baseline, use run_baseline_backtest.py
+19:27:01 | INFO     | ================================================================================
+19:27:01 | INFO     | Data not found. Collecting...
+19:27:01 | INFO     | Collecting 3 months of data for quick baseline...
+19:27:03 | INFO     | [binance] Loaded 4230 markets in 1.2s
+19:27:03 | INFO     | HistoricalDataCollector initialized with storage: data/quick_baseline
+19:27:03 | INFO     | Starting bulk collection: 3 symbols, 2 timeframes, 3 concurrent
+19:27:03 | INFO     | Collecting BTC/USDT 5m data from 2025-11-17 19:27:01.889057 to 2026-02-15 19:27:01.889057
+19:27:03 | INFO     | Collecting BTC/USDT 1h data from 2025-11-17 19:27:01.889057 to 2026-02-15 19:27:01.889057
+19:27:03 | INFO     | Collecting ETH/USDT 5m data from 2025-11-17 19:27:01.889057 to 2026-02-15 19:27:01.889057
+19:27:03 | INFO     | Collected 2160 candles for BTC/USDT 1h (2025-11-17 12:00:00 to 2026-02-15 11:00:00)
+19:27:03 | INFO     | Collecting ETH/USDT 1h data from 2025-11-17 19:27:01.889057 to 2026-02-15 19:27:01.889057
+19:27:04 | INFO     | Collected 2160 candles for ETH/USDT 1h (2025-11-17 12:00:00 to 2026-02-15 11:00:00)
+19:27:04 | INFO     | Collecting BNB/USDT 5m data from 2025-11-17 19:27:01.889057 to 2026-02-15 19:27:01.889057
+19:27:09 | INFO     | Collected 25920 candles for BTC/USDT 5m (2025-11-17 11:30:00 to 2026-02-15 11:25:00)
+19:27:09 | INFO     | Collecting BNB/USDT 1h data from 2025-11-17 19:27:01.889057 to 2026-02-15 19:27:01.889057
+19:27:09 | INFO     | Collected 25920 candles for ETH/USDT 5m (2025-11-17 11:30:00 to 2026-02-15 11:25:00)
+19:27:10 | INFO     | Collected 2160 candles for BNB/USDT 1h (2025-11-17 12:00:00 to 2026-02-15 11:00:00)
+19:27:10 | INFO     | Collected 25920 candles for BNB/USDT 5m (2025-11-17 11:30:00 to 2026-02-15 11:25:00)
+19:27:10 | INFO     | Bulk collection completed: 3 symbols processed
+19:27:11 | INFO     | Saved 25920 bars to data/quick_baseline/BTC_USDT/5m/data.parquet (1.08 MB)
+19:27:11 | INFO     | Saved 2160 bars to data/quick_baseline/BTC_USDT/1h/data.parquet (0.09 MB)
+19:27:11 | INFO     | Saved 25920 bars to data/quick_baseline/ETH_USDT/5m/data.parquet (0.93 MB)
+19:27:11 | INFO     | Saved 2160 bars to data/quick_baseline/ETH_USDT/1h/data.parquet (0.09 MB)
+19:27:11 | INFO     | Saved 25920 bars to data/quick_baseline/BNB_USDT/5m/data.parquet (0.74 MB)
+19:27:11 | INFO     | Saved 2160 bars to data/quick_baseline/BNB_USDT/1h/data.parquet (0.08 MB)
+19:27:11 | INFO     | Bulk collection and save completed
+19:27:11 | INFO     | [binance] Connection closed
+19:27:11 | INFO     | Collected 6/6 datasets
+19:27:11 | INFO     | Period: 2025-11-17 to 2026-02-15
+19:27:11 | INFO     | Symbols: ['BTC/USDT', 'ETH/USDT', 'BNB/USDT']
+19:27:11 | INFO     | HistoricalDataCollector initialized with storage: data/quick_baseline
+19:27:11 | INFO     | CycleReplayEngine initialized with capital: $100,000.00
+19:27:11 | INFO     | Loading historical data...
+19:27:11 | INFO     | Loaded 25920 bars from data/quick_baseline/BTC_USDT/5m/data.parquet
+19:27:11 | INFO     | Loaded BTC/USDT 5m: 25824 candles
+19:27:11 | INFO     | Loaded 2160 bars from data/quick_baseline/BTC_USDT/1h/data.parquet
+19:27:11 | INFO     | Loaded BTC/USDT 1h: 2152 candles
+19:27:11 | INFO     | Loaded 25920 bars from data/quick_baseline/ETH_USDT/5m/data.parquet
+19:27:11 | INFO     | Loaded ETH/USDT 5m: 25824 candles
+19:27:11 | INFO     | Loaded 2160 bars from data/quick_baseline/ETH_USDT/1h/data.parquet
+19:27:11 | INFO     | Loaded ETH/USDT 1h: 2152 candles
+19:27:11 | INFO     | Loaded 25920 bars from data/quick_baseline/BNB_USDT/5m/data.parquet
+19:27:11 | INFO     | Loaded BNB/USDT 5m: 25824 candles
+19:27:11 | INFO     | Loaded 2160 bars from data/quick_baseline/BNB_USDT/1h/data.parquet
+19:27:11 | INFO     | Loaded BNB/USDT 1h: 2152 candles
+19:27:11 | INFO     | Running backtest simulation...
+19:27:11 | INFO     | Position opened: BTC/USDT 0.5439 @ $92021.7398, stop=$88252.6176, posterior=0.700
+19:27:11 | WARNING  | Insufficient cash for ETH/USDT: need $75867.00, have $49899.95
+19:27:11 | WARNING  | Insufficient cash for BNB/USDT: need $166146.49, have $49899.95
+19:27:12 | WARNING  | Insufficient cash for ETH/USDT: need $100230.21, have $49899.95
+19:27:12 | WARNING  | Insufficient cash for BTC/USDT: need $149651.97, have $49899.95
+19:27:12 | WARNING  | Insufficient cash for ETH/USDT: need $110313.97, have $49899.95
+19:27:12 | WARNING  | Insufficient cash for BNB/USDT: need $140178.11, have $49899.95
+19:27:12 | WARNING  | Insufficient cash for ETH/USDT: need $180983.20, have $49899.95
+19:27:12 | WARNING  | Insufficient cash for BTC/USDT: need $237906.48, have $49899.95
+19:27:13 | WARNING  | Insufficient cash for BNB/USDT: need $173601.08, have $49899.95
+19:27:13 | WARNING  | Insufficient cash for ETH/USDT: need $88370.87, have $49899.95
+19:27:13 | WARNING  | Insufficient cash for BNB/USDT: need $321193.85, have $49899.95
+19:27:13 | WARNING  | Insufficient cash for ETH/USDT: need $129403.04, have $49899.95
+19:27:14 | WARNING  | Insufficient cash for BTC/USDT: need $235685.34, have $49899.95
+19:27:14 | WARNING  | Insufficient cash for ETH/USDT: need $171494.73, have $49899.95
+19:27:14 | WARNING  | Insufficient cash for BNB/USDT: need $224854.86, have $49899.95
+19:27:14 | INFO     | Progress: 500 cycles, equity: $49,691.24, positions: 1, trades: 0
+19:27:14 | WARNING  | Insufficient cash for BTC/USDT: need $170592.06, have $49899.95
+19:27:14 | WARNING  | Insufficient cash for ETH/USDT: need $82244.43, have $49899.95
+19:27:14 | WARNING  | Insufficient cash for BNB/USDT: need $128690.89, have $49899.95
+19:27:14 | WARNING  | Insufficient cash for BNB/USDT: need $141229.88, have $49899.95
+19:27:15 | WARNING  | Insufficient cash for ETH/USDT: need $155261.48, have $49899.95
+19:27:15 | WARNING  | Insufficient cash for BTC/USDT: need $243642.95, have $49899.95
+19:27:15 | WARNING  | Insufficient cash for BNB/USDT: need $205770.89, have $49899.95
+19:27:15 | WARNING  | Insufficient cash for BTC/USDT: need $261963.09, have $49899.95
+19:27:15 | WARNING  | Insufficient cash for ETH/USDT: need $176506.93, have $49899.95
+19:27:15 | WARNING  | Insufficient cash for BTC/USDT: need $392937.84, have $49899.95
+19:27:15 | WARNING  | Insufficient cash for BNB/USDT: need $322315.94, have $49899.95
+19:27:15 | WARNING  | Insufficient cash for ETH/USDT: need $174604.97, have $49899.95
+19:27:15 | INFO     | Position closed: BTC/USDT stop_loss, PnL: $-2145.95, R: -1.01R
+19:27:15 | WARNING  | Insufficient cash for BNB/USDT: need $168696.02, have $97804.00
+19:27:15 | WARNING  | Insufficient cash for ETH/USDT: need $136438.79, have $97804.00
+19:27:16 | WARNING  | Insufficient cash for BNB/USDT: need $332707.30, have $97804.00
+19:27:16 | WARNING  | Insufficient cash for ETH/USDT: need $224100.23, have $97804.00
+19:27:16 | WARNING  | Insufficient cash for BTC/USDT: need $315041.72, have $97804.00
+19:27:16 | WARNING  | Insufficient cash for ETH/USDT: need $207268.99, have $97804.00
+19:27:16 | INFO     | Progress: 1000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:16 | WARNING  | Insufficient cash for ETH/USDT: need $119122.39, have $97804.00
+19:27:17 | WARNING  | Insufficient cash for BTC/USDT: need $145408.55, have $97804.00
+19:27:17 | WARNING  | Insufficient cash for BNB/USDT: need $137403.67, have $97804.00
+19:27:17 | WARNING  | Insufficient cash for ETH/USDT: need $118498.23, have $97804.00
+19:27:17 | WARNING  | Insufficient cash for BTC/USDT: need $265478.77, have $97804.00
+19:27:17 | WARNING  | Insufficient cash for BNB/USDT: need $221854.57, have $97804.00
+19:27:17 | WARNING  | Insufficient cash for ETH/USDT: need $276396.05, have $97804.00
+19:27:18 | WARNING  | Insufficient cash for BTC/USDT: need $466816.93, have $97804.00
+19:27:18 | WARNING  | Insufficient cash for BNB/USDT: need $312423.86, have $97804.00
+19:27:18 | WARNING  | Insufficient cash for ETH/USDT: need $332894.05, have $97804.00
+19:27:18 | WARNING  | Insufficient cash for BTC/USDT: need $454445.61, have $97804.00
+19:27:18 | WARNING  | Insufficient cash for BNB/USDT: need $518065.24, have $97804.00
+19:27:18 | WARNING  | Insufficient cash for BTC/USDT: need $845528.66, have $97804.00
+19:27:18 | WARNING  | Insufficient cash for ETH/USDT: need $634292.23, have $97804.00
+19:27:18 | WARNING  | Insufficient cash for BNB/USDT: need $387545.54, have $97804.00
+19:27:18 | WARNING  | Insufficient cash for BTC/USDT: need $445017.12, have $97804.00
+19:27:18 | INFO     | Progress: 1500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:19 | WARNING  | Insufficient cash for BNB/USDT: need $402004.48, have $97804.00
+19:27:19 | WARNING  | Insufficient cash for ETH/USDT: need $399535.73, have $97804.00
+19:27:19 | WARNING  | Insufficient cash for BTC/USDT: need $505295.76, have $97804.00
+19:27:19 | WARNING  | Insufficient cash for BNB/USDT: need $578661.27, have $97804.00
+19:27:19 | WARNING  | Insufficient cash for BTC/USDT: need $603219.45, have $97804.00
+19:27:19 | WARNING  | Insufficient cash for ETH/USDT: need $441250.25, have $97804.00
+19:27:19 | WARNING  | Insufficient cash for BTC/USDT: need $430570.57, have $97804.00
+19:27:19 | WARNING  | Insufficient cash for ETH/USDT: need $419365.47, have $97804.00
+19:27:19 | WARNING  | Insufficient cash for BNB/USDT: need $555318.06, have $97804.00
+19:27:19 | WARNING  | Insufficient cash for BTC/USDT: need $488303.55, have $97804.00
+19:27:19 | WARNING  | Insufficient cash for ETH/USDT: need $393544.69, have $97804.00
+19:27:19 | WARNING  | Insufficient cash for BNB/USDT: need $668573.56, have $97804.00
+19:27:20 | WARNING  | Insufficient cash for BTC/USDT: need $320789.70, have $97804.00
+19:27:20 | WARNING  | Insufficient cash for ETH/USDT: need $223794.61, have $97804.00
+19:27:20 | WARNING  | Insufficient cash for BNB/USDT: need $276257.96, have $97804.00
+19:27:20 | WARNING  | Insufficient cash for BNB/USDT: need $366157.12, have $97804.00
+19:27:20 | WARNING  | Insufficient cash for BTC/USDT: need $430225.28, have $97804.00
+19:27:20 | WARNING  | Insufficient cash for BTC/USDT: need $548355.43, have $97804.00
+19:27:20 | WARNING  | Insufficient cash for ETH/USDT: need $460470.92, have $97804.00
+19:27:20 | WARNING  | Insufficient cash for BNB/USDT: need $424948.64, have $97804.00
+19:27:21 | INFO     | Progress: 2000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:21 | WARNING  | Insufficient cash for ETH/USDT: need $271011.97, have $97804.00
+19:27:21 | WARNING  | Insufficient cash for BNB/USDT: need $393761.28, have $97804.00
+19:27:21 | WARNING  | Insufficient cash for BTC/USDT: need $414519.60, have $97804.00
+19:27:21 | WARNING  | Insufficient cash for BTC/USDT: need $548311.83, have $97804.00
+19:27:21 | WARNING  | Insufficient cash for BNB/USDT: need $456212.40, have $97804.00
+19:27:21 | WARNING  | Insufficient cash for ETH/USDT: need $443765.06, have $97804.00
+19:27:22 | WARNING  | Insufficient cash for BNB/USDT: need $466719.43, have $97804.00
+19:27:22 | WARNING  | Insufficient cash for BTC/USDT: need $691902.99, have $97804.00
+19:27:22 | WARNING  | Insufficient cash for ETH/USDT: need $378509.50, have $97804.00
+19:27:22 | WARNING  | Insufficient cash for BNB/USDT: need $234404.44, have $97804.00
+19:27:22 | WARNING  | Insufficient cash for ETH/USDT: need $222149.78, have $97804.00
+19:27:22 | WARNING  | Insufficient cash for BTC/USDT: need $399091.82, have $97804.00
+19:27:22 | WARNING  | Insufficient cash for BTC/USDT: need $321293.89, have $97804.00
+19:27:22 | WARNING  | Insufficient cash for BNB/USDT: need $333571.11, have $97804.00
+19:27:22 | WARNING  | Insufficient cash for ETH/USDT: need $388515.62, have $97804.00
+19:27:23 | WARNING  | Insufficient cash for BNB/USDT: need $746803.83, have $97804.00
+19:27:23 | WARNING  | Insufficient cash for ETH/USDT: need $423403.48, have $97804.00
+19:27:23 | INFO     | Progress: 2500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:23 | WARNING  | Insufficient cash for BTC/USDT: need $524557.63, have $97804.00
+19:27:23 | WARNING  | Insufficient cash for ETH/USDT: need $334817.21, have $97804.00
+19:27:23 | WARNING  | Insufficient cash for BNB/USDT: need $282133.75, have $97804.00
+19:27:23 | WARNING  | Insufficient cash for BTC/USDT: need $419013.60, have $97804.00
+19:27:23 | WARNING  | Insufficient cash for ETH/USDT: need $426744.17, have $97804.00
+19:27:23 | WARNING  | Insufficient cash for BNB/USDT: need $637656.58, have $97804.00
+19:27:24 | WARNING  | Insufficient cash for BTC/USDT: need $720696.04, have $97804.00
+19:27:24 | WARNING  | Insufficient cash for ETH/USDT: need $351171.04, have $97804.00
+19:27:24 | WARNING  | Insufficient cash for BTC/USDT: need $663382.62, have $97804.00
+19:27:24 | WARNING  | Insufficient cash for ETH/USDT: need $694509.31, have $97804.00
+19:27:24 | WARNING  | Insufficient cash for BTC/USDT: need $856104.82, have $97804.00
+19:27:24 | WARNING  | Insufficient cash for ETH/USDT: need $357542.68, have $97804.00
+19:27:24 | WARNING  | Insufficient cash for BTC/USDT: need $521910.51, have $97804.00
+19:27:25 | WARNING  | Insufficient cash for ETH/USDT: need $640968.59, have $97804.00
+19:27:25 | WARNING  | Insufficient cash for BTC/USDT: need $1029255.22, have $97804.00
+19:27:25 | WARNING  | Insufficient cash for ETH/USDT: need $677928.52, have $97804.00
+19:27:25 | WARNING  | Insufficient cash for BNB/USDT: need $687575.26, have $97804.00
+19:27:25 | INFO     | Progress: 3000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:25 | WARNING  | Insufficient cash for BNB/USDT: need $405697.59, have $97804.00
+19:27:25 | WARNING  | Insufficient cash for BTC/USDT: need $980183.17, have $97804.00
+19:27:26 | WARNING  | Insufficient cash for ETH/USDT: need $384769.56, have $97804.00
+19:27:26 | WARNING  | Insufficient cash for BNB/USDT: need $389581.81, have $97804.00
+19:27:26 | WARNING  | Insufficient cash for ETH/USDT: need $412388.63, have $97804.00
+19:27:26 | WARNING  | Insufficient cash for BNB/USDT: need $590321.39, have $97804.00
+19:27:26 | WARNING  | Insufficient cash for BTC/USDT: need $943584.17, have $97804.00
+19:27:26 | WARNING  | Insufficient cash for ETH/USDT: need $586919.99, have $97804.00
+19:27:26 | WARNING  | Insufficient cash for BTC/USDT: need $1432461.32, have $97804.00
+19:27:26 | WARNING  | Insufficient cash for ETH/USDT: need $784326.13, have $97804.00
+19:27:27 | WARNING  | Insufficient cash for BTC/USDT: need $1170524.27, have $97804.00
+19:27:27 | WARNING  | Insufficient cash for ETH/USDT: need $621600.81, have $97804.00
+19:27:27 | WARNING  | Insufficient cash for BNB/USDT: need $736006.41, have $97804.00
+19:27:27 | INFO     | Progress: 3500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:27 | WARNING  | Insufficient cash for ETH/USDT: need $814640.73, have $97804.00
+19:27:27 | WARNING  | Insufficient cash for BTC/USDT: need $1593359.93, have $97804.00
+19:27:27 | WARNING  | Insufficient cash for BNB/USDT: need $958271.72, have $97804.00
+19:27:28 | WARNING  | Insufficient cash for BTC/USDT: need $1864035.50, have $97804.00
+19:27:28 | WARNING  | Insufficient cash for ETH/USDT: need $1112047.30, have $97804.00
+19:27:28 | WARNING  | Insufficient cash for BNB/USDT: need $964633.14, have $97804.00
+19:27:28 | WARNING  | Insufficient cash for ETH/USDT: need $686363.09, have $97804.00
+19:27:28 | WARNING  | Insufficient cash for BNB/USDT: need $779751.99, have $97804.00
+19:27:28 | WARNING  | Insufficient cash for BTC/USDT: need $913264.45, have $97804.00
+19:27:28 | WARNING  | Insufficient cash for BTC/USDT: need $1045488.21, have $97804.00
+19:27:28 | WARNING  | Insufficient cash for BNB/USDT: need $1082303.87, have $97804.00
+19:27:29 | WARNING  | Insufficient cash for ETH/USDT: need $377286.38, have $97804.00
+19:27:29 | WARNING  | Insufficient cash for BTC/USDT: need $531691.59, have $97804.00
+19:27:29 | WARNING  | Insufficient cash for ETH/USDT: need $764844.55, have $97804.00
+19:27:29 | WARNING  | Insufficient cash for BNB/USDT: need $327042.13, have $97804.00
+19:27:29 | WARNING  | Insufficient cash for BTC/USDT: need $355771.48, have $97804.00
+19:27:30 | INFO     | Progress: 4000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:30 | WARNING  | Insufficient cash for BNB/USDT: need $338288.96, have $97804.00
+19:27:30 | WARNING  | Insufficient cash for BTC/USDT: need $335368.39, have $97804.00
+19:27:30 | WARNING  | Insufficient cash for ETH/USDT: need $272917.41, have $97804.00
+19:27:30 | WARNING  | Insufficient cash for BNB/USDT: need $459589.41, have $97804.00
+19:27:30 | WARNING  | Insufficient cash for BTC/USDT: need $520804.52, have $97804.00
+19:27:30 | WARNING  | Insufficient cash for ETH/USDT: need $310457.41, have $97804.00
+19:27:30 | WARNING  | Insufficient cash for BNB/USDT: need $420631.17, have $97804.00
+19:27:30 | WARNING  | Insufficient cash for BTC/USDT: need $876768.41, have $97804.00
+19:27:30 | WARNING  | Insufficient cash for ETH/USDT: need $589970.54, have $97804.00
+19:27:31 | WARNING  | Insufficient cash for BNB/USDT: need $589518.29, have $97804.00
+19:27:31 | WARNING  | Insufficient cash for BTC/USDT: need $577993.54, have $97804.00
+19:27:31 | WARNING  | Insufficient cash for ETH/USDT: need $514188.39, have $97804.00
+19:27:31 | WARNING  | Insufficient cash for BNB/USDT: need $222472.20, have $97804.00
+19:27:31 | WARNING  | Insufficient cash for BTC/USDT: need $258745.42, have $97804.00
+19:27:31 | WARNING  | Insufficient cash for BNB/USDT: need $502174.06, have $97804.00
+19:27:31 | WARNING  | Insufficient cash for ETH/USDT: need $419626.33, have $97804.00
+19:27:31 | WARNING  | Insufficient cash for BNB/USDT: need $482717.24, have $97804.00
+19:27:31 | WARNING  | Insufficient cash for BTC/USDT: need $423189.10, have $97804.00
+19:27:32 | WARNING  | Insufficient cash for ETH/USDT: need $455471.09, have $97804.00
+19:27:32 | WARNING  | Insufficient cash for BTC/USDT: need $397981.88, have $97804.00
+19:27:32 | WARNING  | Insufficient cash for BNB/USDT: need $485050.34, have $97804.00
+19:27:32 | WARNING  | Insufficient cash for BTC/USDT: need $705190.96, have $97804.00
+19:27:32 | WARNING  | Insufficient cash for ETH/USDT: need $648988.43, have $97804.00
+19:27:32 | WARNING  | Insufficient cash for BNB/USDT: need $620061.61, have $97804.00
+19:27:32 | INFO     | Progress: 4500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:32 | WARNING  | Insufficient cash for ETH/USDT: need $179783.85, have $97804.00
+19:27:32 | WARNING  | Insufficient cash for BTC/USDT: need $202022.31, have $97804.00
+19:27:32 | WARNING  | Insufficient cash for BNB/USDT: need $204113.25, have $97804.00
+19:27:32 | WARNING  | Insufficient cash for ETH/USDT: need $315824.21, have $97804.00
+19:27:32 | WARNING  | Insufficient cash for BTC/USDT: need $545962.50, have $97804.00
+19:27:32 | WARNING  | Insufficient cash for BNB/USDT: need $580228.60, have $97804.00
+19:27:33 | WARNING  | Insufficient cash for ETH/USDT: need $265182.94, have $97804.00
+19:27:33 | WARNING  | Insufficient cash for BTC/USDT: need $393402.26, have $97804.00
+19:27:33 | WARNING  | Insufficient cash for BNB/USDT: need $259772.22, have $97804.00
+19:27:33 | WARNING  | Insufficient cash for ETH/USDT: need $413490.10, have $97804.00
+19:27:33 | WARNING  | Insufficient cash for BTC/USDT: need $753447.94, have $97804.00
+19:27:33 | WARNING  | Insufficient cash for BNB/USDT: need $548731.14, have $97804.00
+19:27:33 | WARNING  | Insufficient cash for ETH/USDT: need $384252.13, have $97804.00
+19:27:33 | WARNING  | Insufficient cash for BTC/USDT: need $265418.55, have $97804.00
+19:27:33 | WARNING  | Insufficient cash for BNB/USDT: need $277862.70, have $97804.00
+19:27:34 | WARNING  | Insufficient cash for BNB/USDT: need $261783.23, have $97804.00
+19:27:34 | WARNING  | Insufficient cash for BTC/USDT: need $449059.22, have $97804.00
+19:27:34 | WARNING  | Insufficient cash for ETH/USDT: need $420078.38, have $97804.00
+19:27:34 | WARNING  | Insufficient cash for BNB/USDT: need $704017.34, have $97804.00
+19:27:34 | WARNING  | Insufficient cash for BTC/USDT: need $678710.66, have $97804.00
+19:27:34 | INFO     | Progress: 5000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:34 | WARNING  | Insufficient cash for ETH/USDT: need $450917.75, have $97804.00
+19:27:34 | WARNING  | Insufficient cash for BTC/USDT: need $940430.23, have $97804.00
+19:27:34 | WARNING  | Insufficient cash for BNB/USDT: need $690637.50, have $97804.00
+19:27:34 | WARNING  | Insufficient cash for ETH/USDT: need $322146.98, have $97804.00
+19:27:35 | WARNING  | Insufficient cash for BTC/USDT: need $571732.61, have $97804.00
+19:27:35 | WARNING  | Insufficient cash for BNB/USDT: need $529623.24, have $97804.00
+19:27:35 | WARNING  | Insufficient cash for ETH/USDT: need $213629.34, have $97804.00
+19:27:35 | WARNING  | Insufficient cash for BNB/USDT: need $591699.36, have $97804.00
+19:27:35 | WARNING  | Insufficient cash for ETH/USDT: need $446978.74, have $97804.00
+19:27:35 | WARNING  | Insufficient cash for BTC/USDT: need $938543.66, have $97804.00
+19:27:35 | WARNING  | Insufficient cash for BNB/USDT: need $805945.15, have $97804.00
+19:27:36 | WARNING  | Insufficient cash for BTC/USDT: need $1285156.83, have $97804.00
+19:27:36 | WARNING  | Insufficient cash for ETH/USDT: need $1013209.42, have $97804.00
+19:27:36 | WARNING  | Insufficient cash for BNB/USDT: need $1041376.91, have $97804.00
+19:27:36 | WARNING  | Insufficient cash for BTC/USDT: need $1411879.59, have $97804.00
+19:27:36 | WARNING  | Insufficient cash for ETH/USDT: need $865912.69, have $97804.00
+19:27:36 | WARNING  | Insufficient cash for BNB/USDT: need $443677.59, have $97804.00
+19:27:36 | WARNING  | Insufficient cash for ETH/USDT: need $491510.30, have $97804.00
+19:27:36 | WARNING  | Insufficient cash for BTC/USDT: need $814382.78, have $97804.00
+19:27:36 | WARNING  | Insufficient cash for BNB/USDT: need $724968.37, have $97804.00
+19:27:36 | INFO     | Progress: 5500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:36 | WARNING  | Insufficient cash for BTC/USDT: need $1188129.31, have $97804.00
+19:27:36 | WARNING  | Insufficient cash for ETH/USDT: need $689433.38, have $97804.00
+19:27:37 | WARNING  | Insufficient cash for BTC/USDT: need $1356328.40, have $97804.00
+19:27:37 | WARNING  | Insufficient cash for ETH/USDT: need $1071659.32, have $97804.00
+19:27:37 | WARNING  | Insufficient cash for BNB/USDT: need $1116991.14, have $97804.00
+19:27:37 | WARNING  | Insufficient cash for ETH/USDT: need $736351.93, have $97804.00
+19:27:37 | WARNING  | Insufficient cash for BTC/USDT: need $978291.78, have $97804.00
+19:27:38 | WARNING  | Insufficient cash for BNB/USDT: need $324262.58, have $97804.00
+19:27:38 | WARNING  | Insufficient cash for BTC/USDT: need $361954.65, have $97804.00
+19:27:38 | WARNING  | Insufficient cash for ETH/USDT: need $197304.23, have $97804.00
+19:27:38 | WARNING  | Insufficient cash for BNB/USDT: need $450644.38, have $97804.00
+19:27:38 | WARNING  | Insufficient cash for BTC/USDT: need $438893.14, have $97804.00
+19:27:38 | WARNING  | Insufficient cash for ETH/USDT: need $314126.80, have $97804.00
+19:27:38 | WARNING  | Insufficient cash for BNB/USDT: need $665951.63, have $97804.00
+19:27:38 | WARNING  | Insufficient cash for BTC/USDT: need $861510.90, have $97804.00
+19:27:38 | WARNING  | Insufficient cash for ETH/USDT: need $530371.90, have $97804.00
+19:27:38 | WARNING  | Insufficient cash for BNB/USDT: need $592286.14, have $97804.00
+19:27:38 | WARNING  | Insufficient cash for BTC/USDT: need $973111.34, have $97804.00
+19:27:39 | WARNING  | Insufficient cash for BNB/USDT: need $591566.65, have $97804.00
+19:27:39 | WARNING  | Insufficient cash for ETH/USDT: need $363802.79, have $97804.00
+19:27:39 | INFO     | Progress: 6000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:39 | WARNING  | Insufficient cash for BTC/USDT: need $442943.53, have $97804.00
+19:27:39 | WARNING  | Insufficient cash for ETH/USDT: need $342036.24, have $97804.00
+19:27:39 | WARNING  | Insufficient cash for BNB/USDT: need $521741.53, have $97804.00
+19:27:39 | WARNING  | Insufficient cash for BNB/USDT: need $637077.46, have $97804.00
+19:27:40 | WARNING  | Insufficient cash for BTC/USDT: need $497366.54, have $97804.00
+19:27:40 | WARNING  | Insufficient cash for BTC/USDT: need $852632.99, have $97804.00
+19:27:40 | WARNING  | Insufficient cash for BNB/USDT: need $811992.56, have $97804.00
+19:27:40 | WARNING  | Insufficient cash for ETH/USDT: need $464796.29, have $97804.00
+19:27:40 | WARNING  | Insufficient cash for BNB/USDT: need $182778.65, have $97804.00
+19:27:40 | WARNING  | Insufficient cash for BTC/USDT: need $225085.30, have $97804.00
+19:27:40 | WARNING  | Insufficient cash for ETH/USDT: need $219699.87, have $97804.00
+19:27:40 | WARNING  | Insufficient cash for BTC/USDT: need $359976.00, have $97804.00
+19:27:41 | WARNING  | Insufficient cash for BTC/USDT: need $1067233.66, have $97804.00
+19:27:41 | WARNING  | Insufficient cash for ETH/USDT: need $568918.84, have $97804.00
+19:27:41 | WARNING  | Insufficient cash for BNB/USDT: need $763559.05, have $97804.00
+19:27:41 | WARNING  | Insufficient cash for ETH/USDT: need $627202.11, have $97804.00
+19:27:41 | INFO     | Progress: 6500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:41 | WARNING  | Insufficient cash for BTC/USDT: need $723880.61, have $97804.00
+19:27:41 | WARNING  | Insufficient cash for BNB/USDT: need $676433.60, have $97804.00
+19:27:41 | WARNING  | Insufficient cash for ETH/USDT: need $427188.66, have $97804.00
+19:27:41 | WARNING  | Insufficient cash for BNB/USDT: need $700302.47, have $97804.00
+19:27:41 | WARNING  | Insufficient cash for BTC/USDT: need $423403.37, have $97804.00
+19:27:42 | WARNING  | Insufficient cash for ETH/USDT: need $282909.80, have $97804.00
+19:27:42 | WARNING  | Insufficient cash for BNB/USDT: need $474998.16, have $97804.00
+19:27:42 | WARNING  | Insufficient cash for BNB/USDT: need $336866.17, have $97804.00
+19:27:42 | WARNING  | Insufficient cash for ETH/USDT: need $610343.14, have $97804.00
+19:27:42 | WARNING  | Insufficient cash for BTC/USDT: need $965444.12, have $97804.00
+19:27:43 | WARNING  | Insufficient cash for BNB/USDT: need $1033413.53, have $97804.00
+19:27:43 | WARNING  | Insufficient cash for BTC/USDT: need $1290505.14, have $97804.00
+19:27:43 | WARNING  | Insufficient cash for ETH/USDT: need $699404.07, have $97804.00
+19:27:43 | WARNING  | Insufficient cash for BNB/USDT: need $446532.44, have $97804.00
+19:27:43 | WARNING  | Insufficient cash for ETH/USDT: need $264187.85, have $97804.00
+19:27:43 | WARNING  | Insufficient cash for BTC/USDT: need $407098.07, have $97804.00
+19:27:43 | WARNING  | Insufficient cash for ETH/USDT: need $217085.38, have $97804.00
+19:27:43 | WARNING  | Insufficient cash for BNB/USDT: need $376097.43, have $97804.00
+19:27:43 | INFO     | Progress: 7000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:43 | WARNING  | Insufficient cash for ETH/USDT: need $380332.03, have $97804.00
+19:27:43 | WARNING  | Insufficient cash for BNB/USDT: need $680438.87, have $97804.00
+19:27:44 | WARNING  | Insufficient cash for BTC/USDT: need $822505.99, have $97804.00
+19:27:44 | WARNING  | Insufficient cash for BTC/USDT: need $1039058.44, have $97804.00
+19:27:44 | WARNING  | Insufficient cash for ETH/USDT: need $652497.34, have $97804.00
+19:27:44 | WARNING  | Insufficient cash for BNB/USDT: need $1217966.21, have $97804.00
+19:27:44 | WARNING  | Insufficient cash for BNB/USDT: need $504721.85, have $97804.00
+19:27:45 | WARNING  | Insufficient cash for BTC/USDT: need $1102457.72, have $97804.00
+19:27:45 | WARNING  | Insufficient cash for BNB/USDT: need $1186531.59, have $97804.00
+19:27:45 | WARNING  | Insufficient cash for ETH/USDT: need $930392.73, have $97804.00
+19:27:45 | WARNING  | Insufficient cash for BTC/USDT: need $2177629.22, have $97804.00
+19:27:45 | WARNING  | Insufficient cash for ETH/USDT: need $1415270.30, have $97804.00
+19:27:45 | WARNING  | Insufficient cash for BNB/USDT: need $1233372.96, have $97804.00
+19:27:45 | WARNING  | Insufficient cash for BTC/USDT: need $2357580.97, have $97804.00
+19:27:45 | WARNING  | Insufficient cash for ETH/USDT: need $669187.94, have $97804.00
+19:27:45 | WARNING  | Insufficient cash for BNB/USDT: need $1035860.77, have $97804.00
+19:27:45 | WARNING  | Insufficient cash for BNB/USDT: need $885296.86, have $97804.00
+19:27:46 | WARNING  | Insufficient cash for ETH/USDT: need $818568.46, have $97804.00
+19:27:46 | WARNING  | Insufficient cash for BNB/USDT: need $1229185.34, have $97804.00
+19:27:46 | INFO     | Progress: 7500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:46 | WARNING  | Insufficient cash for BTC/USDT: need $1358082.45, have $97804.00
+19:27:46 | WARNING  | Insufficient cash for BNB/USDT: need $1063534.37, have $97804.00
+19:27:46 | WARNING  | Insufficient cash for BTC/USDT: need $1487041.95, have $97804.00
+19:27:47 | WARNING  | Insufficient cash for ETH/USDT: need $1391325.63, have $97804.00
+19:27:47 | WARNING  | Insufficient cash for BNB/USDT: need $1300010.74, have $97804.00
+19:27:47 | WARNING  | Insufficient cash for BNB/USDT: need $615441.62, have $97804.00
+19:27:47 | WARNING  | Insufficient cash for BTC/USDT: need $765169.44, have $97804.00
+19:27:47 | WARNING  | Insufficient cash for ETH/USDT: need $427666.86, have $97804.00
+19:27:47 | WARNING  | Insufficient cash for BNB/USDT: need $613665.53, have $97804.00
+19:27:47 | WARNING  | Insufficient cash for BTC/USDT: need $373422.75, have $97804.00
+19:27:47 | WARNING  | Insufficient cash for ETH/USDT: need $295768.42, have $97804.00
+19:27:48 | WARNING  | Insufficient cash for BNB/USDT: need $431250.29, have $97804.00
+19:27:48 | WARNING  | Insufficient cash for BTC/USDT: need $765281.08, have $97804.00
+19:27:48 | WARNING  | Insufficient cash for ETH/USDT: need $694612.56, have $97804.00
+19:27:48 | WARNING  | Insufficient cash for BNB/USDT: need $1060411.36, have $97804.00
+19:27:48 | WARNING  | Insufficient cash for BTC/USDT: need $1259023.64, have $97804.00
+19:27:48 | WARNING  | Insufficient cash for BNB/USDT: need $1000164.42, have $97804.00
+19:27:48 | INFO     | Progress: 8000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:48 | WARNING  | Insufficient cash for BTC/USDT: need $322795.29, have $97804.00
+19:27:48 | WARNING  | Insufficient cash for ETH/USDT: need $192781.30, have $97804.00
+19:27:48 | WARNING  | Insufficient cash for BNB/USDT: need $314630.49, have $97804.00
+19:27:49 | WARNING  | Insufficient cash for BTC/USDT: need $708525.42, have $97804.00
+19:27:49 | WARNING  | Insufficient cash for ETH/USDT: need $488338.90, have $97804.00
+19:27:49 | WARNING  | Insufficient cash for BNB/USDT: need $619178.27, have $97804.00
+19:27:49 | WARNING  | Insufficient cash for BTC/USDT: need $828575.13, have $97804.00
+19:27:49 | WARNING  | Insufficient cash for BNB/USDT: need $575742.72, have $97804.00
+19:27:49 | WARNING  | Insufficient cash for ETH/USDT: need $451137.10, have $97804.00
+19:27:49 | WARNING  | Insufficient cash for BTC/USDT: need $509715.22, have $97804.00
+19:27:50 | WARNING  | Insufficient cash for ETH/USDT: need $171440.19, have $97804.00
+19:27:50 | WARNING  | Insufficient cash for BNB/USDT: need $328020.88, have $97804.00
+19:27:50 | WARNING  | Insufficient cash for BTC/USDT: need $445697.63, have $97804.00
+19:27:50 | WARNING  | Insufficient cash for BNB/USDT: need $803964.69, have $97804.00
+19:27:50 | WARNING  | Insufficient cash for ETH/USDT: need $702945.58, have $97804.00
+19:27:50 | WARNING  | Insufficient cash for BTC/USDT: need $735697.36, have $97804.00
+19:27:50 | WARNING  | Insufficient cash for BTC/USDT: need $466820.08, have $97804.00
+19:27:50 | WARNING  | Insufficient cash for BNB/USDT: need $517719.68, have $97804.00
+19:27:51 | WARNING  | Insufficient cash for ETH/USDT: need $589361.24, have $97804.00
+19:27:51 | INFO     | Progress: 8500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:51 | WARNING  | Insufficient cash for BTC/USDT: need $670021.54, have $97804.00
+19:27:51 | WARNING  | Insufficient cash for ETH/USDT: need $639496.40, have $97804.00
+19:27:51 | WARNING  | Insufficient cash for BNB/USDT: need $291478.90, have $97804.00
+19:27:51 | WARNING  | Insufficient cash for BTC/USDT: need $188320.36, have $97804.00
+19:27:51 | WARNING  | Insufficient cash for ETH/USDT: need $218845.05, have $97804.00
+19:27:51 | WARNING  | Insufficient cash for BTC/USDT: need $628844.54, have $97804.00
+19:27:51 | WARNING  | Insufficient cash for BNB/USDT: need $859136.81, have $97804.00
+19:27:52 | WARNING  | Insufficient cash for ETH/USDT: need $394782.67, have $97804.00
+19:27:52 | WARNING  | Insufficient cash for BTC/USDT: need $470542.99, have $97804.00
+19:27:52 | WARNING  | Insufficient cash for BNB/USDT: need $820787.43, have $97804.00
+19:27:52 | WARNING  | Insufficient cash for ETH/USDT: need $848049.54, have $97804.00
+19:27:52 | WARNING  | Insufficient cash for BTC/USDT: need $777566.73, have $97804.00
+19:27:52 | WARNING  | Insufficient cash for BTC/USDT: need $963450.12, have $97804.00
+19:27:52 | WARNING  | Insufficient cash for ETH/USDT: need $673608.75, have $97804.00
+19:27:52 | WARNING  | Insufficient cash for BNB/USDT: need $891331.55, have $97804.00
+19:27:53 | WARNING  | Insufficient cash for ETH/USDT: need $221042.72, have $97804.00
+19:27:53 | WARNING  | Insufficient cash for BNB/USDT: need $628821.35, have $97804.00
+19:27:53 | INFO     | Progress: 9000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:53 | WARNING  | Insufficient cash for ETH/USDT: need $362025.64, have $97804.00
+19:27:53 | WARNING  | Insufficient cash for BTC/USDT: need $536136.34, have $97804.00
+19:27:53 | WARNING  | Insufficient cash for BNB/USDT: need $304319.41, have $97804.00
+19:27:53 | WARNING  | Insufficient cash for ETH/USDT: need $445978.26, have $97804.00
+19:27:53 | WARNING  | Insufficient cash for BTC/USDT: need $532738.17, have $97804.00
+19:27:53 | WARNING  | Insufficient cash for BNB/USDT: need $510329.97, have $97804.00
+19:27:53 | WARNING  | Insufficient cash for ETH/USDT: need $560342.26, have $97804.00
+19:27:54 | WARNING  | Insufficient cash for BTC/USDT: need $563970.13, have $97804.00
+19:27:54 | WARNING  | Insufficient cash for BNB/USDT: need $465547.03, have $97804.00
+19:27:54 | WARNING  | Insufficient cash for ETH/USDT: need $222790.50, have $97804.00
+19:27:54 | WARNING  | Insufficient cash for BTC/USDT: need $432325.77, have $97804.00
+19:27:54 | WARNING  | Insufficient cash for BNB/USDT: need $513168.64, have $97804.00
+19:27:54 | WARNING  | Insufficient cash for BTC/USDT: need $1280822.88, have $97804.00
+19:27:54 | WARNING  | Insufficient cash for ETH/USDT: need $1043091.10, have $97804.00
+19:27:54 | WARNING  | Insufficient cash for BNB/USDT: need $1158068.85, have $97804.00
+19:27:54 | WARNING  | Insufficient cash for BTC/USDT: need $1441356.33, have $97804.00
+19:27:55 | WARNING  | Insufficient cash for ETH/USDT: need $1241697.43, have $97804.00
+19:27:55 | WARNING  | Insufficient cash for BNB/USDT: need $1158333.73, have $97804.00
+19:27:55 | WARNING  | Insufficient cash for BTC/USDT: need $2065419.17, have $97804.00
+19:27:55 | WARNING  | Insufficient cash for ETH/USDT: need $1059232.21, have $97804.00
+19:27:55 | WARNING  | Insufficient cash for BNB/USDT: need $2264712.23, have $97804.00
+19:27:55 | WARNING  | Insufficient cash for ETH/USDT: need $1736588.47, have $97804.00
+19:27:55 | WARNING  | Insufficient cash for BTC/USDT: need $2720499.77, have $97804.00
+19:27:55 | INFO     | Progress: 9500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:55 | WARNING  | Insufficient cash for ETH/USDT: need $2073516.21, have $97804.00
+19:27:55 | WARNING  | Insufficient cash for BNB/USDT: need $3541269.38, have $97804.00
+19:27:55 | WARNING  | Insufficient cash for BTC/USDT: need $3010185.81, have $97804.00
+19:27:56 | WARNING  | Insufficient cash for BNB/USDT: need $1123926.54, have $97804.00
+19:27:56 | WARNING  | Insufficient cash for BTC/USDT: need $1635686.88, have $97804.00
+19:27:56 | WARNING  | Insufficient cash for ETH/USDT: need $1193096.54, have $97804.00
+19:27:56 | WARNING  | Insufficient cash for ETH/USDT: need $978103.00, have $97804.00
+19:27:56 | WARNING  | Insufficient cash for BTC/USDT: need $1105984.06, have $97804.00
+19:27:56 | WARNING  | Insufficient cash for BNB/USDT: need $935176.65, have $97804.00
+19:27:57 | WARNING  | Insufficient cash for BTC/USDT: need $766671.75, have $97804.00
+19:27:57 | WARNING  | Insufficient cash for ETH/USDT: need $581827.32, have $97804.00
+19:27:57 | WARNING  | Insufficient cash for BNB/USDT: need $732310.51, have $97804.00
+19:27:57 | WARNING  | Insufficient cash for BTC/USDT: need $917240.42, have $97804.00
+19:27:57 | WARNING  | Insufficient cash for ETH/USDT: need $734521.52, have $97804.00
+19:27:57 | WARNING  | Insufficient cash for BNB/USDT: need $858313.61, have $97804.00
+19:27:57 | WARNING  | Insufficient cash for BTC/USDT: need $673641.68, have $97804.00
+19:27:57 | WARNING  | Insufficient cash for BTC/USDT: need $760897.31, have $97804.00
+19:27:57 | WARNING  | Insufficient cash for BNB/USDT: need $782463.24, have $97804.00
+19:27:58 | WARNING  | Insufficient cash for ETH/USDT: need $594710.77, have $97804.00
+19:27:58 | WARNING  | Insufficient cash for BTC/USDT: need $671942.52, have $97804.00
+19:27:58 | WARNING  | Insufficient cash for ETH/USDT: need $623941.89, have $97804.00
+19:27:58 | WARNING  | Insufficient cash for BNB/USDT: need $772118.11, have $97804.00
+19:27:58 | INFO     | Progress: 10000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:27:58 | WARNING  | Insufficient cash for BTC/USDT: need $623387.78, have $97804.00
+19:27:58 | WARNING  | Insufficient cash for BNB/USDT: need $803539.51, have $97804.00
+19:27:59 | WARNING  | Insufficient cash for ETH/USDT: need $507094.91, have $97804.00
+19:27:59 | WARNING  | Insufficient cash for BTC/USDT: need $1253582.35, have $97804.00
+19:27:59 | WARNING  | Insufficient cash for ETH/USDT: need $920924.48, have $97804.00
+19:28:00 | WARNING  | Insufficient cash for BNB/USDT: need $473050.64, have $97804.00
+19:28:00 | WARNING  | Insufficient cash for BTC/USDT: need $296868.13, have $97804.00
+19:28:00 | WARNING  | Insufficient cash for ETH/USDT: need $261708.03, have $97804.00
+19:28:00 | WARNING  | Insufficient cash for BNB/USDT: need $531551.71, have $97804.00
+19:28:00 | WARNING  | Insufficient cash for BTC/USDT: need $541640.09, have $97804.00
+19:28:00 | WARNING  | Insufficient cash for ETH/USDT: need $389608.43, have $97804.00
+19:28:00 | WARNING  | Insufficient cash for BTC/USDT: need $738020.09, have $97804.00
+19:28:00 | WARNING  | Insufficient cash for BNB/USDT: need $880354.12, have $97804.00
+19:28:01 | INFO     | Progress: 10500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:01 | WARNING  | Insufficient cash for BTC/USDT: need $1391440.88, have $97804.00
+19:28:01 | WARNING  | Insufficient cash for ETH/USDT: need $783513.67, have $97804.00
+19:28:01 | WARNING  | Insufficient cash for BNB/USDT: need $1143820.68, have $97804.00
+19:28:01 | WARNING  | Insufficient cash for ETH/USDT: need $752929.12, have $97804.00
+19:28:01 | WARNING  | Insufficient cash for BTC/USDT: need $419001.58, have $97804.00
+19:28:01 | WARNING  | Insufficient cash for BNB/USDT: need $500486.46, have $97804.00
+19:28:01 | WARNING  | Insufficient cash for BTC/USDT: need $1507345.00, have $97804.00
+19:28:01 | WARNING  | Insufficient cash for ETH/USDT: need $970335.09, have $97804.00
+19:28:02 | WARNING  | Insufficient cash for BNB/USDT: need $1414031.64, have $97804.00
+19:28:02 | WARNING  | Insufficient cash for BTC/USDT: need $1289879.24, have $97804.00
+19:28:02 | WARNING  | Insufficient cash for ETH/USDT: need $1090990.68, have $97804.00
+19:28:02 | WARNING  | Insufficient cash for BNB/USDT: need $1489957.91, have $97804.00
+19:28:02 | WARNING  | Insufficient cash for BTC/USDT: need $2461618.77, have $97804.00
+19:28:03 | WARNING  | Insufficient cash for BNB/USDT: need $1177124.78, have $97804.00
+19:28:03 | WARNING  | Insufficient cash for ETH/USDT: need $809002.76, have $97804.00
+19:28:03 | WARNING  | Insufficient cash for BTC/USDT: need $658919.32, have $97804.00
+19:28:03 | WARNING  | Insufficient cash for ETH/USDT: need $775936.18, have $97804.00
+19:28:03 | WARNING  | Insufficient cash for BNB/USDT: need $1137103.62, have $97804.00
+19:28:03 | INFO     | Progress: 11000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:03 | WARNING  | Insufficient cash for ETH/USDT: need $336561.40, have $97804.00
+19:28:03 | WARNING  | Insufficient cash for BNB/USDT: need $561955.19, have $97804.00
+19:28:03 | WARNING  | Insufficient cash for BTC/USDT: need $351979.05, have $97804.00
+19:28:04 | WARNING  | Insufficient cash for BTC/USDT: need $1167180.01, have $97804.00
+19:28:04 | WARNING  | Insufficient cash for ETH/USDT: need $821132.06, have $97804.00
+19:28:04 | WARNING  | Insufficient cash for BNB/USDT: need $749749.62, have $97804.00
+19:28:04 | WARNING  | Insufficient cash for BTC/USDT: need $1306174.50, have $97804.00
+19:28:04 | WARNING  | Insufficient cash for BNB/USDT: need $1452187.36, have $97804.00
+19:28:04 | WARNING  | Insufficient cash for ETH/USDT: need $836580.36, have $97804.00
+19:28:04 | WARNING  | Insufficient cash for BNB/USDT: need $640802.56, have $97804.00
+19:28:04 | WARNING  | Insufficient cash for BTC/USDT: need $713493.84, have $97804.00
+19:28:04 | WARNING  | Insufficient cash for ETH/USDT: need $876207.38, have $97804.00
+19:28:05 | WARNING  | Insufficient cash for BNB/USDT: need $1805322.96, have $97804.00
+19:28:05 | WARNING  | Insufficient cash for BTC/USDT: need $2070329.66, have $97804.00
+19:28:05 | WARNING  | Insufficient cash for ETH/USDT: need $3314458.77, have $97804.00
+19:28:05 | WARNING  | Insufficient cash for BTC/USDT: need $3726324.60, have $97804.00
+19:28:05 | WARNING  | Insufficient cash for BNB/USDT: need $1226293.40, have $97804.00
+19:28:05 | WARNING  | Insufficient cash for ETH/USDT: need $1784390.04, have $97804.00
+19:28:05 | WARNING  | Insufficient cash for BTC/USDT: need $2480234.97, have $97804.00
+19:28:05 | WARNING  | Insufficient cash for BNB/USDT: need $1689814.68, have $97804.00
+19:28:06 | INFO     | Progress: 11500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:06 | WARNING  | Insufficient cash for BTC/USDT: need $4441464.26, have $97804.00
+19:28:06 | WARNING  | Insufficient cash for BNB/USDT: need $2858245.39, have $97804.00
+19:28:06 | WARNING  | Insufficient cash for ETH/USDT: need $2598945.32, have $97804.00
+19:28:06 | WARNING  | Insufficient cash for BTC/USDT: need $1165628.72, have $97804.00
+19:28:06 | WARNING  | Insufficient cash for ETH/USDT: need $1520957.16, have $97804.00
+19:28:06 | WARNING  | Insufficient cash for BNB/USDT: need $1537291.06, have $97804.00
+19:28:06 | WARNING  | Insufficient cash for BTC/USDT: need $2414549.74, have $97804.00
+19:28:07 | WARNING  | Insufficient cash for ETH/USDT: need $1582025.56, have $97804.00
+19:28:07 | WARNING  | Insufficient cash for BTC/USDT: need $3487756.97, have $97804.00
+19:28:07 | WARNING  | Insufficient cash for BNB/USDT: need $1810520.10, have $97804.00
+19:28:07 | WARNING  | Insufficient cash for BTC/USDT: need $2988090.46, have $97804.00
+19:28:07 | WARNING  | Insufficient cash for BNB/USDT: need $759087.91, have $97804.00
+19:28:07 | WARNING  | Insufficient cash for ETH/USDT: need $1354156.93, have $97804.00
+19:28:07 | WARNING  | Insufficient cash for ETH/USDT: need $1075505.56, have $97804.00
+19:28:07 | WARNING  | Insufficient cash for BTC/USDT: need $1452826.37, have $97804.00
+19:28:07 | WARNING  | Insufficient cash for BNB/USDT: need $1257523.52, have $97804.00
+19:28:08 | WARNING  | Insufficient cash for BNB/USDT: need $588922.21, have $97804.00
+19:28:08 | WARNING  | Insufficient cash for ETH/USDT: need $370061.04, have $97804.00
+19:28:08 | WARNING  | Insufficient cash for BTC/USDT: need $490282.06, have $97804.00
+19:28:08 | INFO     | Progress: 12000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:08 | WARNING  | Insufficient cash for BNB/USDT: need $437099.96, have $97804.00
+19:28:08 | WARNING  | Insufficient cash for BTC/USDT: need $565760.57, have $97804.00
+19:28:08 | WARNING  | Insufficient cash for ETH/USDT: need $399263.46, have $97804.00
+19:28:09 | WARNING  | Insufficient cash for BNB/USDT: need $907081.70, have $97804.00
+19:28:09 | WARNING  | Insufficient cash for ETH/USDT: need $431035.56, have $97804.00
+19:28:09 | WARNING  | Insufficient cash for ETH/USDT: need $856435.42, have $97804.00
+19:28:09 | WARNING  | Insufficient cash for BTC/USDT: need $1244040.40, have $97804.00
+19:28:09 | WARNING  | Insufficient cash for ETH/USDT: need $546059.73, have $97804.00
+19:28:09 | WARNING  | Insufficient cash for BTC/USDT: need $1611782.51, have $97804.00
+19:28:09 | WARNING  | Insufficient cash for BNB/USDT: need $1030319.88, have $97804.00
+19:28:09 | WARNING  | Insufficient cash for ETH/USDT: need $539002.57, have $97804.00
+19:28:10 | WARNING  | Insufficient cash for BTC/USDT: need $934390.56, have $97804.00
+19:28:10 | WARNING  | Insufficient cash for BNB/USDT: need $1174582.90, have $97804.00
+19:28:10 | WARNING  | Insufficient cash for ETH/USDT: need $775532.88, have $97804.00
+19:28:10 | WARNING  | Insufficient cash for ETH/USDT: need $890742.25, have $97804.00
+19:28:11 | WARNING  | Insufficient cash for BNB/USDT: need $1385003.22, have $97804.00
+19:28:11 | WARNING  | Insufficient cash for BTC/USDT: need $1036826.37, have $97804.00
+19:28:11 | INFO     | Progress: 12500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:11 | WARNING  | Insufficient cash for ETH/USDT: need $1065869.35, have $97804.00
+19:28:11 | WARNING  | Insufficient cash for BTC/USDT: need $1522698.66, have $97804.00
+19:28:11 | WARNING  | Insufficient cash for BNB/USDT: need $1299499.15, have $97804.00
+19:28:11 | WARNING  | Insufficient cash for BTC/USDT: need $1228419.83, have $97804.00
+19:28:12 | WARNING  | Insufficient cash for BNB/USDT: need $1045885.16, have $97804.00
+19:28:12 | WARNING  | Insufficient cash for ETH/USDT: need $732359.06, have $97804.00
+19:28:12 | WARNING  | Insufficient cash for BNB/USDT: need $703610.11, have $97804.00
+19:28:12 | WARNING  | Insufficient cash for ETH/USDT: need $671505.67, have $97804.00
+19:28:12 | WARNING  | Insufficient cash for BTC/USDT: need $973822.12, have $97804.00
+19:28:12 | WARNING  | Insufficient cash for ETH/USDT: need $1157286.78, have $97804.00
+19:28:12 | WARNING  | Insufficient cash for BNB/USDT: need $612805.18, have $97804.00
+19:28:12 | WARNING  | Insufficient cash for BTC/USDT: need $1395922.68, have $97804.00
+19:28:13 | WARNING  | Insufficient cash for ETH/USDT: need $1207406.84, have $97804.00
+19:28:13 | WARNING  | Insufficient cash for BTC/USDT: need $4144259.98, have $97804.00
+19:28:13 | WARNING  | Insufficient cash for BTC/USDT: need $2518572.72, have $97804.00
+19:28:13 | WARNING  | Insufficient cash for ETH/USDT: need $1442593.46, have $97804.00
+19:28:13 | WARNING  | Insufficient cash for BNB/USDT: need $1085649.62, have $97804.00
+19:28:13 | WARNING  | Insufficient cash for BTC/USDT: need $1333860.68, have $97804.00
+19:28:13 | WARNING  | Insufficient cash for BNB/USDT: need $1199716.43, have $97804.00
+19:28:14 | WARNING  | Insufficient cash for ETH/USDT: need $1402003.93, have $97804.00
+19:28:14 | INFO     | Progress: 13000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:14 | WARNING  | Insufficient cash for BTC/USDT: need $913340.89, have $97804.00
+19:28:14 | WARNING  | Insufficient cash for ETH/USDT: need $497907.97, have $97804.00
+19:28:14 | WARNING  | Insufficient cash for BNB/USDT: need $1395257.35, have $97804.00
+19:28:14 | WARNING  | Insufficient cash for BTC/USDT: need $1306098.91, have $97804.00
+19:28:14 | WARNING  | Insufficient cash for ETH/USDT: need $515474.47, have $97804.00
+19:28:14 | WARNING  | Insufficient cash for BNB/USDT: need $631835.56, have $97804.00
+19:28:15 | WARNING  | Insufficient cash for BTC/USDT: need $1033187.56, have $97804.00
+19:28:15 | WARNING  | Insufficient cash for BNB/USDT: need $410046.02, have $97804.00
+19:28:15 | WARNING  | Insufficient cash for ETH/USDT: need $194166.49, have $97804.00
+19:28:15 | WARNING  | Insufficient cash for BTC/USDT: need $889860.14, have $97804.00
+19:28:15 | WARNING  | Insufficient cash for ETH/USDT: need $628686.96, have $97804.00
+19:28:15 | WARNING  | Insufficient cash for BNB/USDT: need $899215.91, have $97804.00
+19:28:15 | WARNING  | Insufficient cash for BTC/USDT: need $1329775.10, have $97804.00
+19:28:15 | WARNING  | Insufficient cash for BNB/USDT: need $1273205.42, have $97804.00
+19:28:16 | WARNING  | Insufficient cash for ETH/USDT: need $924176.59, have $97804.00
+19:28:16 | WARNING  | Insufficient cash for BTC/USDT: need $667754.75, have $97804.00
+19:28:16 | WARNING  | Insufficient cash for BNB/USDT: need $1016057.55, have $97804.00
+19:28:16 | WARNING  | Insufficient cash for BTC/USDT: need $1204291.21, have $97804.00
+19:28:16 | WARNING  | Insufficient cash for ETH/USDT: need $890483.60, have $97804.00
+19:28:16 | WARNING  | Insufficient cash for BNB/USDT: need $1488773.18, have $97804.00
+19:28:16 | INFO     | Progress: 13500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:16 | WARNING  | Insufficient cash for BTC/USDT: need $2643492.55, have $97804.00
+19:28:16 | WARNING  | Insufficient cash for ETH/USDT: need $1385864.87, have $97804.00
+19:28:16 | WARNING  | Insufficient cash for BTC/USDT: need $1009566.87, have $97804.00
+19:28:17 | WARNING  | Insufficient cash for ETH/USDT: need $941436.41, have $97804.00
+19:28:17 | WARNING  | Insufficient cash for BNB/USDT: need $1201062.29, have $97804.00
+19:28:17 | WARNING  | Insufficient cash for BTC/USDT: need $1293192.33, have $97804.00
+19:28:17 | WARNING  | Insufficient cash for ETH/USDT: need $786957.65, have $97804.00
+19:28:17 | WARNING  | Insufficient cash for BNB/USDT: need $783239.06, have $97804.00
+19:28:17 | WARNING  | Insufficient cash for BNB/USDT: need $1021292.36, have $97804.00
+19:28:17 | WARNING  | Insufficient cash for ETH/USDT: need $1169711.37, have $97804.00
+19:28:18 | WARNING  | Insufficient cash for BTC/USDT: need $1389126.89, have $97804.00
+19:28:18 | WARNING  | Insufficient cash for ETH/USDT: need $755830.26, have $97804.00
+19:28:18 | WARNING  | Insufficient cash for ETH/USDT: need $901587.64, have $97804.00
+19:28:18 | WARNING  | Insufficient cash for BNB/USDT: need $747375.12, have $97804.00
+19:28:18 | WARNING  | Insufficient cash for BTC/USDT: need $366153.85, have $97804.00
+19:28:18 | WARNING  | Insufficient cash for ETH/USDT: need $242655.45, have $97804.00
+19:28:18 | WARNING  | Insufficient cash for BTC/USDT: need $1227441.88, have $97804.00
+19:28:19 | WARNING  | Insufficient cash for BNB/USDT: need $859248.73, have $97804.00
+19:28:19 | WARNING  | Insufficient cash for ETH/USDT: need $900469.63, have $97804.00
+19:28:19 | INFO     | Progress: 14000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:19 | WARNING  | Insufficient cash for ETH/USDT: need $348382.60, have $97804.00
+19:28:19 | WARNING  | Insufficient cash for BNB/USDT: need $535239.56, have $97804.00
+19:28:19 | WARNING  | Insufficient cash for BTC/USDT: need $407556.85, have $97804.00
+19:28:19 | WARNING  | Insufficient cash for BNB/USDT: need $609887.20, have $97804.00
+19:28:19 | WARNING  | Insufficient cash for BTC/USDT: need $626165.65, have $97804.00
+19:28:19 | WARNING  | Insufficient cash for ETH/USDT: need $337089.61, have $97804.00
+19:28:20 | WARNING  | Insufficient cash for BTC/USDT: need $780097.19, have $97804.00
+19:28:20 | WARNING  | Insufficient cash for BNB/USDT: need $569465.23, have $97804.00
+19:28:20 | WARNING  | Insufficient cash for ETH/USDT: need $507257.81, have $97804.00
+19:28:20 | WARNING  | Insufficient cash for BTC/USDT: need $1146829.94, have $97804.00
+19:28:20 | WARNING  | Insufficient cash for BNB/USDT: need $706158.19, have $97804.00
+19:28:20 | WARNING  | Insufficient cash for ETH/USDT: need $546066.48, have $97804.00
+19:28:20 | WARNING  | Insufficient cash for BNB/USDT: need $778933.68, have $97804.00
+19:28:20 | WARNING  | Insufficient cash for ETH/USDT: need $839475.38, have $97804.00
+19:28:20 | WARNING  | Insufficient cash for BTC/USDT: need $1368263.10, have $97804.00
+19:28:20 | WARNING  | Insufficient cash for BNB/USDT: need $330770.76, have $97804.00
+19:28:21 | WARNING  | Insufficient cash for BNB/USDT: need $700168.38, have $97804.00
+19:28:21 | WARNING  | Insufficient cash for ETH/USDT: need $541711.48, have $97804.00
+19:28:21 | WARNING  | Insufficient cash for BTC/USDT: need $472439.39, have $97804.00
+19:28:21 | INFO     | Progress: 14500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:21 | WARNING  | Insufficient cash for BNB/USDT: need $1028327.00, have $97804.00
+19:28:21 | WARNING  | Insufficient cash for ETH/USDT: need $835054.05, have $97804.00
+19:28:21 | WARNING  | Insufficient cash for BTC/USDT: need $1598047.88, have $97804.00
+19:28:22 | WARNING  | Insufficient cash for ETH/USDT: need $711470.69, have $97804.00
+19:28:22 | WARNING  | Insufficient cash for BTC/USDT: need $1027975.33, have $97804.00
+19:28:22 | WARNING  | Insufficient cash for BNB/USDT: need $495144.87, have $97804.00
+19:28:22 | WARNING  | Insufficient cash for ETH/USDT: need $392773.54, have $97804.00
+19:28:22 | WARNING  | Insufficient cash for BNB/USDT: need $1021517.27, have $97804.00
+19:28:22 | WARNING  | Insufficient cash for BTC/USDT: need $844242.27, have $97804.00
+19:28:22 | WARNING  | Insufficient cash for ETH/USDT: need $630170.94, have $97804.00
+19:28:23 | WARNING  | Insufficient cash for BTC/USDT: need $684176.23, have $97804.00
+19:28:23 | WARNING  | Insufficient cash for ETH/USDT: need $481638.15, have $97804.00
+19:28:23 | WARNING  | Insufficient cash for BNB/USDT: need $542560.87, have $97804.00
+19:28:23 | WARNING  | Insufficient cash for BNB/USDT: need $833478.46, have $97804.00
+19:28:24 | INFO     | Progress: 15000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:24 | WARNING  | Insufficient cash for BTC/USDT: need $876371.53, have $97804.00
+19:28:24 | WARNING  | Insufficient cash for ETH/USDT: need $755458.00, have $97804.00
+19:28:24 | WARNING  | Insufficient cash for BNB/USDT: need $892401.60, have $97804.00
+19:28:24 | WARNING  | Insufficient cash for BTC/USDT: need $503764.07, have $97804.00
+19:28:24 | WARNING  | Insufficient cash for BNB/USDT: need $903598.03, have $97804.00
+19:28:25 | WARNING  | Insufficient cash for BTC/USDT: need $858700.66, have $97804.00
+19:28:25 | WARNING  | Insufficient cash for BNB/USDT: need $1328133.59, have $97804.00
+19:28:25 | WARNING  | Insufficient cash for ETH/USDT: need $897203.82, have $97804.00
+19:28:25 | WARNING  | Insufficient cash for BTC/USDT: need $254521.23, have $97804.00
+19:28:25 | WARNING  | Insufficient cash for ETH/USDT: need $193479.81, have $97804.00
+19:28:25 | WARNING  | Insufficient cash for BNB/USDT: need $350456.89, have $97804.00
+19:28:25 | WARNING  | Insufficient cash for BTC/USDT: need $628103.88, have $97804.00
+19:28:25 | WARNING  | Insufficient cash for ETH/USDT: need $466991.46, have $97804.00
+19:28:25 | WARNING  | Insufficient cash for BNB/USDT: need $1046973.04, have $97804.00
+19:28:26 | WARNING  | Insufficient cash for BNB/USDT: need $1402700.71, have $97804.00
+19:28:26 | WARNING  | Insufficient cash for BTC/USDT: need $2281191.56, have $97804.00
+19:28:26 | WARNING  | Insufficient cash for BTC/USDT: need $2149324.43, have $97804.00
+19:28:26 | WARNING  | Insufficient cash for ETH/USDT: need $1881189.05, have $97804.00
+19:28:26 | WARNING  | Insufficient cash for BNB/USDT: need $977830.18, have $97804.00
+19:28:26 | INFO     | Progress: 15500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:26 | WARNING  | Insufficient cash for BTC/USDT: need $4073173.21, have $97804.00
+19:28:26 | WARNING  | Insufficient cash for ETH/USDT: need $1900528.52, have $97804.00
+19:28:27 | WARNING  | Insufficient cash for BNB/USDT: need $789526.63, have $97804.00
+19:28:27 | WARNING  | Insufficient cash for BTC/USDT: need $9596140.15, have $97804.00
+19:28:27 | WARNING  | Insufficient cash for ETH/USDT: need $1493945.36, have $97804.00
+19:28:27 | WARNING  | Insufficient cash for BNB/USDT: need $1019013.53, have $97804.00
+19:28:27 | WARNING  | Insufficient cash for BTC/USDT: need $2494581.15, have $97804.00
+19:28:27 | WARNING  | Insufficient cash for BTC/USDT: need $5874002.68, have $97804.00
+19:28:27 | WARNING  | Insufficient cash for ETH/USDT: need $2620400.94, have $97804.00
+19:28:27 | WARNING  | Insufficient cash for BNB/USDT: need $1056002.56, have $97804.00
+19:28:28 | WARNING  | Insufficient cash for BTC/USDT: need $2217382.92, have $97804.00
+19:28:28 | WARNING  | Insufficient cash for ETH/USDT: need $1241781.63, have $97804.00
+19:28:28 | WARNING  | Insufficient cash for BNB/USDT: need $1565887.30, have $97804.00
+19:28:28 | WARNING  | Insufficient cash for BTC/USDT: need $1053057.20, have $97804.00
+19:28:28 | WARNING  | Insufficient cash for ETH/USDT: need $1071016.08, have $97804.00
+19:28:28 | WARNING  | Insufficient cash for BTC/USDT: need $1336022.50, have $97804.00
+19:28:29 | WARNING  | Insufficient cash for ETH/USDT: need $467164.78, have $97804.00
+19:28:29 | WARNING  | Insufficient cash for BNB/USDT: need $707615.84, have $97804.00
+19:28:29 | WARNING  | Insufficient cash for BTC/USDT: need $566315.80, have $97804.00
+19:28:29 | WARNING  | Insufficient cash for BNB/USDT: need $574311.39, have $97804.00
+19:28:29 | WARNING  | Insufficient cash for ETH/USDT: need $883136.61, have $97804.00
+19:28:29 | INFO     | Progress: 16000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:29 | WARNING  | Insufficient cash for ETH/USDT: need $770490.72, have $97804.00
+19:28:29 | WARNING  | Insufficient cash for BTC/USDT: need $1051955.28, have $97804.00
+19:28:29 | WARNING  | Insufficient cash for BNB/USDT: need $1047382.27, have $97804.00
+19:28:30 | WARNING  | Insufficient cash for BTC/USDT: need $421135.66, have $97804.00
+19:28:30 | WARNING  | Insufficient cash for ETH/USDT: need $319231.03, have $97804.00
+19:28:30 | WARNING  | Insufficient cash for BNB/USDT: need $746359.57, have $97804.00
+19:28:30 | WARNING  | Insufficient cash for BTC/USDT: need $717528.35, have $97804.00
+19:28:30 | WARNING  | Insufficient cash for ETH/USDT: need $664492.37, have $97804.00
+19:28:30 | WARNING  | Insufficient cash for BTC/USDT: need $1036619.96, have $97804.00
+19:28:30 | WARNING  | Insufficient cash for BNB/USDT: need $1075119.94, have $97804.00
+19:28:31 | WARNING  | Insufficient cash for BTC/USDT: need $1121434.27, have $97804.00
+19:28:31 | WARNING  | Insufficient cash for ETH/USDT: need $900047.28, have $97804.00
+19:28:31 | WARNING  | Insufficient cash for BNB/USDT: need $691705.89, have $97804.00
+19:28:31 | WARNING  | Insufficient cash for ETH/USDT: need $683675.52, have $97804.00
+19:28:31 | WARNING  | Insufficient cash for BNB/USDT: need $655302.19, have $97804.00
+19:28:31 | WARNING  | Insufficient cash for BTC/USDT: need $402799.64, have $97804.00
+19:28:32 | WARNING  | Insufficient cash for BTC/USDT: need $513876.56, have $97804.00
+19:28:32 | WARNING  | Insufficient cash for ETH/USDT: need $409990.23, have $97804.00
+19:28:32 | WARNING  | Insufficient cash for BNB/USDT: need $252105.60, have $97804.00
+19:28:32 | WARNING  | Insufficient cash for BTC/USDT: need $227014.11, have $97804.00
+19:28:32 | WARNING  | Insufficient cash for ETH/USDT: need $493778.50, have $97804.00
+19:28:32 | WARNING  | Insufficient cash for BNB/USDT: need $522872.92, have $97804.00
+19:28:32 | INFO     | Progress: 16500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:33 | WARNING  | Insufficient cash for ETH/USDT: need $668979.92, have $97804.00
+19:28:33 | WARNING  | Insufficient cash for BNB/USDT: need $1175468.04, have $97804.00
+19:28:33 | WARNING  | Insufficient cash for BTC/USDT: need $1063799.94, have $97804.00
+19:28:33 | WARNING  | Insufficient cash for ETH/USDT: need $632511.31, have $97804.00
+19:28:33 | WARNING  | Insufficient cash for BNB/USDT: need $436467.13, have $97804.00
+19:28:33 | WARNING  | Insufficient cash for BTC/USDT: need $399212.14, have $97804.00
+19:28:33 | WARNING  | Insufficient cash for ETH/USDT: need $253670.32, have $97804.00
+19:28:33 | WARNING  | Insufficient cash for BNB/USDT: need $437685.77, have $97804.00
+19:28:34 | WARNING  | Insufficient cash for BTC/USDT: need $631377.54, have $97804.00
+19:28:34 | WARNING  | Insufficient cash for BNB/USDT: need $924879.14, have $97804.00
+19:28:34 | WARNING  | Insufficient cash for BTC/USDT: need $833640.84, have $97804.00
+19:28:34 | WARNING  | Insufficient cash for ETH/USDT: need $707860.81, have $97804.00
+19:28:34 | WARNING  | Insufficient cash for ETH/USDT: need $377749.15, have $97804.00
+19:28:35 | WARNING  | Insufficient cash for BTC/USDT: need $713117.43, have $97804.00
+19:28:35 | WARNING  | Insufficient cash for BNB/USDT: need $762391.39, have $97804.00
+19:28:35 | WARNING  | Insufficient cash for ETH/USDT: need $365565.22, have $97804.00
+19:28:35 | INFO     | Progress: 17000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:35 | WARNING  | Insufficient cash for BNB/USDT: need $853903.63, have $97804.00
+19:28:35 | WARNING  | Insufficient cash for ETH/USDT: need $661606.58, have $97804.00
+19:28:35 | WARNING  | Insufficient cash for BTC/USDT: need $1074776.55, have $97804.00
+19:28:35 | WARNING  | Insufficient cash for BNB/USDT: need $856428.26, have $97804.00
+19:28:35 | WARNING  | Insufficient cash for ETH/USDT: need $877620.28, have $97804.00
+19:28:36 | WARNING  | Insufficient cash for BNB/USDT: need $1026711.94, have $97804.00
+19:28:36 | WARNING  | Insufficient cash for BTC/USDT: need $1323686.64, have $97804.00
+19:28:36 | WARNING  | Insufficient cash for ETH/USDT: need $783774.80, have $97804.00
+19:28:36 | WARNING  | Insufficient cash for BNB/USDT: need $920367.90, have $97804.00
+19:28:36 | WARNING  | Insufficient cash for BTC/USDT: need $1143978.06, have $97804.00
+19:28:37 | WARNING  | Insufficient cash for ETH/USDT: need $594695.22, have $97804.00
+19:28:37 | WARNING  | Insufficient cash for BTC/USDT: need $772483.23, have $97804.00
+19:28:37 | WARNING  | Insufficient cash for BNB/USDT: need $1018641.81, have $97804.00
+19:28:37 | WARNING  | Insufficient cash for ETH/USDT: need $2016790.24, have $97804.00
+19:28:37 | WARNING  | Insufficient cash for BTC/USDT: need $2688226.50, have $97804.00
+19:28:37 | WARNING  | Insufficient cash for BNB/USDT: need $1601466.08, have $97804.00
+19:28:37 | WARNING  | Insufficient cash for BTC/USDT: need $3762027.03, have $97804.00
+19:28:37 | WARNING  | Insufficient cash for ETH/USDT: need $1825589.83, have $97804.00
+19:28:38 | WARNING  | Insufficient cash for BNB/USDT: need $1365072.94, have $97804.00
+19:28:38 | INFO     | Progress: 17500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:38 | WARNING  | Insufficient cash for BTC/USDT: need $1315885.54, have $97804.00
+19:28:38 | WARNING  | Insufficient cash for BNB/USDT: need $1277440.79, have $97804.00
+19:28:38 | WARNING  | Insufficient cash for BTC/USDT: need $4590571.07, have $97804.00
+19:28:38 | WARNING  | Insufficient cash for BNB/USDT: need $924593.26, have $97804.00
+19:28:39 | WARNING  | Insufficient cash for ETH/USDT: need $1129912.07, have $97804.00
+19:28:39 | WARNING  | Insufficient cash for BTC/USDT: need $2292362.61, have $97804.00
+19:28:39 | WARNING  | Insufficient cash for BNB/USDT: need $1221631.85, have $97804.00
+19:28:39 | WARNING  | Insufficient cash for ETH/USDT: need $1250068.29, have $97804.00
+19:28:39 | WARNING  | Insufficient cash for BTC/USDT: need $3364181.01, have $97804.00
+19:28:39 | WARNING  | Insufficient cash for BNB/USDT: need $1275912.30, have $97804.00
+19:28:39 | WARNING  | Insufficient cash for ETH/USDT: need $992312.59, have $97804.00
+19:28:39 | WARNING  | Insufficient cash for ETH/USDT: need $714313.97, have $97804.00
+19:28:39 | WARNING  | Insufficient cash for BNB/USDT: need $1047304.99, have $97804.00
+19:28:39 | WARNING  | Insufficient cash for BTC/USDT: need $1479761.36, have $97804.00
+19:28:40 | WARNING  | Insufficient cash for BTC/USDT: need $2476988.49, have $97804.00
+19:28:40 | WARNING  | Insufficient cash for BTC/USDT: need $781588.45, have $97804.00
+19:28:40 | WARNING  | Insufficient cash for ETH/USDT: need $690134.22, have $97804.00
+19:28:40 | INFO     | Progress: 18000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:40 | WARNING  | Insufficient cash for BNB/USDT: need $762150.71, have $97804.00
+19:28:40 | WARNING  | Insufficient cash for ETH/USDT: need $458058.02, have $97804.00
+19:28:41 | WARNING  | Insufficient cash for BNB/USDT: need $853530.44, have $97804.00
+19:28:41 | WARNING  | Insufficient cash for ETH/USDT: need $625366.12, have $97804.00
+19:28:41 | WARNING  | Insufficient cash for BTC/USDT: need $886020.98, have $97804.00
+19:28:41 | WARNING  | Insufficient cash for ETH/USDT: need $994840.40, have $97804.00
+19:28:41 | WARNING  | Insufficient cash for BNB/USDT: need $1487412.35, have $97804.00
+19:28:41 | WARNING  | Insufficient cash for BNB/USDT: need $634187.81, have $97804.00
+19:28:41 | WARNING  | Insufficient cash for ETH/USDT: need $610849.97, have $97804.00
+19:28:42 | WARNING  | Insufficient cash for BNB/USDT: need $865347.06, have $97804.00
+19:28:42 | WARNING  | Insufficient cash for BTC/USDT: need $1158799.04, have $97804.00
+19:28:42 | WARNING  | Insufficient cash for ETH/USDT: need $792447.03, have $97804.00
+19:28:42 | WARNING  | Insufficient cash for BTC/USDT: need $435381.37, have $97804.00
+19:28:43 | WARNING  | Insufficient cash for BNB/USDT: need $652474.86, have $97804.00
+19:28:43 | WARNING  | Insufficient cash for ETH/USDT: need $411905.04, have $97804.00
+19:28:43 | INFO     | Progress: 18500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:43 | WARNING  | Insufficient cash for BTC/USDT: need $716772.84, have $97804.00
+19:28:43 | WARNING  | Insufficient cash for ETH/USDT: need $568423.22, have $97804.00
+19:28:43 | WARNING  | Insufficient cash for BNB/USDT: need $670897.50, have $97804.00
+19:28:43 | WARNING  | Insufficient cash for BTC/USDT: need $755434.35, have $97804.00
+19:28:43 | WARNING  | Insufficient cash for BNB/USDT: need $983312.40, have $97804.00
+19:28:44 | WARNING  | Insufficient cash for BTC/USDT: need $286867.59, have $97804.00
+19:28:44 | WARNING  | Insufficient cash for ETH/USDT: need $207997.30, have $97804.00
+19:28:44 | WARNING  | Insufficient cash for BTC/USDT: need $603725.46, have $97804.00
+19:28:44 | WARNING  | Insufficient cash for ETH/USDT: need $391008.97, have $97804.00
+19:28:44 | WARNING  | Insufficient cash for BNB/USDT: need $685218.31, have $97804.00
+19:28:44 | WARNING  | Insufficient cash for BTC/USDT: need $1099709.32, have $97804.00
+19:28:45 | WARNING  | Insufficient cash for ETH/USDT: need $483459.33, have $97804.00
+19:28:45 | WARNING  | Insufficient cash for BNB/USDT: need $918149.67, have $97804.00
+19:28:45 | WARNING  | Insufficient cash for ETH/USDT: need $728223.75, have $97804.00
+19:28:45 | WARNING  | Insufficient cash for BTC/USDT: need $1669507.31, have $97804.00
+19:28:45 | WARNING  | Insufficient cash for ETH/USDT: need $332578.56, have $97804.00
+19:28:45 | INFO     | Progress: 19000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:45 | WARNING  | Insufficient cash for BTC/USDT: need $530896.61, have $97804.00
+19:28:46 | WARNING  | Insufficient cash for BNB/USDT: need $826185.85, have $97804.00
+19:28:46 | WARNING  | Insufficient cash for BTC/USDT: need $1184951.90, have $97804.00
+19:28:46 | WARNING  | Insufficient cash for ETH/USDT: need $736892.12, have $97804.00
+19:28:46 | WARNING  | Insufficient cash for BNB/USDT: need $1030396.89, have $97804.00
+19:28:46 | WARNING  | Insufficient cash for ETH/USDT: need $646311.38, have $97804.00
+19:28:46 | WARNING  | Insufficient cash for BTC/USDT: need $1002591.78, have $97804.00
+19:28:46 | WARNING  | Insufficient cash for BNB/USDT: need $985786.94, have $97804.00
+19:28:46 | WARNING  | Insufficient cash for ETH/USDT: need $475780.78, have $97804.00
+19:28:46 | WARNING  | Insufficient cash for BTC/USDT: need $1051261.85, have $97804.00
+19:28:47 | WARNING  | Insufficient cash for BNB/USDT: need $1068728.93, have $97804.00
+19:28:47 | WARNING  | Insufficient cash for BTC/USDT: need $283524.62, have $97804.00
+19:28:47 | WARNING  | Insufficient cash for ETH/USDT: need $186779.04, have $97804.00
+19:28:47 | WARNING  | Insufficient cash for BNB/USDT: need $416016.53, have $97804.00
+19:28:47 | WARNING  | Insufficient cash for BNB/USDT: need $978163.60, have $97804.00
+19:28:48 | WARNING  | Insufficient cash for ETH/USDT: need $901838.59, have $97804.00
+19:28:48 | WARNING  | Insufficient cash for BTC/USDT: need $1907908.16, have $97804.00
+19:28:48 | WARNING  | Insufficient cash for BNB/USDT: need $1430784.41, have $97804.00
+19:28:48 | WARNING  | Insufficient cash for BNB/USDT: need $2122584.47, have $97804.00
+19:28:48 | WARNING  | Insufficient cash for ETH/USDT: need $2276197.99, have $97804.00
+19:28:48 | WARNING  | Insufficient cash for BTC/USDT: need $5433043.47, have $97804.00
+19:28:48 | INFO     | Progress: 19500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:48 | WARNING  | Insufficient cash for ETH/USDT: need $821838.96, have $97804.00
+19:28:49 | WARNING  | Insufficient cash for BNB/USDT: need $2871207.06, have $97804.00
+19:28:49 | WARNING  | Insufficient cash for BTC/USDT: need $3055935.53, have $97804.00
+19:28:49 | WARNING  | Insufficient cash for ETH/USDT: need $1646636.06, have $97804.00
+19:28:49 | WARNING  | Insufficient cash for BNB/USDT: need $1050793.92, have $97804.00
+19:28:49 | WARNING  | Insufficient cash for ETH/USDT: need $835529.69, have $97804.00
+19:28:50 | WARNING  | Insufficient cash for BNB/USDT: need $1121570.52, have $97804.00
+19:28:50 | WARNING  | Insufficient cash for BTC/USDT: need $1291048.97, have $97804.00
+19:28:50 | WARNING  | Insufficient cash for BTC/USDT: need $357811.43, have $97804.00
+19:28:50 | WARNING  | Insufficient cash for BNB/USDT: need $493956.53, have $97804.00
+19:28:51 | WARNING  | Insufficient cash for BTC/USDT: need $687435.52, have $97804.00
+19:28:51 | WARNING  | Insufficient cash for ETH/USDT: need $449701.06, have $97804.00
+19:28:51 | WARNING  | Insufficient cash for BNB/USDT: need $758182.05, have $97804.00
+19:28:51 | INFO     | Progress: 20000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:51 | WARNING  | Insufficient cash for BTC/USDT: need $541869.09, have $97804.00
+19:28:51 | WARNING  | Insufficient cash for ETH/USDT: need $309467.77, have $97804.00
+19:28:51 | WARNING  | Insufficient cash for BNB/USDT: need $1413081.86, have $97804.00
+19:28:51 | WARNING  | Insufficient cash for BTC/USDT: need $1026907.45, have $97804.00
+19:28:51 | WARNING  | Insufficient cash for ETH/USDT: need $178012.34, have $97804.00
+19:28:51 | WARNING  | Insufficient cash for BNB/USDT: need $454552.44, have $97804.00
+19:28:52 | WARNING  | Insufficient cash for ETH/USDT: need $458061.72, have $97804.00
+19:28:52 | WARNING  | Insufficient cash for BTC/USDT: need $736681.54, have $97804.00
+19:28:52 | WARNING  | Insufficient cash for BNB/USDT: need $796903.34, have $97804.00
+19:28:52 | WARNING  | Insufficient cash for ETH/USDT: need $589026.80, have $97804.00
+19:28:52 | WARNING  | Insufficient cash for BTC/USDT: need $898963.27, have $97804.00
+19:28:52 | WARNING  | Insufficient cash for BNB/USDT: need $999703.36, have $97804.00
+19:28:52 | WARNING  | Insufficient cash for BTC/USDT: need $1448014.04, have $97804.00
+19:28:53 | WARNING  | Insufficient cash for BTC/USDT: need $1164464.79, have $97804.00
+19:28:53 | WARNING  | Insufficient cash for ETH/USDT: need $724579.67, have $97804.00
+19:28:53 | WARNING  | Insufficient cash for BNB/USDT: need $1054350.99, have $97804.00
+19:28:53 | WARNING  | Insufficient cash for BNB/USDT: need $672601.76, have $97804.00
+19:28:53 | WARNING  | Insufficient cash for ETH/USDT: need $316607.22, have $97804.00
+19:28:53 | WARNING  | Insufficient cash for BTC/USDT: need $410159.37, have $97804.00
+19:28:53 | WARNING  | Insufficient cash for BNB/USDT: need $978018.25, have $97804.00
+19:28:53 | INFO     | Progress: 20500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:54 | WARNING  | Insufficient cash for ETH/USDT: need $705183.25, have $97804.00
+19:28:54 | WARNING  | Insufficient cash for BTC/USDT: need $789517.01, have $97804.00
+19:28:54 | WARNING  | Insufficient cash for BNB/USDT: need $886419.27, have $97804.00
+19:28:54 | WARNING  | Insufficient cash for ETH/USDT: need $443734.40, have $97804.00
+19:28:54 | WARNING  | Insufficient cash for BNB/USDT: need $811064.90, have $97804.00
+19:28:54 | WARNING  | Insufficient cash for BTC/USDT: need $594454.14, have $97804.00
+19:28:54 | WARNING  | Insufficient cash for BTC/USDT: need $395817.45, have $97804.00
+19:28:54 | WARNING  | Insufficient cash for ETH/USDT: need $350230.37, have $97804.00
+19:28:54 | WARNING  | Insufficient cash for BNB/USDT: need $609668.96, have $97804.00
+19:28:55 | WARNING  | Insufficient cash for BTC/USDT: need $1107854.94, have $97804.00
+19:28:55 | WARNING  | Insufficient cash for ETH/USDT: need $695621.19, have $97804.00
+19:28:55 | WARNING  | Insufficient cash for BNB/USDT: need $941902.33, have $97804.00
+19:28:55 | WARNING  | Insufficient cash for BNB/USDT: need $711942.08, have $97804.00
+19:28:55 | WARNING  | Insufficient cash for BTC/USDT: need $988342.03, have $97804.00
+19:28:55 | WARNING  | Insufficient cash for ETH/USDT: need $970230.16, have $97804.00
+19:28:55 | WARNING  | Insufficient cash for BNB/USDT: need $961007.36, have $97804.00
+19:28:56 | WARNING  | Insufficient cash for BTC/USDT: need $1242104.79, have $97804.00
+19:28:56 | INFO     | Progress: 21000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:56 | WARNING  | Insufficient cash for BTC/USDT: need $487015.72, have $97804.00
+19:28:56 | WARNING  | Insufficient cash for BNB/USDT: need $925348.93, have $97804.00
+19:28:57 | WARNING  | Insufficient cash for ETH/USDT: need $433157.23, have $97804.00
+19:28:57 | WARNING  | Insufficient cash for BNB/USDT: need $545377.60, have $97804.00
+19:28:57 | WARNING  | Insufficient cash for BTC/USDT: need $554532.78, have $97804.00
+19:28:57 | WARNING  | Insufficient cash for BTC/USDT: need $520962.15, have $97804.00
+19:28:57 | WARNING  | Insufficient cash for ETH/USDT: need $383201.98, have $97804.00
+19:28:57 | WARNING  | Insufficient cash for BNB/USDT: need $535719.02, have $97804.00
+19:28:57 | WARNING  | Insufficient cash for BTC/USDT: need $226392.64, have $97804.00
+19:28:57 | WARNING  | Insufficient cash for ETH/USDT: need $157397.07, have $97804.00
+19:28:57 | WARNING  | Insufficient cash for BNB/USDT: need $249993.21, have $97804.00
+19:28:58 | WARNING  | Insufficient cash for ETH/USDT: need $681216.81, have $97804.00
+19:28:58 | WARNING  | Insufficient cash for BNB/USDT: need $933390.74, have $97804.00
+19:28:58 | INFO     | Progress: 21500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:28:59 | WARNING  | Insufficient cash for BTC/USDT: need $258997.41, have $97804.00
+19:28:59 | WARNING  | Insufficient cash for ETH/USDT: need $201189.77, have $97804.00
+19:28:59 | WARNING  | Insufficient cash for BTC/USDT: need $332901.73, have $97804.00
+19:28:59 | WARNING  | Insufficient cash for ETH/USDT: need $213425.01, have $97804.00
+19:28:59 | WARNING  | Insufficient cash for BNB/USDT: need $310264.64, have $97804.00
+19:28:59 | WARNING  | Insufficient cash for BTC/USDT: need $627128.04, have $97804.00
+19:29:00 | WARNING  | Insufficient cash for BNB/USDT: need $511587.20, have $97804.00
+19:29:00 | WARNING  | Insufficient cash for ETH/USDT: need $216559.81, have $97804.00
+19:29:00 | WARNING  | Insufficient cash for BTC/USDT: need $601309.93, have $97804.00
+19:29:00 | WARNING  | Insufficient cash for ETH/USDT: need $230058.58, have $97804.00
+19:29:00 | WARNING  | Insufficient cash for BNB/USDT: need $414126.24, have $97804.00
+19:29:00 | WARNING  | Insufficient cash for BTC/USDT: need $262234.10, have $97804.00
+19:29:00 | WARNING  | Insufficient cash for ETH/USDT: need $156743.55, have $97804.00
+19:29:01 | WARNING  | Insufficient cash for BTC/USDT: need $262070.74, have $97804.00
+19:29:01 | WARNING  | Insufficient cash for BNB/USDT: need $252177.92, have $97804.00
+19:29:01 | WARNING  | Insufficient cash for ETH/USDT: need $157134.24, have $97804.00
+19:29:01 | WARNING  | Insufficient cash for BNB/USDT: need $185652.57, have $97804.00
+19:29:01 | INFO     | Progress: 22000 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:29:01 | WARNING  | Insufficient cash for BNB/USDT: need $112392.28, have $97804.00
+19:29:01 | WARNING  | Insufficient cash for BTC/USDT: need $304022.79, have $97804.00
+19:29:01 | WARNING  | Insufficient cash for ETH/USDT: need $162126.49, have $97804.00
+19:29:02 | WARNING  | Insufficient cash for BTC/USDT: need $304137.74, have $97804.00
+19:29:02 | WARNING  | Insufficient cash for ETH/USDT: need $156773.82, have $97804.00
+19:29:02 | WARNING  | Insufficient cash for BNB/USDT: need $300222.92, have $97804.00
+19:29:02 | WARNING  | Insufficient cash for BNB/USDT: need $378005.15, have $97804.00
+19:29:02 | WARNING  | Insufficient cash for BTC/USDT: need $670337.60, have $97804.00
+19:29:02 | WARNING  | Insufficient cash for ETH/USDT: need $393680.76, have $97804.00
+19:29:03 | WARNING  | Insufficient cash for ETH/USDT: need $216133.02, have $97804.00
+19:29:03 | WARNING  | Insufficient cash for BTC/USDT: need $477087.49, have $97804.00
+19:29:03 | WARNING  | Insufficient cash for BNB/USDT: need $491260.02, have $97804.00
+19:29:03 | WARNING  | Insufficient cash for BNB/USDT: need $468838.57, have $97804.00
+19:29:03 | WARNING  | Insufficient cash for BTC/USDT: need $554020.28, have $97804.00
+19:29:04 | WARNING  | Insufficient cash for BTC/USDT: need $186077.17, have $97804.00
+19:29:04 | INFO     | Progress: 22500 cycles, equity: $97,804.00, positions: 0, trades: 1
+19:29:04 | WARNING  | Insufficient cash for BTC/USDT: need $365193.32, have $97804.00
+19:29:04 | WARNING  | Insufficient cash for ETH/USDT: need $258351.32, have $97804.00
+19:29:04 | WARNING  | Insufficient cash for BNB/USDT: need $435980.29, have $97804.00
+19:29:04 | WARNING  | Insufficient cash for BNB/USDT: need $494559.44, have $97804.00
+19:29:04 | WARNING  | Insufficient cash for ETH/USDT: need $268496.35, have $97804.00
+19:29:04 | WARNING  | Insufficient cash for ETH/USDT: need $212261.97, have $97804.00
+19:29:05 | WARNING  | Insufficient cash for BTC/USDT: need $399198.81, have $97804.00
+19:29:05 | INFO     | Position opened: ETH/USDT 38.5945 @ $2151.1450, stop=$2099.3871, posterior=0.700
+19:29:05 | INFO     | Position closed: ETH/USDT stop_loss, PnL: $-2159.54, R: -0.95R
+19:29:05 | WARNING  | Insufficient cash for BTC/USDT: need $310374.49, have $95561.44
+19:29:06 | WARNING  | Insufficient cash for ETH/USDT: need $158724.53, have $95561.44
+19:29:06 | WARNING  | Insufficient cash for BNB/USDT: need $214535.75, have $95561.44
+19:29:06 | WARNING  | Insufficient cash for BTC/USDT: need $253025.49, have $95561.44
+19:29:06 | WARNING  | Insufficient cash for ETH/USDT: need $142488.36, have $95561.44
+19:29:06 | WARNING  | Insufficient cash for BNB/USDT: need $249191.21, have $95561.44
+19:29:06 | WARNING  | Insufficient cash for BTC/USDT: need $243796.32, have $95561.44
+19:29:06 | WARNING  | Insufficient cash for ETH/USDT: need $153881.36, have $95561.44
+19:29:06 | WARNING  | Insufficient cash for BNB/USDT: need $173100.12, have $95561.44
+19:29:06 | INFO     | Progress: 23000 cycles, equity: $95,561.44, positions: 0, trades: 2
+19:29:07 | INFO     | Position opened: ETH/USDT 34.7912 @ $1901.7904, stop=$1845.9057, posterior=0.700
+19:29:07 | INFO     | Position closed: ETH/USDT stop_loss, PnL: $-2072.67, R: -0.93R
+19:29:07 | WARNING  | Insufficient cash for BNB/USDT: need $159797.16, have $93422.60
+19:29:07 | WARNING  | Insufficient cash for BTC/USDT: need $193487.78, have $93422.60
+19:29:07 | WARNING  | Insufficient cash for ETH/USDT: need $164508.26, have $93422.60
+19:29:08 | WARNING  | Insufficient cash for BNB/USDT: need $184307.68, have $93422.60
+19:29:08 | WARNING  | Insufficient cash for BTC/USDT: need $253559.24, have $93422.60
+19:29:08 | WARNING  | Insufficient cash for ETH/USDT: need $208700.00, have $93422.60
+19:29:08 | WARNING  | Insufficient cash for BNB/USDT: need $176371.91, have $93422.60
+19:29:08 | WARNING  | Insufficient cash for ETH/USDT: need $127244.15, have $93422.60
+19:29:08 | WARNING  | Insufficient cash for BTC/USDT: need $239895.79, have $93422.60
+19:29:08 | WARNING  | Insufficient cash for BNB/USDT: need $223511.52, have $93422.60
+19:29:08 | WARNING  | Insufficient cash for ETH/USDT: need $217355.72, have $93422.60
+19:29:09 | WARNING  | Insufficient cash for BTC/USDT: need $297702.22, have $93422.60
+19:29:09 | WARNING  | Insufficient cash for BNB/USDT: need $341458.67, have $93422.60
+19:29:09 | WARNING  | Insufficient cash for ETH/USDT: need $207513.47, have $93422.60
+19:29:09 | INFO     | Progress: 23500 cycles, equity: $93,422.60, positions: 0, trades: 3
+19:29:09 | WARNING  | Insufficient cash for ETH/USDT: need $259118.04, have $93422.60
+19:29:09 | WARNING  | Insufficient cash for BNB/USDT: need $371470.31, have $93422.60
+19:29:09 | WARNING  | Insufficient cash for BTC/USDT: need $207554.81, have $93422.60
+19:29:10 | WARNING  | Insufficient cash for BNB/USDT: need $222549.61, have $93422.60
+19:29:10 | WARNING  | Insufficient cash for ETH/USDT: need $191062.91, have $93422.60
+19:29:10 | WARNING  | Insufficient cash for BTC/USDT: need $436712.24, have $93422.60
+19:29:10 | WARNING  | Insufficient cash for ETH/USDT: need $338576.25, have $93422.60
+19:29:10 | WARNING  | Insufficient cash for BTC/USDT: need $380311.45, have $93422.60
+19:29:10 | WARNING  | Insufficient cash for BNB/USDT: need $458701.43, have $93422.60
+19:29:10 | WARNING  | Insufficient cash for BTC/USDT: need $604231.45, have $93422.60
+19:29:10 | WARNING  | Insufficient cash for BNB/USDT: need $627117.64, have $93422.60
+19:29:11 | WARNING  | Insufficient cash for ETH/USDT: need $265242.59, have $93422.60
+19:29:11 | WARNING  | Insufficient cash for BTC/USDT: need $328183.74, have $93422.60
+19:29:11 | WARNING  | Insufficient cash for BNB/USDT: need $377856.16, have $93422.60
+19:29:11 | WARNING  | Insufficient cash for ETH/USDT: need $241917.03, have $93422.60
+19:29:11 | WARNING  | Insufficient cash for BTC/USDT: need $419592.79, have $93422.60
+19:29:11 | WARNING  | Insufficient cash for ETH/USDT: need $324061.21, have $93422.60
+19:29:11 | WARNING  | Insufficient cash for BNB/USDT: need $354785.32, have $93422.60
+19:29:12 | WARNING  | Insufficient cash for BTC/USDT: need $412691.43, have $93422.60
+19:29:12 | WARNING  | Insufficient cash for ETH/USDT: need $287027.75, have $93422.60
+19:29:12 | WARNING  | Insufficient cash for BNB/USDT: need $401617.11, have $93422.60
+19:29:12 | INFO     | Progress: 24000 cycles, equity: $93,422.60, positions: 0, trades: 3
+19:29:12 | WARNING  | Insufficient cash for BNB/USDT: need $517415.02, have $93422.60
+19:29:12 | WARNING  | Insufficient cash for ETH/USDT: need $405834.91, have $93422.60
+19:29:13 | WARNING  | Insufficient cash for BTC/USDT: need $211061.72, have $93422.60
+19:29:13 | WARNING  | Insufficient cash for BNB/USDT: need $247767.97, have $93422.60
+19:29:13 | WARNING  | Insufficient cash for ETH/USDT: need $134221.66, have $93422.60
+19:29:13 | WARNING  | Insufficient cash for BTC/USDT: need $376365.27, have $93422.60
+19:29:13 | WARNING  | Insufficient cash for ETH/USDT: need $213151.31, have $93422.60
+19:29:13 | WARNING  | Insufficient cash for BNB/USDT: need $338724.94, have $93422.60
+19:29:13 | WARNING  | Insufficient cash for BNB/USDT: need $530049.88, have $93422.60
+19:29:14 | WARNING  | Insufficient cash for ETH/USDT: need $272957.81, have $93422.60
+19:29:14 | WARNING  | Insufficient cash for BTC/USDT: need $416006.94, have $93422.60
+19:29:14 | WARNING  | Insufficient cash for BNB/USDT: need $415400.78, have $93422.60
+19:29:14 | WARNING  | Insufficient cash for BTC/USDT: need $436849.33, have $93422.60
+19:29:14 | WARNING  | Insufficient cash for ETH/USDT: need $288867.76, have $93422.60
+19:29:14 | WARNING  | Insufficient cash for BNB/USDT: need $339635.30, have $93422.60
+19:29:15 | INFO     | Progress: 24500 cycles, equity: $93,422.60, positions: 0, trades: 3
+19:29:15 | WARNING  | Insufficient cash for BNB/USDT: need $561606.42, have $93422.60
+19:29:15 | WARNING  | Insufficient cash for ETH/USDT: need $464249.62, have $93422.60
+19:29:15 | WARNING  | Insufficient cash for BTC/USDT: need $457565.67, have $93422.60
+19:29:15 | WARNING  | Insufficient cash for ETH/USDT: need $378734.30, have $93422.60
+19:29:16 | WARNING  | Insufficient cash for BNB/USDT: need $249116.10, have $93422.60
+19:29:16 | WARNING  | Insufficient cash for BTC/USDT: need $141856.76, have $93422.60
+19:29:16 | WARNING  | Insufficient cash for ETH/USDT: need $217105.20, have $93422.60
+19:29:16 | WARNING  | Insufficient cash for BNB/USDT: need $280755.62, have $93422.60
+19:29:16 | WARNING  | Insufficient cash for BTC/USDT: need $323616.92, have $93422.60
+19:29:16 | WARNING  | Insufficient cash for BNB/USDT: need $438800.57, have $93422.60
+19:29:16 | WARNING  | Insufficient cash for BTC/USDT: need $431381.66, have $93422.60
+19:29:16 | WARNING  | Insufficient cash for ETH/USDT: need $329168.12, have $93422.60
+19:29:17 | WARNING  | Insufficient cash for BTC/USDT: need $447089.30, have $93422.60
+19:29:17 | WARNING  | Insufficient cash for ETH/USDT: need $325219.32, have $93422.60
+19:29:17 | WARNING  | Insufficient cash for BNB/USDT: need $543899.44, have $93422.60
+19:29:17 | WARNING  | Insufficient cash for BTC/USDT: need $380205.74, have $93422.60
+19:29:17 | WARNING  | Insufficient cash for ETH/USDT: need $321876.29, have $93422.60
+19:29:17 | INFO     | Progress: 25000 cycles, equity: $93,422.60, positions: 0, trades: 3
+19:29:17 | WARNING  | Insufficient cash for ETH/USDT: need $202468.17, have $93422.60
+19:29:17 | WARNING  | Insufficient cash for BNB/USDT: need $309580.76, have $93422.60
+19:29:18 | WARNING  | Insufficient cash for BTC/USDT: need $411693.26, have $93422.60
+19:29:18 | WARNING  | Insufficient cash for BNB/USDT: need $401474.88, have $93422.60
+19:29:18 | WARNING  | Insufficient cash for ETH/USDT: need $392632.79, have $93422.60
+19:29:18 | WARNING  | Insufficient cash for BTC/USDT: need $514768.71, have $93422.60
+19:29:18 | WARNING  | Insufficient cash for ETH/USDT: need $398034.30, have $93422.60
+19:29:18 | WARNING  | Insufficient cash for BNB/USDT: need $408871.64, have $93422.60
+19:29:19 | WARNING  | Insufficient cash for BTC/USDT: need $463975.89, have $93422.60
+19:29:19 | WARNING  | Insufficient cash for ETH/USDT: need $353808.10, have $93422.60
+19:29:19 | WARNING  | Insufficient cash for BNB/USDT: need $161647.48, have $93422.60
+19:29:19 | WARNING  | Insufficient cash for BTC/USDT: need $384459.07, have $93422.60
+19:29:19 | WARNING  | Insufficient cash for ETH/USDT: need $350919.72, have $93422.60
+19:29:19 | WARNING  | Insufficient cash for BNB/USDT: need $450163.53, have $93422.60
+19:29:19 | WARNING  | Insufficient cash for BTC/USDT: need $693722.77, have $93422.60
+19:29:19 | WARNING  | Insufficient cash for BNB/USDT: need $556778.30, have $93422.60
+19:29:19 | WARNING  | Insufficient cash for ETH/USDT: need $506049.39, have $93422.60
+19:29:20 | WARNING  | Insufficient cash for BTC/USDT: need $1145798.05, have $93422.60
+19:29:20 | WARNING  | Insufficient cash for ETH/USDT: need $883738.53, have $93422.60
+19:29:20 | INFO     | Progress: 25500 cycles, equity: $93,422.60, positions: 0, trades: 3
+19:29:20 | WARNING  | Insufficient cash for BNB/USDT: need $480712.37, have $93422.60
+19:29:20 | WARNING  | Insufficient cash for BTC/USDT: need $422918.18, have $93422.60
+19:29:21 | WARNING  | Insufficient cash for ETH/USDT: need $606288.42, have $93422.60
+19:29:21 | WARNING  | Insufficient cash for BNB/USDT: need $695745.56, have $93422.60
+19:29:21 | WARNING  | Insufficient cash for BTC/USDT: need $745801.32, have $93422.60
+19:29:21 | WARNING  | Insufficient cash for BNB/USDT: need $568593.77, have $93422.60
+19:29:21 | WARNING  | Insufficient cash for BTC/USDT: need $312740.52, have $93422.60
+19:29:21 | WARNING  | Insufficient cash for BNB/USDT: need $361906.08, have $93422.60
+19:29:21 | WARNING  | Insufficient cash for ETH/USDT: need $398783.99, have $93422.60
+19:29:22 | INFO     | Simulation complete: 25921 cycles, 3 trades
+19:29:22 | INFO     | PerformanceMetricsCalculator initialized with 3 trades
+19:29:22 | ERROR    | Error: cannot access local variable 'metrics' where it is not associated with a value
+Traceback (most recent call last):
+
+> File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/autonomous-trading-bot/run_quick_baseline.py", line 345, in <module>
+    results = asyncio.run(run_quick_baseline())
+              │       │   └ <function run_quick_baseline at 0x130f4f7f0>
+              │       └ <function run at 0x10358e560>
+              └ <module 'asyncio' from '/opt/homebrew/Cellar/python@3.14/3.14.0/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyn...
+
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/runners.py", line 204, in run
+    return runner.run(main)
+           │      │   └ <coroutine object run_quick_baseline at 0x127fb6ac0>
+           │      └ <function Runner.run at 0x10358e980>
+           └ <asyncio.runners.Runner object at 0x103749e80>
+
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           │    │                        └ <Task finished name='Task-1' coro=<run_quick_baseline() done, defined at /Users/vishnuvardhanmedara/Moonshot-AutonomousAIMult...
+           │    └ None
+           └ <asyncio.runners.Runner object at 0x103749e80>
+
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           │      └ <method 'result' of '_asyncio.Task' objects>
+           └ <Task finished name='Task-1' coro=<run_quick_baseline() done, defined at /Users/vishnuvardhanmedara/Moonshot-AutonomousAIMult...
+
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/autonomous-trading-bot/run_quick_baseline.py", line 281, in run_quick_baseline
+    metrics = metrics.calculate_all_metrics()
+
+UnboundLocalError: cannot access local variable 'metrics' where it is not associated with a value

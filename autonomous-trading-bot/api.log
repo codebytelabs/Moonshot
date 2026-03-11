@@ -1,0 +1,562 @@
+2026-02-15 15:25:04.394 | INFO     | __main__:init_bot_components:28 - 🚀 API Server Starting — Initializing Bot Components...
+2026-02-15 15:25:04.397 | INFO     | src.redis_client:connect:40 - Redis connected
+2026-02-15 15:25:04.429 | INFO     | src.supabase_client:__init__:18 - Supabase client initialized
+2026-02-15 15:25:04.431 | INFO     | src.exchange_ccxt:__init__:111 - 🔧 Monkeypatching Gate.io to load SPOT markets only (bypassing broken futures)
+2026-02-15 15:25:04.431 | INFO     | src.exchange_ccxt:__init__:118 - Exchange gateio set to DEMO MODE → https://api-testnet.gateapi.io/api/v4
+2026-02-15 15:25:05.693 | INFO     | src.exchange_ccxt:initialize:134 - [gateio] Loaded 2621 markets in 1.3s
+2026-02-15 15:25:05.694 | INFO     | __main__:init_bot_components:109 - 💰 Fetching initial balance from exchange...
+2026-02-15 15:25:05.992 | INFO     | __main__:init_bot_components:116 - ✅ Synced equity from exchange: $50633.43
+2026-02-15 15:25:05.993 | INFO     | __main__:init_bot_components:123 - ✅ Bot Components Initialized! Serving live data.
+2026-02-15 15:25:06.008 | INFO     | __main__:main:153 - 🚀 Starting Uvicorn Server...
+INFO:     Started server process [23893]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:54335 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54572 - "OPTIONS /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54576 - "OPTIONS /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54577 - "OPTIONS /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54574 - "WebSocket /ws" [accepted]
+2026-02-15 15:26:12.078 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 1)
+INFO:     connection open
+INFO:     127.0.0.1:54572 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54576 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54583 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54654 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54655 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54656 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54727 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54729 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54730 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54801 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54803 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54804 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54848 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54851 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54852 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54874 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54875 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54876 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54899 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54900 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54901 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54919 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54920 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54921 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54935 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54936 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54937 - "GET /performance HTTP/1.1" 200 OK
+2026-02-15 15:28:20.166 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 0)
+INFO:     connection closed
+INFO:     127.0.0.1:54963 - "WebSocket /ws" [accepted]
+2026-02-15 15:28:20.665 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 1)
+INFO:     connection open
+INFO:     127.0.0.1:54965 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54967 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54969 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54995 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54996 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54997 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54997 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55095 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55098 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55099 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55177 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55179 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55180 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55207 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55208 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55209 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55254 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55255 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55256 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55285 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55286 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55287 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55304 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55305 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55306 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55323 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55325 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55326 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55346 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55347 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55348 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55369 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55370 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55371 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55407 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55408 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55409 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55442 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55444 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55445 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55540 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55541 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55542 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55571 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55571 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55581 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55582 - "GET /performance HTTP/1.1" 200 OK
+2026-02-15 15:31:58.029 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 0)
+INFO:     connection closed
+INFO:     127.0.0.1:55594 - "OPTIONS /settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55595 - "OPTIONS /settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55594 - "GET /settings HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/uvicorn/protocols/http/httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/fastapi/applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/middleware/cors.py", line 95, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/middleware/cors.py", line 153, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/fastapi/routing.py", line 119, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/fastapi/routing.py", line 105, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/fastapi/routing.py", line 424, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/fastapi/routing.py", line 312, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/autonomous-trading-bot/src/api.py", line 82, in get_settings_endpoint
+    "mode": s.trading_mode,
+            ^^^^^^^^^^^^^^
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/pydantic/main.py", line 1026, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'Settings' object has no attribute 'trading_mode'
+INFO:     127.0.0.1:55595 - "GET /settings HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/uvicorn/protocols/http/httptools_impl.py", line 416, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/fastapi/applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/middleware/cors.py", line 95, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/middleware/cors.py", line 153, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/fastapi/routing.py", line 119, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/fastapi/routing.py", line 105, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/fastapi/routing.py", line 424, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/fastapi/routing.py", line 312, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/autonomous-trading-bot/src/api.py", line 82, in get_settings_endpoint
+    "mode": s.trading_mode,
+            ^^^^^^^^^^^^^^
+  File "/Users/vishnuvardhanmedara/Moonshot-AutonomousAIMultiAgentCryptoBot/venv/lib/python3.14/site-packages/pydantic/main.py", line 1026, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'Settings' object has no attribute 'trading_mode'
+INFO:     127.0.0.1:55607 - "WebSocket /ws" [accepted]
+2026-02-15 15:32:01.042 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 1)
+INFO:     connection open
+2026-02-15 15:32:17.835 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 0)
+INFO:     connection closed
+INFO:     127.0.0.1:55649 - "WebSocket /ws" [accepted]
+2026-02-15 15:32:18.053 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 1)
+INFO:     connection open
+INFO:     127.0.0.1:55651 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55653 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55655 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55679 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55680 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55681 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55724 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55725 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55726 - "GET /performance HTTP/1.1" 200 OK
+2026-02-15 15:32:59.012 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 0)
+INFO:     connection closed
+INFO:     127.0.0.1:55750 - "WebSocket /ws" [accepted]
+2026-02-15 15:32:59.211 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 1)
+INFO:     connection open
+INFO:     127.0.0.1:55752 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55754 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55756 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55778 - "OPTIONS /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55782 - "OPTIONS /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55784 - "OPTIONS /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55783 - "WebSocket /ws" [accepted]
+2026-02-15 15:33:04.712 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 2)
+INFO:     connection open
+INFO:     127.0.0.1:55782 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55778 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55784 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55798 - "WebSocket /ws" [accepted]
+2026-02-15 15:33:09.666 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 3)
+2026-02-15 15:33:09.668 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 2)
+INFO:     connection closed
+INFO:     connection open
+INFO:     127.0.0.1:55804 - "WebSocket /ws" [accepted]
+2026-02-15 15:33:12.433 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 3)
+INFO:     connection open
+INFO:     127.0.0.1:55806 - "WebSocket /ws" [accepted]
+2026-02-15 15:33:12.613 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 4)
+INFO:     connection open
+2026-02-15 15:33:13.209 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 3)
+2026-02-15 15:33:13.209 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 2)
+2026-02-15 15:33:13.210 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 1)
+INFO:     connection closed
+INFO:     connection closed
+INFO:     connection closed
+INFO:     127.0.0.1:55809 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55812 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55813 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55854 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55857 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55858 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55919 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55921 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55923 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55936 - "WebSocket /ws" [accepted]
+2026-02-15 15:33:45.631 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 2)
+INFO:     connection open
+INFO:     127.0.0.1:55977 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55978 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55979 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56006 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56007 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56008 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56029 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56031 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56032 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56069 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56071 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56072 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56105 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56107 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56108 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56136 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56138 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56139 - "GET /performance HTTP/1.1" 200 OK
+2026-02-15 15:35:15.920 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 1)
+INFO:     connection closed
+INFO:     127.0.0.1:56139 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56138 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56136 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56147 - "WebSocket /ws" [accepted]
+2026-02-15 15:35:16.002 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 2)
+INFO:     connection open
+INFO:     127.0.0.1:56151 - "WebSocket /ws" [accepted]
+2026-02-15 15:35:18.926 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 3)
+INFO:     connection open
+INFO:     127.0.0.1:56177 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56179 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56180 - "GET /performance HTTP/1.1" 200 OK
+2026-02-15 15:35:40.729 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 2)
+INFO:     connection closed
+INFO:     127.0.0.1:56195 - "WebSocket /ws" [accepted]
+2026-02-15 15:35:40.735 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 3)
+INFO:     connection open
+INFO:     127.0.0.1:56197 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56199 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56201 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56250 - "WebSocket /ws" [accepted]
+2026-02-15 15:35:43.748 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 4)
+INFO:     connection open
+2026-02-15 15:35:51.077 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 3)
+2026-02-15 15:35:51.079 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 2)
+2026-02-15 15:35:51.079 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 1)
+2026-02-15 15:35:51.079 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 0)
+INFO:     connection closed
+INFO:     connection closed
+INFO:     connection closed
+INFO:     connection closed
+INFO:     127.0.0.1:56282 - "WebSocket /ws" [accepted]
+2026-02-15 15:35:51.210 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 1)
+INFO:     connection open
+INFO:     127.0.0.1:56284 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56286 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56288 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56302 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56304 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56305 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56329 - "OPTIONS /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56331 - "OPTIONS /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56332 - "OPTIONS /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56329 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56331 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56332 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56336 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56337 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56338 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56396 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56398 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56399 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56411 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56413 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56414 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56423 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56425 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56426 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56447 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56449 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56450 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56463 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56465 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56466 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56479 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56481 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56482 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56491 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56493 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56494 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56504 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56505 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56507 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56538 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56539 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56541 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56552 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56554 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56555 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56593 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56595 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56596 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56619 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56621 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56622 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56650 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56651 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56652 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56668 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56670 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56671 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56691 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56694 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56695 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56708 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56710 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56711 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56744 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56745 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56746 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56760 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56761 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56762 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56776 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56777 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56779 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56791 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56793 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56794 - "GET /performance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56818 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56820 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56821 - "GET /performance HTTP/1.1" 200 OK
+2026-02-15 15:41:53.238 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 0)
+INFO:     connection closed
+INFO:     127.0.0.1:56837 - "WebSocket /ws" [accepted]
+2026-02-15 15:41:53.362 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 1)
+INFO:     connection open
+INFO:     127.0.0.1:56821 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56820 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56818 - "GET /performance HTTP/1.1" 200 OK
+2026-02-15 15:41:55.947 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 0)
+INFO:     connection closed
+INFO:     127.0.0.1:56839 - "WebSocket /ws" [accepted]
+2026-02-15 15:41:55.959 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 1)
+INFO:     connection open
+INFO:     127.0.0.1:56818 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56820 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56820 - "GET /positions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56818 - "GET /status HTTP/1.1" 200 OK
+2026-02-15 15:41:55.966 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 0)
+INFO:     connection closed
+INFO:     127.0.0.1:56841 - "WebSocket /ws" [accepted]
+2026-02-15 15:41:55.971 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 1)
+INFO:     connection open
+INFO:     127.0.0.1:56847 - "WebSocket /ws" [accepted]
+2026-02-15 15:41:57.427 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 2)
+INFO:     connection open
+INFO:     127.0.0.1:56849 - "OPTIONS /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56851 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56849 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56851 - "GET /status HTTP/1.1" 200 OK
+2026-02-15 15:41:57.536 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 1)
+INFO:     127.0.0.1:56849 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56855 - "WebSocket /ws" [accepted]
+2026-02-15 15:41:57.580 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 2)
+INFO:     connection closed
+INFO:     connection open
+INFO:     127.0.0.1:56857 - "WebSocket /ws" [accepted]
+2026-02-15 15:41:58.968 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 3)
+INFO:     connection open
+INFO:     127.0.0.1:56863 - "WebSocket /ws" [accepted]
+2026-02-15 15:42:00.434 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 4)
+INFO:     connection open
+INFO:     127.0.0.1:56886 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56887 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56911 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56912 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56937 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56938 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56966 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56967 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56986 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56987 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57005 - "WebSocket /ws" [accepted]
+2026-02-15 15:43:15.233 | INFO     | src.api:websocket_endpoint:129 - WebSocket client connected (total: 5)
+INFO:     127.0.0.1:57007 - "OPTIONS /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57008 - "OPTIONS /status HTTP/1.1" 200 OK
+INFO:     connection open
+INFO:     127.0.0.1:57008 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57007 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57024 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57025 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57037 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57038 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57058 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57059 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57067 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57069 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57077 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57078 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57087 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57088 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57097 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57098 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57109 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57110 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57118 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57119 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57127 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57129 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57136 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57137 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57145 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57146 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57154 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57155 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57174 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57176 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57184 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57185 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57201 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57202 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57235 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57236 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57273 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57274 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57286 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57287 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57297 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57298 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57325 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57326 - "OPTIONS /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57325 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57347 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57349 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57383 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57384 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57407 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57409 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57422 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57423 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57433 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57434 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57447 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57449 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57462 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57464 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57474 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57476 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57484 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57486 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57496 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57497 - "GET /status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57513 - "GET /trades HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57515 - "GET /status HTTP/1.1" 200 OK
+INFO:     Shutting down
+2026-02-15 15:48:44.796 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 4)
+INFO:     connection closed
+2026-02-15 15:48:44.798 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 3)
+INFO:     connection closed
+2026-02-15 15:48:44.798 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 2)
+INFO:     connection closed
+2026-02-15 15:48:44.798 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 1)
+INFO:     connection closed
+2026-02-15 15:48:44.798 | INFO     | src.api:websocket_endpoint:135 - WebSocket client disconnected (total: 0)
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [23893]

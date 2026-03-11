@@ -1,0 +1,187 @@
+{
+  "timestamp": "20260216_013333",
+  "test_metrics": {
+    "accuracy": 0.6666666666666666,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "roc_auc": 0.7799999999999999,
+    "test_size": 15,
+    "positive_rate": 0.3333333333333333,
+    "confusion_matrix": [
+      [
+        10,
+        0
+      ],
+      [
+        5,
+        0
+      ]
+    ]
+  },
+  "validation_metrics": {
+    "accuracy": 0.4666666666666667,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0,
+    "roc_auc": 0.9285714285714286
+  },
+  "performance_comparison": {
+    "accuracy": {
+      "validation": 0.4666666666666667,
+      "test": 0.6666666666666666,
+      "degradation_pct": -42.85714285714285,
+      "degraded": false
+    },
+    "precision": {
+      "validation": 0.0,
+      "test": 0.0,
+      "degradation_pct": 0,
+      "degraded": false
+    },
+    "recall": {
+      "validation": 0.0,
+      "test": 0.0,
+      "degradation_pct": 0,
+      "degraded": false
+    },
+    "f1_score": {
+      "validation": 0.0,
+      "test": 0.0,
+      "degradation_pct": 0,
+      "degraded": false
+    },
+    "roc_auc": {
+      "validation": 0.9285714285714286,
+      "test": 0.7799999999999999,
+      "degradation_pct": 16.00000000000001,
+      "degraded": false
+    },
+    "overfitting_detected": false,
+    "max_degradation_pct": 16.00000000000001
+  },
+  "feature_importance": {
+    "top_10_features": [
+      [
+        "ta_score",
+        0.5095761716365814
+      ],
+      [
+        "score_momentum",
+        0.3901967406272888
+      ],
+      [
+        "volume_acceleration",
+        0.10022708028554916
+      ],
+      [
+        "volume_spike",
+        0.0
+      ],
+      [
+        "sentiment_score",
+        0.0
+      ],
+      [
+        "volatility_percentile",
+        0.0
+      ],
+      [
+        "trend_strength",
+        0.0
+      ],
+      [
+        "sentiment_shift",
+        0.0
+      ],
+      [
+        "bull_market",
+        0.0
+      ],
+      [
+        "bear_market",
+        0.0
+      ]
+    ],
+    "all_features": [
+      [
+        "ta_score",
+        0.5095761716365814
+      ],
+      [
+        "score_momentum",
+        0.3901967406272888
+      ],
+      [
+        "volume_acceleration",
+        0.10022708028554916
+      ],
+      [
+        "volume_spike",
+        0.0
+      ],
+      [
+        "sentiment_score",
+        0.0
+      ],
+      [
+        "volatility_percentile",
+        0.0
+      ],
+      [
+        "trend_strength",
+        0.0
+      ],
+      [
+        "sentiment_shift",
+        0.0
+      ],
+      [
+        "bull_market",
+        0.0
+      ],
+      [
+        "bear_market",
+        0.0
+      ],
+      [
+        "high_volatility",
+        0.0
+      ],
+      [
+        "low_volatility",
+        0.0
+      ],
+      [
+        "hour_of_day",
+        0.0
+      ],
+      [
+        "day_of_week",
+        0.0
+      ],
+      [
+        "days_since_last_trade",
+        0.0
+      ]
+    ],
+    "model_specific": {
+      "random_forest": {
+        "ta_score": 0.5,
+        "volume_spike": 0.0,
+        "sentiment_score": 0.0,
+        "volatility_percentile": 0.0,
+        "trend_strength": 0.0,
+        "score_momentum": 0.5,
+        "volume_acceleration": 0.0,
+        "sentiment_shift": 0.0,
+        "bull_market": 0.0,
+        "bear_market": 0.0,
+        "high_volatility": 0.0,
+        "low_volatility": 0.0,
+        "hour_of_day": 0.0,
+        "day_of_week": 0.0,
+        "days_since_last_trade": 0.0
+      },
+      "xgboost": {
+        "ta_score": 

@@ -1,0 +1,16 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+.hypothesis/
+.pytest_cache/
+node_modules/
+.next/
+build/
+dist/
+*.sqlite3
+moonshot.db
+.kiro/
+reports/

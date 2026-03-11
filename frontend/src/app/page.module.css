@@ -1,0 +1,77 @@
+.kpiRow {
+  margin-bottom: var(--gap-md);
+}
+
+.kpiSub {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.pipelineCard {
+  margin-bottom: var(--gap-md);
+}
+
+.bottomRow {
+  margin-bottom: var(--gap-md);
+}
+
+.perfRow {
+  margin-bottom: var(--gap-md);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.emptyIcon {
+  font-size: 2rem;
+  opacity: 0.3;
+  margin-bottom: 8px;
+}
+
+.emptyHint {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.activityFeed {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.activityLine {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  border-left: 2px solid var(--border);
+  transition: all 0.2s;
+}
+
+.activityLine:hover {
+  background: var(--bg-hover);
+  border-left-color: var(--lime);
+}
+
+.activityIcon {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.activityText {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}

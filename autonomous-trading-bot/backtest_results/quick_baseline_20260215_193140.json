@@ -1,0 +1,48 @@
+{
+  "run_info": {
+    "run_id": "quick_baseline_20260215_193140",
+    "run_type": "quick_baseline_demo",
+    "start_date": "2025-11-17T19:29:40.812981",
+    "end_date": "2026-02-15T19:29:40.812981",
+    "symbols": [
+      "BTC/USDT",
+      "ETH/USDT",
+      "BNB/USDT"
+    ],
+    "note": "3-month demo backtest"
+  },
+  "config": {
+    "initial_capital": 100000.0,
+    "bayesian_threshold": 0.65,
+    "runner_trailing_stop_pct": 0.25
+  },
+  "metrics": {
+    "win_rate": 0.0,
+    "profit_factor": 0.0,
+    "sharpe_ratio": 0.10638540905529875,
+    "max_drawdown": 87.0750216774035,
+    "avg_r_multiple": -0.9617355830837093,
+    "expectancy": -2126.0547472347716,
+    "r_multiple_distribution": {
+      "0-1R": 0,
+      "1-2R": 0,
+      "2-5R": 0,
+      "5-10R": 0,
+      ">10R": 0,
+      "<0R": 3
+    },
+    "total_trades": 3,
+    "winning_trades": 0,
+    "losing_trades": 3,
+    "gross_profits": 0,
+    "gross_losses": 6378.164241704315,
+    "avg_win": 0.0,
+    "avg_loss": 2126.0547472347716,
+    "largest_win": 0.0,
+    "largest_loss": -2159.539012406291,
+    "best_month": 0.0,
+    "worst_month": -4.479776137194957
+  },
+  "final_equity": 93422.59783637337,
+  "total_pnl": -6577.402163626626
+}

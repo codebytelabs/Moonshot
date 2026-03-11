@@ -1,0 +1,41 @@
+
+> frontend@0.1.0 dev
+> next dev
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.2.167:3000
+
+✓ Starting...
+✓ Ready in 847ms
+○ Compiling / ...
+ GET / 200 in 6.0s (compile: 5.7s, render: 251ms)
+ GET / 200 in 441ms (compile: 161ms, render: 280ms)
+ GET /settings 200 in 516ms (compile: 490ms, render: 26ms)
+ GET / 200 in 69ms (compile: 6ms, render: 63ms)
+ GET / 200 in 59ms (compile: 8ms, render: 51ms)
+ GET / 200 in 337ms (compile: 151ms, render: 186ms)
+ GET /chat 200 in 278ms (compile: 258ms, render: 20ms)
+ GET /positions 200 in 465ms (compile: 418ms, render: 48ms)
+✓ Compiled in 296ms
+✓ Compiled in 424ms
+ GET / 200 in 272ms (compile: 142ms, render: 130ms)
+ GET / 200 in 58ms (compile: 7ms, render: 52ms)
+ GET /positions 200 in 23ms (compile: 15ms, render: 8ms)
+ GET /trades 200 in 148ms (compile: 135ms, render: 13ms)
+ GET /trades 200 in 75ms (compile: 8ms, render: 67ms)
+ GET /trades 200 in 57ms (compile: 6ms, render: 51ms)
+ GET /positions 200 in 31ms (compile: 8ms, render: 24ms)
+ GET / 200 in 10ms (compile: 3ms, render: 7ms)
+ GET /positions 200 in 26ms (compile: 9ms, render: 16ms)
+ GET / 200 in 16ms (compile: 4ms, render: 11ms)
+ GET / 200 in 120ms (compile: 6ms, render: 114ms)
+ GET /positions 200 in 14ms (compile: 3ms, render: 11ms)
+ GET /trades 200 in 25ms (compile: 4ms, render: 21ms)
+ GET /performance 200 in 276ms (compile: 261ms, render: 15ms)
+ GET /chat 200 in 39ms (compile: 28ms, render: 10ms)
+ GET /alerts 200 in 135ms (compile: 125ms, render: 10ms)
+ GET /settings 200 in 53ms (compile: 39ms, render: 14ms)
+ GET / 200 in 16ms (compile: 4ms, render: 12ms)
+ GET /chat 200 in 10ms (compile: 2ms, render: 8ms)
+ GET / 200 in 17ms (compile: 5ms, render: 12ms)

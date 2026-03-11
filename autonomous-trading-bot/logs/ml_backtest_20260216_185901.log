@@ -1,0 +1,41 @@
+2026-02-16 18:59:01.658 | INFO     | __main__:compare_results_and_generate_report:479 - ================================================================================
+2026-02-16 18:59:01.658 | INFO     | __main__:compare_results_and_generate_report:480 - ML VALIDATION - Task 7.15
+2026-02-16 18:59:01.658 | INFO     | __main__:compare_results_and_generate_report:481 - Running baseline and ML-enhanced backtests for comparison
+2026-02-16 18:59:01.658 | INFO     | __main__:compare_results_and_generate_report:482 - ================================================================================
+2026-02-16 18:59:01.658 | INFO     | __main__:compare_results_and_generate_report:485 - 
+================================================================================
+2026-02-16 18:59:01.658 | INFO     | __main__:compare_results_and_generate_report:486 - STEP 1: Running BASELINE backtest (no ML)
+2026-02-16 18:59:01.658 | INFO     | __main__:compare_results_and_generate_report:487 - ================================================================================
+2026-02-16 18:59:01.658 | INFO     | __main__:run_ml_backtest:338 - ================================================================================
+2026-02-16 18:59:01.658 | INFO     | __main__:run_ml_backtest:339 - BASELINE BACKTEST - Task 7.15
+2026-02-16 18:59:01.658 | INFO     | __main__:run_ml_backtest:340 - ================================================================================
+2026-02-16 18:59:01.658 | INFO     | __main__:run_ml_backtest:357 - Initializing components...
+2026-02-16 18:59:01.662 | INFO     | src.historical_data_collector:__init__:87 - HistoricalDataCollector initialized with storage: data/historical
+2026-02-16 18:59:01.662 | INFO     | __main__:run_ml_backtest:372 - Backtest config: BacktestConfig(initial_capital=100000.0, position_size_pct=0.02, maker_fee_pct=0.1, taker_fee_pct=0.1, slippage_base_pct=0.05, tier1_target_r=2.0, tier2_target_r=5.0, tier1_exit_pct=0.25, tier2_exit_pct=0.25, runner_trailing_stop_pct=0.25, bayesian_threshold=0.65, max_positions=5)
+2026-02-16 18:59:01.662 | INFO     | __main__:run_ml_backtest:373 - ML enabled: False
+2026-02-16 18:59:01.662 | INFO     | src.cycle_replay_engine:__init__:183 - CycleReplayEngine initialized with capital: $100,000.00
+2026-02-16 18:59:01.662 | INFO     | __main__:run_ml_backtest:389 - Loading data: 2023-01-01 00:00:00 to 2024-12-31 00:00:00
+2026-02-16 18:59:01.662 | INFO     | __main__:load_historical_data:274 - Loading historical data for 5 symbols...
+2026-02-16 18:59:01.662 | WARNING  | src.historical_data_collector:load_from_parquet:418 - No data file found at data/historical/BTC_USDT/5m/data.parquet
+2026-02-16 18:59:01.662 | WARNING  | __main__:load_historical_data:291 - No data found for BTC/USDT 5m
+2026-02-16 18:59:01.662 | WARNING  | src.historical_data_collector:load_from_parquet:418 - No data file found at data/historical/BTC_USDT/1h/data.parquet
+2026-02-16 18:59:01.662 | WARNING  | __main__:load_historical_data:291 - No data found for BTC/USDT 1h
+2026-02-16 18:59:01.662 | WARNING  | src.historical_data_collector:load_from_parquet:418 - No data file found at data/historical/ETH_USDT/5m/data.parquet
+2026-02-16 18:59:01.662 | WARNING  | __main__:load_historical_data:291 - No data found for ETH/USDT 5m
+2026-02-16 18:59:01.662 | WARNING  | src.historical_data_collector:load_from_parquet:418 - No data file found at data/historical/ETH_USDT/1h/data.parquet
+2026-02-16 18:59:01.662 | WARNING  | __main__:load_historical_data:291 - No data found for ETH/USDT 1h
+2026-02-16 18:59:01.662 | WARNING  | src.historical_data_collector:load_from_parquet:418 - No data file found at data/historical/BNB_USDT/5m/data.parquet
+2026-02-16 18:59:01.662 | WARNING  | __main__:load_historical_data:291 - No data found for BNB/USDT 5m
+2026-02-16 18:59:01.662 | WARNING  | src.historical_data_collector:load_from_parquet:418 - No data file found at data/historical/BNB_USDT/1h/data.parquet
+2026-02-16 18:59:01.662 | WARNING  | __main__:load_historical_data:291 - No data found for BNB/USDT 1h
+2026-02-16 18:59:01.662 | WARNING  | src.historical_data_collector:load_from_parquet:418 - No data file found at data/historical/SOL_USDT/5m/data.parquet
+2026-02-16 18:59:01.662 | WARNING  | __main__:load_historical_data:291 - No data found for SOL/USDT 5m
+2026-02-16 18:59:01.662 | WARNING  | src.historical_data_collector:load_from_parquet:418 - No data file found at data/historical/SOL_USDT/1h/data.parquet
+2026-02-16 18:59:01.662 | WARNING  | __main__:load_historical_data:291 - No data found for SOL/USDT 1h
+2026-02-16 18:59:01.662 | WARNING  | src.historical_data_collector:load_from_parquet:418 - No data file found at data/historical/XRP_USDT/5m/data.parquet
+2026-02-16 18:59:01.662 | WARNING  | __main__:load_historical_data:291 - No data found for XRP/USDT 5m
+2026-02-16 18:59:01.662 | WARNING  | src.historical_data_collector:load_from_parquet:418 - No data file found at data/historical/XRP_USDT/1h/data.parquet
+2026-02-16 18:59:01.662 | WARNING  | __main__:load_historical_data:291 - No data found for XRP/USDT 1h
+2026-02-16 18:59:01.662 | ERROR    | __main__:run_ml_backtest:399 - No historical data available!
+2026-02-16 18:59:01.662 | ERROR    | __main__:compare_results_and_generate_report:491 - Baseline backtest failed!
+2026-02-16 18:59:01.663 | ERROR    | __main__:<module>:684 - ✗ ML validation failed!
